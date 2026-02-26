@@ -164,12 +164,4 @@ var homeTitleText = document.createTextNode('Hello, Home!')
 homeTitle.appendChild(homeTitleText)
 homeView.appendChild(homeTitle)
 
-
-
-
-
-
-
-
-
 document.body.appendChild(homeView)
