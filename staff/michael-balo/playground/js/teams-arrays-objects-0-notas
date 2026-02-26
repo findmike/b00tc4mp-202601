@@ -1,0 +1,162 @@
+var teams = []
+
+teams[0] = {}
+teams[0]['Chicago Bulls'] = []
+teams[0]['Chicago Bulls'][0] = {}
+teams[0]['Chicago Bulls'][0]['Michael Jordan'] = []
+teams[0]['Chicago Bulls'][0]['Michael Jordan'][0] = {}
+teams[0]['Chicago Bulls'][0]['Michael Jordan'][0]['jersey'] = 23
+teams[0]['Chicago Bulls'][0]['Michael Jordan'][0]['height'] = 198
+
+teams[0]['Chicago Bulls'][1] = {}
+teams[0]['Chicago Bulls'][1]['Scottie Pippen'] = []
+teams[0]['Chicago Bulls'][1]['Scottie Pippen'][0] = {}
+teams[0]['Chicago Bulls'][1]['Scottie Pippen'][0]['jersey'] = 33
+teams[0]['Chicago Bulls'][1]['Scottie Pippen'][0]['height'] = 203
+
+teams[0]['Chicago Bulls'][2] = {}
+teams[0]['Chicago Bulls'][2]['Dennis Rodman'] = []
+teams[0]['Chicago Bulls'][2]['Dennis Rodman'][0] = {}
+teams[0]['Chicago Bulls'][2]['Dennis Rodman'][0]['jersey'] = 91
+teams[0]['Chicago Bulls'][2]['Dennis Rodman'][0]['height'] = 201
+
+teams[1] = {}
+teams[1]['Los Angeles Lakers'] = []
+teams[1]['Los Angeles Lakers'][0] = {}
+teams[1]['Los Angeles Lakers'][0]['Kobe Bryant'] = []
+teams[1]['Los Angeles Lakers'][0]['Kobe Bryant'][0] = {}
+teams[1]['Los Angeles Lakers'][0]['Kobe Bryant'][0]['jersey'] = 24
+teams[1]['Los Angeles Lakers'][0]['Kobe Bryant'][0]['height'] = 198
+
+teams[1]['Los Angeles Lakers'][1] = {}
+teams[1]['Los Angeles Lakers'][1]['Pau Gasol'] = []
+teams[1]['Los Angeles Lakers'][1]['Pau Gasol'][0] = {}
+teams[1]['Los Angeles Lakers'][1]['Pau Gasol'][0]['jersey'] = 16
+teams[1]['Los Angeles Lakers'][1]['Pau Gasol'][0]['height'] = 211
+
+teams[1]['Los Angeles Lakers'][2] = {}
+teams[1]['Los Angeles Lakers'][2]['Lebron James'] = []
+teams[1]['Los Angeles Lakers'][2]['Lebron James'][0] = {}
+teams[1]['Los Angeles Lakers'][2]['Lebron James'][0]['jersey'] = 23
+teams[1]['Los Angeles Lakers'][2]['Lebron James'][0]['height'] = 206
+
+/*
+teams = [
+    length: 1 
+    0: {
+        Chicago Bulls: [
+            length: 3
+            0: {
+                Michael Jordan: [
+                    length: 1
+                    0: {
+                       jersey: 23 
+                       height: 198
+                    } 
+                ]
+            }
+            1: {
+                Scottie Pippen: [
+                    length: 1
+                    0: {
+                        jersey: 33 
+                        height: 203
+                    }
+                ]
+            } 
+            2: {
+                Dennis Rodman: [
+                    length: 1
+                    0: {
+                        jersey: 91
+                        height: 201
+                    }
+                ]
+            }
+        ]
+    }
+    1: {
+        Los Angeles Lakers: [
+            length: 3
+            0: {
+                Kobe Bryant: [
+                    length: 1
+                    0: {
+                        jersey: 24 
+                        height: 198
+                    }
+                ]
+            }
+            1: {
+                Pau Gasol: [
+                    length: 1
+                    0: {
+                        jersey: 16
+                        height: 211
+                    }
+                ]
+            }
+            2: {
+                Lebron James: [
+                    length: 1
+                    0: {
+                        jersey: 23
+                        height: 206
+                    }
+                ]
+            }
+        ]
+    }
+]
+*/
+
+teams[2] = {}
+teams[2]['Boston Celtics'] = []
+teams[2]['Boston Celtics'][0] = {}
+teams[2]['Boston Celtics'][0]['Paul Pierce'] = []
+teams[2]['Boston Celtics'][0]['Paul Pierce'][0] = {}
+teams[2]['Boston Celtics'][0]['Paul Pierce'][0]['jersey'] = 33
+teams[2]['Boston Celtics'][0]['Paul Pierce'][0]['height'] = 201
+
+teams[2]['Boston Celtics'][1] = {}
+teams[2]['Boston Celtics'][1]['Kevin Garnett'] = []
+teams[2]['Boston Celtics'][1]['Kevin Garnett'][0] = {}
+teams[2]['Boston Celtics'][1]['Kevin Garnett'][0]['jersey'] = 5
+teams[2]['Boston Celtics'][1]['Kevin Garnett'][0]['height'] = 211
+
+teams[2]['Boston Celtics'][2] = {}
+teams[2]['Boston Celtics'][2]['Rajon Rondo'] = []
+teams[2]['Boston Celtics'][2]['Rajon Rondo'][0] = {}
+teams[2]['Boston Celtics'][2]['Rajon Rondo'][0]['jersey'] = 9
+teams[2]['Boston Celtics'][2]['Rajon Rondo'][0]['height'] = 185
+
+for (var i = 0; i < teams.length; i++) {
+    var team = teams[i] /*AQUI TENEMOS QUE UTILIZAR EN EL SIGUIENTE PASO Object.keys PORQUE ES UN OBJETO. pongo team[i] xq quiero recorrer cada uno de los indices */
+    /* console.log(team) esto no es correcto y por eso lo imprimo de la siguiente manera*/
+
+    var teamNames = Object.keys(team) /* Object.keys me devuelve un [] con los keys del objeto y como yo quiero el valor de cada uno de los equipos, 
+                                        al imprimir tengo que seleccionarlo con [0,1,2] y asi ya se imprimiria en este caso Chicago */
+    console.log(teamNames[0])
+
+    var players = team[teamNames[0]] /*Ahora necesito una variable que recoja a los jugadores, por lo tanto creo players... imprime [{},{}]
+                                        
+                                        AQUI NO TENEMOS QUE UTILIZAR Object.keys porque es un ARRAY Y LO PODEMOS MEDIR CON LENGTH EN EL BUCLE FOR*/
+    
+    for (var j = 0; j < players.length; j++){
+        var player = players[j]
+       /* console.log(player)  de esta forma imprime un {} de cada jugador , por lo que es erronea y hay que utilizar Object.keys para que me devuelva un [] de cada jugador*/
+
+        var playerName = Object.keys(player)
+       /* console.log(playerName) me devuelve un [] de cada jugador __ comentar esto porque deberia de imprimirse mal y no bien_ 
+                                segun chatgpt js al haber un unico elemento en un array te lo convierte en un string en este caso*/
+
+        var playersInfo = player[playerName]
+        /* console.log(playersInfo) me devuelve un [{}] de cada jugador con su lenght,jersey y height, pero yo solo quiero esos 2 datos, 
+                                    por lo que tengo que crear una nueva variable y seleccionando [0,1...] */
+
+        var playerInfo = playersInfo[0]
+
+        var playerInLine = '- ' + playerName + ' (' + playerInfo['jersey'] + ',' + playerInfo['height'] + 'cm).'
+        console.log(playerInLine)
+    }
+}
