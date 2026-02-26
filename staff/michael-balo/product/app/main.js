@@ -1,3 +1,6 @@
+var titleText = document.createTextNode('App')
+document.head.children[2].appendChild(titleText)
+
 var landingView = document.createElement('div')
 
 var landingHeader = document.createElement('header')
