@@ -84,6 +84,9 @@ export function createLoginView() {
     loginRegisterLink.appendChild(loginRegisterText)
     loginView.appendChild(loginRegisterLink)
 
+    var loginFeedbackPanel = document.createElement('p')
+    loginView.appendChild(loginFeedbackPanel)
+
     return loginView
 }
 
@@ -136,6 +139,13 @@ export function createRegisterView() {
     var registerPasswordInput = document.createElement('input')
     registerPasswordInput.type = 'password'
     registerForm.appendChild(registerPasswordInput)
+    var registerPasswordRepeatLabel = document.createElement('label')
+    var registerPasswordRepeatLabelText = document.createTextNode('Repeat password')
+    registerPasswordRepeatLabel.appendChild(registerPasswordRepeatLabelText)
+    registerForm.appendChild(registerPasswordRepeatLabel)
+    var registerPasswordRepeatInput = document.createElement('input')
+    registerPasswordRepeatInput.type = 'password'
+    registerForm.appendChild(registerPasswordRepeatInput)
     registerView.appendChild(registerForm)
     var registerSubmitButton = document.createElement('button')
     var registerSubmitButtonText = document.createTextNode('Register')
@@ -147,6 +157,9 @@ export function createRegisterView() {
     var registerLoginText = document.createTextNode('Login')
     registerLoginLink.appendChild(registerLoginText)
     registerView.appendChild(registerLoginLink)
+
+    var registerFeedbackPanel = document.createElement('p')
+    registerView.appendChild(registerFeedbackPanel)
 
     return registerView
 }
@@ -174,5 +187,79 @@ export function createHomeView() {
     homeTitle.appendChild(homeTitleText)
     homeView.appendChild(homeTitle)
 
+    var homeProfileLink = document.createElement('a')
+    homeProfileLink.href = ''
+    homeProfileLink.textContent = 'Profile'
+    homeView.appendChild(homeProfileLink)
+
+    var homeLogoutButton = document.createElement('button')
+    homeLogoutButton.textContent = 'Logout'
+    homeView.appendChild(homeLogoutButton)
+    
+    var homeFeedbackPanel = document.createElement('p')
+    homeView.appendChild(homeFeedbackPanel)
+
     return homeView
+}
+
+export function createProfileView() {
+
+    var profileView = document.createElement('div')
+
+    var profileHeader = document.createElement('header')
+    var profileLogo = document.createElement('img')
+    profileLogo.src = 'https://cdn.prod.website-files.com/624ac40503a527cf47af4192/659ba59520d886f0cb86d3ba_ai-logo-generator-4.png'
+    profileLogo.style.width = '100px'
+    profileHeader.appendChild(profileLogo)
+    var profileHeaderSpaceText = document.createTextNode(' ')
+    profileHeader.appendChild(profileHeaderSpaceText)
+    var profileTitle = document.createElement('h1')
+    profileTitle.style.display = 'inLine-block' 
+    var profileTitleText = document.createTextNode('App')
+    profileTitle.appendChild(profileTitleText)
+    profileHeader.appendChild(profileTitle)
+    profileView.appendChild(profileHeader)
+
+    var profileTitle = document.createElement('h2')
+    var profileTitleText = document.createTextNode('Profile')
+    profileTitle.appendChild(profileTitleText)
+    profileView.appendChild(profileTitle)
+
+    //TODO add back button (link) to go back to home view
+    
+    var profileHomeLink = document.createElement('a')
+    profileHomeLink.href = ''
+    profileHomeLink.textContent = 'Home'
+    profileView.appendChild(profileHomeLink)
+
+    var profileNameForm = document.createElement('form')
+    var profileNameLabel = document.createElement('label')
+    var profileNameLabelText = document.createTextNode('Name')
+    profileNameLabel.appendChild(profileNameLabelText)
+    profileNameForm.appendChild(profileNameLabel)
+    var profileNameInput = document.createElement('input')
+    profileNameForm.appendChild(profileNameInput)
+    var profileNameSubmitButton = document.createElement('button')
+    profileNameSubmitButton.textContent = 'Update name'
+    profileNameForm.appendChild(profileNameSubmitButton)
+    profileView.appendChild(profileNameForm)
+
+    //TODO: add a new form to update the email in profileView
+    
+    var profileEmailForm = document.createElement('form')
+    var profileEmailLabel = document.createElement('label')
+    var profileEmailLabelText = document.createTextNode('Email')
+    profileEmailLabel.appendChild(profileEmailLabelText)
+    profileEmailForm.appendChild(profileEmailLabel)
+    var profileEmailInput = document.createElement('input')
+    profileEmailForm.appendChild(profileEmailInput)
+    var profileEmailSubmitButton = document.createElement('button')
+    profileEmailSubmitButton.textContent = 'Update email'
+    profileEmailForm.appendChild(profileEmailSubmitButton)
+    profileView.appendChild(profileEmailForm)
+
+    var profileFeedbackPanel = document.createElement('p')
+    profileView.appendChild(profileFeedbackPanel)
+
+    return profileView
 }

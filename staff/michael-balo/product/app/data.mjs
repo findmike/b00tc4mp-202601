@@ -1,18 +1,54 @@
 var users = []
+var loggedInUserId = null
 
 export var data = {
-    insertUser: function(user) {
+    insertUser: function (user) {
+        user.id = 'ID' + Math.random().toString().slice(2)
         users.push(user)
     },
 
-    findUserByEmail: function(email) {
-        return users.find(function(user) {
-            return user.email === email 
-        })
+    findUserByEmail: function (email) {
+        return users.find(function (user) {
+            return user.email === email
+        }) || null
     },
 
-    /*TODO
-    findUserByUsername: function(user) {}
-        implement me*/
-    
+    findUserByUsername: function (username) {
+        return users.find(function (user) {
+            return user.username === username
+        }) || null
+
+    },
+
+    findUserById: function (userId) {
+        return users.find(function (user) {
+            return user.id === userId
+        }) || null
+
+    },
+
+    setLoggedInUserId: function (userId) {
+        loggedInUserId = userId
+
+    },
+
+    getLoggedInUserId: function () {
+        return loggedInUserId
+    },
+
+    updateUserName: function (userId, name) {
+        var user = users.find(function (user) {
+            return user.id === userId
+        }) || null
+
+        if (user) user.name = name 
+    },
+
+    updateUserEmail: function (userId, email) {
+        var user = users.find(function (user) {
+            return user.id === userId
+        }) || null
+
+        if (user) user.email = email 
+    }
 }

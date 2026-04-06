@@ -1,4 +1,5 @@
-import { createHomeView, createLandingView, createLoginView, createRegisterView } from "./views.mjs"
+import './populate.mjs'
+import { createHomeView, createLandingView, createLoginView, createRegisterView, createProfileView } from "./views.mjs"
 import { logic } from "./logic.mjs"
 
 var titleText = document.createTextNode('App')
@@ -8,6 +9,7 @@ var landingView = createLandingView()
 var loginView = createLoginView()
 var registerView = createRegisterView()
 var homeView = createHomeView()
+var profileView = createProfileView()
 
 document.body.appendChild(landingView)
 
@@ -31,6 +33,9 @@ var loginRegisterLink = loginView.children[3]
 loginRegisterLink.addEventListener('click', function(event) {
     event.preventDefault()
 
+    loginForm.reset()
+    loginFeedbackPanel.textContent = ''
+
     document.body.removeChild(loginView)
     document.body.appendChild(registerView)
 })
@@ -39,29 +44,16 @@ var registerLoginLink = registerView.children[3]
 registerLoginLink.addEventListener('click', function(event) {
     event.preventDefault()
 
+    registerForm.reset()
+    registerFeedbackPanel.textContent = ''
+
     document.body.removeChild(registerView)
     document.body.appendChild(loginView)
 })
 
-/* PARA QUE TE LLEVE A HOME DESDE REGISTER Y LOGIN 
-var registerSubmitButton = registerView.children[2].children[8]
-registerSubmitButton.addEventListener('click', function(event) {
-    event.preventDefault()
-
-    document.body.removeChild(registerView)
-    document.body.appendChild(homeView)
-})
-
-var loginSubmitButton = loginView.children[2].children[4]
-loginSubmitButton.addEventListener('click', function(event) {
-    event.preventDefault()
-
-    document.body.removeChild(loginView)
-    document.body.appendChild(homeView)
-})
-*/
-
 // SUBMIT EVENT
+
+var registerFeedbackPanel = registerView.children[4]
 
 var registerForm = registerView.children[2]
 registerForm.addEventListener('submit', function(event) {
@@ -71,18 +63,143 @@ registerForm.addEventListener('submit', function(event) {
     var emailInput = registerForm.children[3]
     var usernameInput = registerForm.children[5]
     var passwordInput = registerForm.children[7]
+    var passwordRepeatInput = registerForm.children[9]
 
     var name = nameInput.value
     var email = emailInput.value 
     var username = usernameInput.value 
     var password = passwordInput.value 
+    var passwordRepeat = passwordRepeatInput.value
 
-    logic.registerUser(name, email, username, password)
+    try {
+        logic.registerUser(name, email, username, password, passwordRepeat)
+        
+        registerForm.reset()
+        registerFeedbackPanel.textContent = ''
 
-    registerForm.reset()
+        document.body.removeChild(registerView)
+        document.body.appendChild(loginView)
 
-    document.body.removeChild(registerView)
-    document.body.appendChild(loginView)
+    } catch (error) {
+        registerFeedbackPanel.textContent = error.message
+    }
 })
 
 //TODO implement login flow
+
+var loginFeedbackPanel = loginView.children[4]
+
+var loginForm = loginView.children[2]
+loginForm.addEventListener('submit', function(event) {
+    event.preventDefault()
+
+     var usernameInput = loginForm.children[1]
+     var passwordInput = loginForm.children[3]
+     
+     var username = usernameInput.value
+     var password = passwordInput.value 
+
+     try {
+        logic.loginUser(username, password)
+
+        loginForm.reset()
+        loginFeedbackPanel.textContent = ''
+
+        var userName = logic.getLoggedInUserName()
+
+        //TODO set user name in home title salutation 
+        //TODO call logic getLoggedInUser()
+        var homeTitle = homeView.children[1]
+        homeTitle.textContent = 'Hello, ' + userName + '!'
+
+        document.body.removeChild(loginView)
+        document.body.appendChild(homeView)
+
+     } catch (error) {
+        loginFeedbackPanel.textContent = error.message
+     }
+})
+
+var homeProfileLink = homeView.children[2]
+homeProfileLink.addEventListener('click', function(event) {
+    event.preventDefault()
+
+    document.body.removeChild(homeView)
+    document.body.appendChild(profileView)
+})
+
+var homeFeedbackPanel = homeView.children[4]
+
+var homeLogoutButton = homeView.children[3]
+homeLogoutButton.addEventListener('click', function(event) {
+ // no hace falta el preventDefault en botones simples
+
+    try {
+        logic.logoutUser()
+
+        document.body.removeChild(homeView)
+        document.body.appendChild(loginView)
+
+    } catch (error){
+        homeFeedbackPanel.textContent = error.message
+    }
+
+})
+
+var profileHomeLink = profileView.children[2]
+profileHomeLink.addEventListener('click', function(event) {
+    event.preventDefault() // poarque aqui hace falta??
+
+    document.body.removeChild(profileView)
+    document.body.appendChild(homeView)
+})
+
+/*TODO implement profile name form submit behavior to catch new user name and call 
+logic.updateUserName(newName), if fine then show 'user name sucsessfully updated' 
+in profile feedback panel */
+
+var profileFeedbackPanel = profileView.children[5]
+
+var profileNameForm = profileView.children[3]
+profileNameForm.addEventListener('submit', function (event) {
+    event.preventDefault()
+
+    var nameInput = profileNameForm.children[1]
+
+    var name = nameInput.value
+
+    try {
+        logic.modifyUserName(name)
+
+        // TODO estando en la homeView, que se muestre el nuevo nombre que hemos actualizado
+
+        var homeTitle = homeView.children[1]
+        homeTitle.textContent = 'Hello ' + name + '!'
+
+        profileNameForm.reset()
+        profileFeedbackPanel.textContent = 'user name successfully updated'
+    } catch (error) {
+        profileFeedbackPanel.textContent = error.message
+    }
+})
+
+var profileEmailForm = profileView.children[4]
+profileEmailForm.addEventListener('submit', function (event) {
+    event.preventDefault()
+
+    var emailInput = profileEmailForm.children[1]
+
+    var email = emailInput.value
+
+    try {
+        logic.modifyEmail(email)
+        
+        profileEmailForm.reset()
+        profileFeedbackPanel.textContent = 'user email successfully updated'
+    } catch (error) {
+        profileFeedbackPanel.textContent = error.message
+    }
+})
+
+// COMPROBARR SI TODO SE HA SUBIDO BIEN A GITHUB
+ 
