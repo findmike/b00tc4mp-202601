@@ -148,7 +148,7 @@ homeLogoutButton.addEventListener('click', function(event) {
 
 var profileHomeLink = profileView.children[2]
 profileHomeLink.addEventListener('click', function(event) {
-    event.preventDefault() // poarque aqui hace falta??
+    event.preventDefault()
 
     document.body.removeChild(profileView)
     document.body.appendChild(homeView)
@@ -192,7 +192,7 @@ profileEmailForm.addEventListener('submit', function (event) {
     var email = emailInput.value
 
     try {
-        logic.modifyEmail(email)
+        logic.modifyUserEmail(email)
         
         profileEmailForm.reset()
         profileFeedbackPanel.textContent = 'user email successfully updated'
@@ -201,5 +201,5 @@ profileEmailForm.addEventListener('submit', function (event) {
     }
 })
 
-// COMPROBARR SI TODO SE HA SUBIDO BIEN A GITHUB
- 
+ // TODO: implement password form (habra que pedir current password, new password
+ //  y repeat new passwor)
