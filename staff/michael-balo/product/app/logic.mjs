@@ -70,5 +70,12 @@ export var logic = {
          var userId = data.getLoggedInUserId()
 
          data.updateUserEmail(userId, email)
+    },
+
+    /*
+    modifyUserPassword: function(password,passwordRepeat) {
+        var newPassword = 
+
     }
+    */
 }

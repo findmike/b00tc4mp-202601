@@ -125,6 +125,7 @@ export function createRegisterView() {
     registerEmailLabel.appendChild(registerEmailLabelText)
     registerForm.appendChild(registerEmailLabel)
     var registerEmailInput = document.createElement('input')
+    registerEmailInput.type = 'email'
     registerForm.appendChild(registerEmailInput)
     var registerUsernameLabel = document.createElement('label')
     var registerUsernameLabelText = document.createTextNode('Username')
@@ -252,12 +253,26 @@ export function createProfileView() {
     profileEmailLabel.appendChild(profileEmailLabelText)
     profileEmailForm.appendChild(profileEmailLabel)
     var profileEmailInput = document.createElement('input')
+    profileEmailInput.type = 'email'
     profileEmailForm.appendChild(profileEmailInput)
     var profileEmailSubmitButton = document.createElement('button')
     profileEmailSubmitButton.textContent = 'Update email'
     profileEmailForm.appendChild(profileEmailSubmitButton)
     profileView.appendChild(profileEmailForm)
 
+    //TODO: add a new form to update the password in profileView
+
+    var profilePasswordForm = document.createElement('form')
+    var profilePasswordLabel = document.createElement('label')
+    profilePasswordLabel.textContent = 'Password'
+    profilePasswordForm.appendChild(profilePasswordLabel)
+    var profilePasswordInput = document.createElement('input')
+    profilePasswordForm.appendChild(profilePasswordInput)
+    var profilePasswordSubmitButton = document.createElement('button')
+    profilePasswordSubmitButton.textContent = 'Update password'
+    profilePasswordForm.appendChild(profilePasswordSubmitButton)
+    profileView.appendChild(profilePasswordForm)
+    
     var profileFeedbackPanel = document.createElement('p')
     profileView.appendChild(profileFeedbackPanel)
 
