@@ -72,10 +72,16 @@ export var logic = {
          data.updateUserEmail(userId, email)
     },
 
-    /*
-    modifyUserPassword: function(password,passwordRepeat) {
-        var newPassword = 
+    
+    modifyUserPassword: function(password, newPassword, newPasswordRepeat) {
+        var userId = data.getLoggedInUserId()
 
+        var user = data.findUserById(userId)
+
+        if (password !== user.password) throw new Error ('password is wrong')
+        if (newPassword !== newPasswordRepeat) throw new Error ('New passwords do not match')
+
+        data.updateUserPassword(userId, newPassword)
     }
-    */
+    
 }

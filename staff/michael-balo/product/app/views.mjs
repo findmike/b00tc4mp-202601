@@ -263,11 +263,25 @@ export function createProfileView() {
     //TODO: add a new form to update the password in profileView
 
     var profilePasswordForm = document.createElement('form')
+
     var profilePasswordLabel = document.createElement('label')
     profilePasswordLabel.textContent = 'Password'
     profilePasswordForm.appendChild(profilePasswordLabel)
     var profilePasswordInput = document.createElement('input')
     profilePasswordForm.appendChild(profilePasswordInput)
+
+    var profileNewPasswordLabel = document.createElement('label')
+    profileNewPasswordLabel.textContent = 'New password'
+    profilePasswordForm.appendChild(profileNewPasswordLabel)
+    var profileNewPasswordInput = document.createElement('input')
+    profilePasswordForm.appendChild(profileNewPasswordInput)
+
+    var profileRepeatNewPasswordLabel = document.createElement('label')
+    profileRepeatNewPasswordLabel.textContent = 'Repeat new password'
+    profilePasswordForm.appendChild(profileRepeatNewPasswordLabel)
+    var profileRepeatNewPasswordInput = document.createElement('input')
+    profilePasswordForm.appendChild(profileRepeatNewPasswordInput)
+
     var profilePasswordSubmitButton = document.createElement('button')
     profilePasswordSubmitButton.textContent = 'Update password'
     profilePasswordForm.appendChild(profilePasswordSubmitButton)

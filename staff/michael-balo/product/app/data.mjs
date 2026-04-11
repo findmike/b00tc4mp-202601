@@ -50,5 +50,13 @@ export var data = {
         }) || null
 
         if (user) user.email = email 
+    },
+
+    updateUserPassword: function (userId, newPassword) {
+        var user = users.find(function (user) {
+            return user.id === userId
+        }) || null
+
+        if (user) user.password = newPassword
     }
 }

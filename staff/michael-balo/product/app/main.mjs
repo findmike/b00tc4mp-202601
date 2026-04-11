@@ -209,12 +209,16 @@ profileEmailForm.addEventListener('submit', function (event) {
     event.preventDefault()
 
     var passwordInput = profilePasswordForm.children[1]
+    var profileNewPasswordInput = profilePasswordForm.children[3]
+    var profileRepeatNewPasswordInput = profilePasswordForm.children[5]
 
     var password = passwordInput.value
+    var newPassword = profileNewPasswordInput.value
+    var newPasswordRepeat = profileRepeatNewPasswordInput.value
 
 
     try {
-        logic.modifyUserPassword(newPassword, password, passwordRepeat)
+        logic.modifyUserPassword(password, newPassword, newPasswordRepeat)
 
         profilePasswordForm.reset()
         profileFeedbackPanel.textContent = 'User password successfully updated'
