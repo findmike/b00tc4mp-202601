@@ -214,7 +214,7 @@ profileUsernameForm.addEventListener('submit', function(event) {
     try {
         logic.modifyUserUsername(username)
 
-        profileEmailForm.reset()
+        profileUsernameForm.reset()
         profileFeedbackPanel.textContent = 'Username successfully updated'
     } catch {
         profileFeedbackPanel.textContent = error.message
