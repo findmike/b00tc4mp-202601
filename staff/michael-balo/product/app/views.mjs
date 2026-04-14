@@ -260,6 +260,19 @@ export function createProfileView() {
     profileEmailForm.appendChild(profileEmailSubmitButton)
     profileView.appendChild(profileEmailForm)
 
+    //TODO: add a new form to update the username in profileView
+
+    var profileUsernameForm = document.createElement('form')
+    var profileUsernameLabel = document.createElement('label')
+    profileUsernameLabel.textContent = 'Username'
+    profileUsernameForm.appendChild(profileUsernameLabel)
+    var profileUsernameInput = document.createElement('input')
+    profileUsernameForm.appendChild(profileUsernameInput)
+    var profileUsernameSubmitButton = document.createElement('button')
+    profileUsernameSubmitButton.textContent = 'Update username'
+    profileUsernameForm.appendChild(profileUsernameSubmitButton)
+    profileView.appendChild(profileUsernameForm)
+
     //TODO: add a new form to update the password in profileView
 
     var profilePasswordForm = document.createElement('form')

@@ -158,7 +158,7 @@ profileHomeLink.addEventListener('click', function(event) {
 logic.updateUserName(newName), if fine then show 'user name sucsessfully updated' 
 in profile feedback panel */
 
-var profileFeedbackPanel = profileView.children[6]
+var profileFeedbackPanel = profileView.children[7]
 
 var profileNameForm = profileView.children[3]
 profileNameForm.addEventListener('submit', function (event) {
@@ -201,10 +201,32 @@ profileEmailForm.addEventListener('submit', function (event) {
     }
 })
 
+// TODO: implement username form 11/04
+
+var profileUsernameForm = profileView.children[5]
+profileUsernameForm.addEventListener('submit', function(event) {
+    event.preventDefault()
+
+    var usernameInput = profileUsernameForm.children[1]
+
+    var username = usernameInput.value
+
+    try {
+        logic.modifyUserUsername(username)
+
+        profileEmailForm.reset()
+        profileFeedbackPanel.textContent = 'Username successfully updated'
+    } catch {
+        profileFeedbackPanel.textContent = error.message
+    }
+})
+
+
+
  // TODO: implement password form (habra que pedir current password, new password
  //  y repeat new password)
 
- var profilePasswordForm = profileView.children[5]
+ var profilePasswordForm = profileView.children[6]
  profilePasswordForm.addEventListener('submit', function (event) {
     event.preventDefault()
 
