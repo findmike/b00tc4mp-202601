@@ -5,10 +5,7 @@ export var logic = {
     },
 
     registerUser: function(name, email, username, password, repeatPassword) {
-        // TODO implement me (call data.insertUser(...))
-
         var user = {
-
             name: name,
             email: email,
             username: username,
@@ -16,8 +13,6 @@ export var logic = {
         }
 
         data.insertUser(user)
-
-
 
         console.log(name, email, username, password, repeatPassword)
     }

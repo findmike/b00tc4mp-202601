@@ -1,4 +1,3 @@
-
 var users = []
 
 export var data = {

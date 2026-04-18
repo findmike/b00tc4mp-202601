@@ -22,14 +22,10 @@ var handleSaluteSubmit = function(event) {
     alert(logic.salute(name))
 }
 
-// DUDA DE PORQUE SE CERRÓ ASÍ LA LINEA 29 !!!
-
 var saluteForm = <form onSubmit={handleSaluteSubmit}>
     <input name ="name" type ="text" placeholder ="Name" />
     <button type="submit">Salute</button>
 </form>
-
-// TODO add register form (name, email, username, password, password-repeat)
 
 var registerFormSubmit = function(event) {
     event.preventDefault()
