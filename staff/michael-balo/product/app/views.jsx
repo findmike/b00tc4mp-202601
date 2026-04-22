@@ -34,7 +34,7 @@ export function createLoginView() {
 
         <a href="">Register</a>
 
-        <p> </p>
+        <p></p>
     </div>
 
     return loginView
@@ -70,7 +70,7 @@ export function createRegisterView() {
 
         <a href="">Login</a>
 
-        <p> </p>
+        <p></p>
     </div>
 
     return registerView
