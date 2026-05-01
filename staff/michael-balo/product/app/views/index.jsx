@@ -1,0 +1,5 @@
+export * from './HomeView'
+export * from './LandingView'
+export * from './LoginView'
+export * from './ProfileView'
+export * from './RegisterView'
