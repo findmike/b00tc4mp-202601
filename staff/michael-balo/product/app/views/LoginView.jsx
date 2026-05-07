@@ -1,18 +1,17 @@
-import { logic } from '../logic'
 import { useState } from 'react'
+import { logic } from '../logic'
 
-export function LoginView(props) {
-    var feedbackState = useState('')
-    var feedback = feedbackState[0]
-    var setFeedback = feedbackState[1]
+export function LoginView({ onRegisterClicked, onUserLoggedIn }) {
 
-    function handleRegisterClick(event) {
+    var [feedback, setFeedback] = useState('')
+    
+    var handleRegisterClick = event => {
         event.preventDefault()
 
-        props.onRegisterClicked()
+        onRegisterClicked()
     }
 
-    function handleLoginSubmit(event) {
+    var handleLoginSubmit = event => {
         event.preventDefault()
 
         var username = event.target.username.value
@@ -29,7 +28,7 @@ export function LoginView(props) {
            // var homeTitle = homeView.children[1]
             // homeTitle.textContent = 'Hello, ' + userName + '!'
 
-            props.onUserLogged()
+            onUserLoggedIn()
            // document.body.removeChild(loginView)
             // document.body.appendChild(homeView)
 

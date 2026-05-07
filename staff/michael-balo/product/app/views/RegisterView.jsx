@@ -1,18 +1,22 @@
-import { logic } from '../logic'
 import { useState } from 'react'
+import { logic } from '../logic'
 
-export function RegisterView(props) {
+export function RegisterView({ onLoginClicked, onUserRegistered }) {
+
+    /* ASÍ ESTABA ANTES DE HACER DESTRUCTURING
     var feedbackState = useState('')
     var feedback = feedbackState[0]
     var setFeedback = feedbackState[1]
-
-    function handleLoginClick(event) {
+    */
+    var [feedback, setFeedback] = useState('')
+  
+    var handleLoginClick = event => {
         event.preventDefault()
 
-        props.onLoginClicked()
+        onLoginClicked()
     }
 
-    function handleRegisterSubmit(event) {
+    var handleRegisterSubmit = event => {
         event.preventDefault()
 
         var name = event.target.name.value
@@ -27,7 +31,7 @@ export function RegisterView(props) {
             event.target.reset()
             // registerFeedbackPanel.textContent = ''
 
-            props.onUserRegistered()
+            onUserRegistered()
             // document.body.removeChild(registerView)
             // document.body.appendChild(loginView)
 
