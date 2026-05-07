@@ -107,8 +107,6 @@ loginForm.addEventListener('submit', function(event) {
 
         var userName = logic.getLoggedInUserName()
 
-        //TODO set user name in home title salutation 
-        //TODO call logic getLoggedInUser()
         var homeTitle = homeView.children[1]
         homeTitle.textContent = 'Hello, ' + userName + '!'
 

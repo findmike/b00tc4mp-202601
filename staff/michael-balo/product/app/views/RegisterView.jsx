@@ -1,8 +1,40 @@
+import { logic } from '../logic'
+import { useState } from 'react'
+
 export function RegisterView(props) {
+    var feedbackState = useState('')
+    var feedback = feedbackState[0]
+    var setFeedback = feedbackState[1]
+
     function handleLoginClick(event) {
         event.preventDefault()
 
         props.onLoginClicked()
+    }
+
+    function handleRegisterSubmit(event) {
+        event.preventDefault()
+
+        var name = event.target.name.value
+        var email = event.target.email.value
+        var username = event.target.username.value
+        var password = event.target.password.value
+        var passwordRepeat = event.target.passwordRepeat.value
+
+        try {
+            logic.registerUser(name, email, username, password, passwordRepeat)
+
+            event.target.reset()
+            // registerFeedbackPanel.textContent = ''
+
+            props.onUserRegistered()
+            // document.body.removeChild(registerView)
+            // document.body.appendChild(loginView)
+
+        } catch (error) {
+            setFeedback(error.message)
+            //registerFeedbackPanel.textContent = error.message
+        }
     }
 
     return <div>
@@ -12,7 +44,7 @@ export function RegisterView(props) {
 
         <h2>Register</h2>
 
-        <form>
+        <form onSubmit={handleRegisterSubmit}>
             <label htmlFor="name" style={{ fontWeight: "bold" }}>Name</label>
             <input id="name" placeholder="Name" />
 
@@ -33,6 +65,6 @@ export function RegisterView(props) {
 
         <a href="" onClick={handleLoginClick} >Login</a>
 
-        <p></p>
+        {feedback &&<p>{feedback}</p>}
     </div>
 }

@@ -1,8 +1,43 @@
+import { logic } from '../logic'
+import { useState } from 'react'
+
 export function LoginView(props) {
+    var feedbackState = useState('')
+    var feedback = feedbackState[0]
+    var setFeedback = feedbackState[1]
+
     function handleRegisterClick(event) {
         event.preventDefault()
 
         props.onRegisterClicked()
+    }
+
+    function handleLoginSubmit(event) {
+        event.preventDefault()
+
+        var username = event.target.username.value
+        var password = event.target.password.value
+
+        try {
+            logic.loginUser(username, password)
+
+            event.target.reset()
+           // loginFeedbackPanel.textContent = ''
+
+            // var userName = logic.getLoggedInUserName()
+
+           // var homeTitle = homeView.children[1]
+            // homeTitle.textContent = 'Hello, ' + userName + '!'
+
+            props.onUserLogged()
+           // document.body.removeChild(loginView)
+            // document.body.appendChild(homeView)
+
+        } catch (error) {
+            setFeedback(error.message)
+           // loginFeedbackPanel.textContent = error.message
+        }
+
     }
 
     return <div>
@@ -12,18 +47,18 @@ export function LoginView(props) {
 
         <h2>Login</h2>
 
-        <form>
-            <label htmlFor="Username" style={{ fontWeight: "bold" }}>Username</label>
-            <input id="Username" placeholder="Username" />
+        <form onSubmit={handleLoginSubmit}>
+            <label htmlFor="username" style={{ fontWeight: "bold" }}>Username</label>
+            <input id="username" placeholder="Username" />
 
-            <label htmlFor="Password" style={{ fontWeight: "bold" }}>Password</label>
-            <input id="Password" placeholder="Password" />
+            <label htmlFor="password" style={{ fontWeight: "bold" }}>Password</label>
+            <input id="password" type='password' placeholder="Password" />
 
             <button type="submnit">Login</button>
         </form>
 
         <a href="" onClick={handleRegisterClick} >Register</a>
 
-        <p></p>
+        {feedback && <p>{feedback}</p>}
     </div>
 }

@@ -1,6 +1,5 @@
+import { useState } from 'react'
 import { LandingView, LoginView, RegisterView, HomeView, ProfileView } from './views/index'
-
-var { useState } = React
 
 export function App() {
     var viewState = useState('landing')
@@ -15,12 +14,20 @@ export function App() {
         setView('register')
     }
 
+    function handleUserRegistered() {
+        setView('login')
+    }
+
+    function handleUserLogged() {
+        setView('home')
+    }
+
     if (view === 'landing')
         return <LandingView onLoginClicked={handleLoginClicked} onRegisterClicked={handleRegisterClicked} />
     else if (view === 'login')
-        return <LoginView onRegisterClicked={handleRegisterClicked} />
+        return <LoginView onRegisterClicked={handleRegisterClicked} onUserLogged={handleUserLogged} />
     else if (view === 'register')
-        return <RegisterView onLoginClicked={handleLoginClicked} />
+        return <RegisterView onLoginClicked={handleLoginClicked} onUserRegistered={handleUserRegistered} />
     else if (view === 'home')
         return <HomeView />
     else if (view === 'profile')
