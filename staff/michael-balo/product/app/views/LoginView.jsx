@@ -4,7 +4,7 @@ import { logic } from '../logic'
 export function LoginView({ onRegisterClicked, onUserLoggedIn }) {
 
     var [feedback, setFeedback] = useState('')
-    
+
     var handleRegisterClick = event => {
         event.preventDefault()
 
@@ -21,20 +21,20 @@ export function LoginView({ onRegisterClicked, onUserLoggedIn }) {
             logic.loginUser(username, password)
 
             event.target.reset()
-           // loginFeedbackPanel.textContent = ''
+            // loginFeedbackPanel.textContent = ''
 
             // var userName = logic.getLoggedInUserName()
 
-           // var homeTitle = homeView.children[1]
+            // var homeTitle = homeView.children[1]
             // homeTitle.textContent = 'Hello, ' + userName + '!'
 
             onUserLoggedIn()
-           // document.body.removeChild(loginView)
+            // document.body.removeChild(loginView)
             // document.body.appendChild(homeView)
 
         } catch (error) {
             setFeedback(error.message)
-           // loginFeedbackPanel.textContent = error.message
+            // loginFeedbackPanel.textContent = error.message
         }
 
     }

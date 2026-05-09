@@ -22,6 +22,18 @@ export function App() {
         setView('home')
     }
 
+    function handleProfileClicked() {
+        setView('profile')
+    }
+
+    function handleLogoutClicked() {
+        setView('landing')
+    }
+
+    function handleHomeClicked () {
+        setView('home')
+    }
+
     if (view === 'landing')
         return <LandingView onLoginClicked={handleLoginClicked} onRegisterClicked={handleRegisterClicked} />
     else if (view === 'login')
@@ -29,7 +41,7 @@ export function App() {
     else if (view === 'register')
         return <RegisterView onLoginClicked={handleLoginClicked} onUserRegistered={handleUserRegistered} />
     else if (view === 'home')
-        return <HomeView />
+        return <HomeView onProfileClicked={handleProfileClicked} onLogoutClicked={handleLogoutClicked} />
     else if (view === 'profile')
-        return <ProfileView />
+        return <ProfileView onHomeClicked={handleHomeClicked} />
 }

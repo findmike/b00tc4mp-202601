@@ -9,7 +9,7 @@ export function RegisterView({ onLoginClicked, onUserRegistered }) {
     var setFeedback = feedbackState[1]
     */
     var [feedback, setFeedback] = useState('')
-  
+
     var handleLoginClick = event => {
         event.preventDefault()
 
@@ -69,6 +69,6 @@ export function RegisterView({ onLoginClicked, onUserRegistered }) {
 
         <a href="" onClick={handleLoginClick} >Login</a>
 
-        {feedback &&<p>{feedback}</p>}
+        {feedback && <p>{feedback}</p>}
     </div>
 }

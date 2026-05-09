@@ -8,18 +8,18 @@ export function LandingView({ onLoginClicked, onRegisterClicked }) {
     }
 
     // 2ª FORMA DE DECLARAR UNA FUNCION
-    var handleRegisterClick = function(event) {
+    var handleRegisterClick = function (event) {
         event.preventDefault()
 
         onRegisterClicked()
     }
 
-      /* 3ª FORMA DE DECLARAR UNA FUNCION
-    var handleRegisterClick = event => {
-        event.preventDefault()
+    /* 3ª FORMA DE DECLARAR UNA FUNCION
+  var handleRegisterClick = event => {
+      event.preventDefault()
 
-        onRegisterClicked()
-    }*/
+      onRegisterClicked()
+  }*/
 
     return <div>
         <header>
