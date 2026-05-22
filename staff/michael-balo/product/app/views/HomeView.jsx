@@ -35,13 +35,13 @@ export function HomeView({ onProfileClicked, onLogoutClicked }) {
 
     return <div>
         <header>
-            <img src="https://cdn.prod.website-files.com/624ac40503a527cf47af4192/659ba59520d886f0cb86d3ba_ai-logo-generator-4.png" style={{ width: "100px" }} /> <h1 style={{ display: "inline-block" }}>App</h1>
+            <img src="https://cdn.prod.website-files.com/624ac40503a527cf47af4192/659ba59520d886f0cb86d3ba_ai-logo-generator-4.png" style={{ width: "100px" }} /> <h1 className="title-app" style={{ display: "inline-block" }}>App</h1>
             <h1>Hello, {name}!</h1>
         </header>
 
-        <a href="" onClick={handleProfileClick} style={{ display: "block", marginBottom: "10px" }}>Profile</a>
+        <a className="button-link" href="" onClick={handleProfileClick}>Profile</a>
 
-        <button type="submit" onClick={handleLogoutClick}>Logout</button>
+        <button className="button-view" type="submit" onClick={handleLogoutClick}>Logout</button>
 
         {feedback && <p>{feedback}</p>}
     </div>
