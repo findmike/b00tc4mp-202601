@@ -46,17 +46,17 @@ export function LoginView({ onRegisterClicked, onUserLoggedIn }) {
 
         <h2>Login</h2>
 
-        <form onSubmit={handleLoginSubmit}>
+        <form className="form" onSubmit={handleLoginSubmit}>
             <label htmlFor="username" style={{ fontWeight: "bold" }}>Username</label>
             <input id="username" placeholder="Username" />
 
             <label htmlFor="password" style={{ fontWeight: "bold" }}>Password</label>
             <input id="password" type='password' placeholder="Password" />
 
-            <button className="button-view" type="submnit">Login</button>
+            <button className="view-button" type="submit">Login</button>
         </form>
 
-        <a className="button-link" href="" onClick={handleRegisterClick} >Register</a>
+        <a className="link-button" href="" onClick={handleRegisterClick} >Register</a>
 
         {feedback && <p>{feedback}</p>}
     </div>

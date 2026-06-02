@@ -87,24 +87,24 @@ export function ProfileView({ onHomeClicked }) {
 
         <h2>Profile</h2>
 
-        <a className="button-link" href="" onClick={handleHomeClick}>Home</a>
+        <a className="link-button" href="" onClick={handleHomeClick}>Home</a>
 
         <form onSubmit={handleProfileNameSubmit}>
             <label htmlFor="name" style={{ fontWeight: "bold" }}>Name</label>
             <input id="name" placeholder="Name" />
-            <button className="button-form" type="submit">Update name</button>
+            <button className="form-button" type="submit">Update name</button>
         </form>
 
         <form onSubmit={handleProfileEmailSubmit}>
             <label htmlFor="email" style={{ fontWeight: "bold" }}>Email</label>
             <input id="email" placeholder="Email" />
-            <button className="button-form" type="submit">Update email</button>
+            <button className="form-button" type="submit">Update email</button>
         </form>
 
         <form onSubmit={handleProfileUsernameSubmit}>
             <label htmlFor="username" style={{ fontWeight: "bold" }}>Username</label>
             <input id="username" placeholder="Username" />
-            <button className="button-form" type="submit">Update username</button>
+            <button className="form-button" type="submit">Update username</button>
         </form>
 
         <form onSubmit={handleProfilePasswordsSubmit}>
@@ -114,7 +114,7 @@ export function ProfileView({ onHomeClicked }) {
             <input id="newPassword" placeholder="New password" />
             <label htmlFor="newPasswordRepeat" style={{ fontWeight: "bold" }}>Repeat New Password</label>
             <input id="newPasswordRepeat" placeholder="Repeat new password" />
-            <button className="button-form" type="submit">Update password</button>
+            <button className="form-button" type="submit">Update password</button>
         </form>
 
         {feedback && <p>{feedback}</p>}
