@@ -23,11 +23,11 @@ export function LandingView({ onLoginClicked, onRegisterClicked }) {
 
     return <div>
         <header>
-            <img src="https://cdn.prod.website-files.com/624ac40503a527cf47af4192/659ba59520d886f0cb86d3ba_ai-logo-generator-4.png" style={{ width: '100px' }} />  <h1 className="title-app" style={{ display: 'inline-block' }}>App</h1>
+            <img src="https://cdn.prod.website-files.com/624ac40503a527cf47af4192/659ba59520d886f0cb86d3ba_ai-logo-generator-4.png" style={{ width: '100px' }} />  <h1 className="font-[UnifrakturMaguntia] text-[40px]" style={{ display: 'inline-block' }}>App</h1>
         </header>
 
         <p>
-            <a className="link-button" href="" onClick={handleLoginClick} >Login</a> or <a className="link-button" href="" onClick={handleRegisterClick}>Register</a>
+            <a className="bg-[rgb(243,140,6)] text-[rgb(248,4,216)] font-[Changa_One] border-[rgb(243,140,6)] border px-2 leading-loose underline inline-block rounded-full" href="" onClick={handleLoginClick} >Login</a> or <a className="bg-[rgb(243,140,6)] text-[rgb(248,4,216)] font-[Changa_One] border-[rgb(243,140,6)] border px-2 leading-loose underline inline-block rounded-full" href="" onClick={handleRegisterClick}>Register</a>
         </p>
     </div>
 }

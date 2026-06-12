@@ -9,43 +9,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-    <div id="root"></div>
+<body class="bg-[black] text-[rgb(243,140,6)] font-[Changa_One] p-2">
+    <div id="root"></div>   
 
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script>
-        Babel.registerPreset("my-react-preset", {
-            plugins: [
-                [
-                    Babel.availablePlugins["transform-modules-umd"],
-                    {
-                        globals: {
-                            'react': 'React',
-                            'react-dom': 'ReactDOM'
-                        }
-                    }
-                ]
-            ],
-            presets: [Babel.availablePresets["react"]]
-        });
-    </script>
-
-    <script src="data.mjs" type="text/babel" data-presets="my-react-preset" data-type="module"></script>
-    <script src="populate.mjs" type="text/babel" data-presets="my-react-preset" data-type="module"></script>
-
-    <script src="logic.mjs" type="text/babel" data-presets="my-react-preset" data-type="module"></script>
-
-    <script src="views/LandingView.jsx" type="text/babel" data-presets="my-react-preset" data-type="module"></script>
-    <script src="views/LoginView.jsx" type="text/babel" data-presets="my-react-preset" data-type="module"></script>
-    <script src="views/RegisterView.jsx" type="text/babel" data-presets="my-react-preset" data-type="module"></script>
-    <script src="views/HomeView.jsx" type="text/babel" data-presets="my-react-preset" data-type="module"></script>
-    <script src="views/ProfileView.jsx" type="text/babel" data-presets="my-react-preset" data-type="module"></script>
-    <script src="views/index.jsx" type="text/babel" data-presets="my-react-preset" data-type="module"></script>
-
-    <script src="App.jsx" type="text/babel" data-presets="my-react-preset" data-type="module"></script>
-    <script src="main.jsx" type="text/babel" data-presets="my-react-preset" data-type="module"></script>
+    <script src="main.jsx" type="module"></script>
 </body>
 
 </html>

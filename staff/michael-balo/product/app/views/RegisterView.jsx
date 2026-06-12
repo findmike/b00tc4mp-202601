@@ -48,7 +48,7 @@ export function RegisterView({ onLoginClicked, onUserRegistered }) {
 
         <h2>Register</h2>
 
-        <form onSubmit={handleRegisterSubmit}>
+        <form className="form" onSubmit={handleRegisterSubmit}>
             <label htmlFor="name" style={{ fontWeight: "bold" }}>Name</label>
             <input id="name" placeholder="Name" />
 
@@ -64,10 +64,10 @@ export function RegisterView({ onLoginClicked, onUserRegistered }) {
             <label htmlFor="passwordRepeat" style={{ fontWeight: "bold" }}>Repeat Password</label>
             <input id="passwordRepeat" type='password' placeholder="Repeat Password" />
 
-            <button className="view-button" type="submit">Register</button>
+            <button className="bg-[rgb(243,140,6)] text-[white] font-[Amatic_SC] shadow-[0_4px_10px_rgba(248,4,216,0.925)] border-[rgb(243,140,6)] border px-2 leading-loose" type="submit">Register</button>
         </form>
 
-        <a className="link-button" href="" onClick={handleLoginClick} >Login</a>
+        <a className="bg-[rgb(243,140,6)] text-[rgb(248,4,216)] font-[Changa_One] border-[rgb(243,140,6)] border px-2 leading-loose underline inline-block" href="" onClick={handleLoginClick} >Login</a>
 
         {feedback && <p>{feedback}</p>}
     </div>

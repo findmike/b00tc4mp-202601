@@ -46,17 +46,17 @@ export function LoginView({ onRegisterClicked, onUserLoggedIn }) {
 
         <h2>Login</h2>
 
-        <form className="form" onSubmit={handleLoginSubmit}>
+        <form className="flex flex-col gap-1 my-2" onSubmit={handleLoginSubmit}>
             <label htmlFor="username" style={{ fontWeight: "bold" }}>Username</label>
-            <input id="username" placeholder="Username" />
+            <input className="border-[rgb(248,4,216)] border px-2 leading-loose selection:bg-[rgb(250,0,171)] selection:text-[rgb(243,140,6)]" id="username" placeholder="Username" />
 
             <label htmlFor="password" style={{ fontWeight: "bold" }}>Password</label>
-            <input id="password" type='password' placeholder="Password" />
+            <input className="border-[rgb(248,4,216)] border px-2 leading-loose selection:bg-[rgb(250,0,171)] selection:text-[rgb(243,140,6)]" id="password" type='password' placeholder="Password" />
 
-            <button className="view-button" type="submit">Login</button>
+            <button className="bg-[rgb(243,140,6)] text-[white] font-[Amatic_SC] shadow-[0_4px_10px_rgba(248,4,216,0.925)] border-[rgb(243,140,6)] border px-2 leading-loose" type="submit">Login</button>
         </form>
 
-        <a className="link-button" href="" onClick={handleRegisterClick} >Register</a>
+        <a className="bg-[rgb(243,140,6)] text-[rgb(248,4,216)] font-[Changa_One] border-[rgb(243,140,6)] border px-2 leading-loose underline inline-block rounded-full" href="" onClick={handleRegisterClick} >Register</a>
 
         {feedback && <p>{feedback}</p>}
     </div>
