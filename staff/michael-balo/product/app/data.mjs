@@ -1,7 +1,7 @@
-var users = []
-var loggedInUserId = null
+const users = []
+let loggedInUserId = null
 
-export var data = {
+export const data = {
     insertUser: function (user) {
         user.id = 'ID' + Math.random().toString().slice(2)
         users.push(user)
@@ -37,7 +37,7 @@ export var data = {
     },
 
     updateUserName: function (userId, name) {
-        var user = users.find(function (user) {
+        const user = users.find(function (user) {
             return user.id === userId
         }) || null
 
@@ -45,7 +45,7 @@ export var data = {
     },
 
     updateUserEmail: function (userId, email) {
-        var user = users.find(function (user) {
+        const user = users.find(function (user) {
             return user.id === userId
         }) || null
 
@@ -53,7 +53,7 @@ export var data = {
     },
 
     updateUserPassword: function (userId, newPassword) {
-        var user = users.find(function (user) {
+        const user = users.find(function (user) {
             return user.id === userId
         }) || null
 
@@ -61,7 +61,7 @@ export var data = {
     },
 
     updateUserUsername: function(userId, username) {
-        var user = users.find(function (user) {
+        const user = users.find(function (user) {
             return user.id === userId
         }) || null
 

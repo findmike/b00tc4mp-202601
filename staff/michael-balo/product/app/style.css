@@ -2,3 +2,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Sixtyfour&display=swap');
 @import 'tailwindcss';
+
+.input {
+    @apply border-[rgb(248,4,216)] border px-2 leading-loose selection:bg-[rgb(250,0,171)] selection:text-[rgb(243,140,6)];
+}
+
+.btn {
+    @apply bg-[rgb(243,140,6)] text-[white] font-[Amatic_SC] shadow-[0_4px_10px_rgba(248,4,216,0.925)] border-[rgb(243,140,6)] border px-2 leading-loose mt-2;
+}
+.btn-form {
+    @apply bg-[rgb(248,3,228)] text-[white] font-[Amatic_SC] shadow-[0_4px_10px_rgba(247,111,0,0.925)] border-[rgb(243,140,6)] border px-2 leading-loose;
+}
+
+.form {
+    @apply flex flex-col gap-1 my-2;
+}
+.label {
+    @apply font-bold;
+}
+
+.feedback {
+    @apply bg-orange-500 text-center text-black;
+}
+
+.logo {
+    @apply w-[60px] rounded-full;
+}
+
+.link {
+    @apply bg-[rgb(243,140,6)] text-[rgb(248,4,216)] font-[Changa_One] border-[rgb(243,140,6)] border px-2 leading-loose underline inline-block rounded-full;
+}

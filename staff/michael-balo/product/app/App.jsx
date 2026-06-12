@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { LandingView, LoginView, RegisterView, HomeView, ProfileView } from './views/index'
 
 export function App() {
-    var viewState = useState('landing')
-    var view = viewState[0]
-    var setView = viewState[1]
+    const viewState = useState('landing')
+    const view = viewState[0]
+    const setView = viewState[1]
 
     function handleLoginClicked() {
         setView('login')
