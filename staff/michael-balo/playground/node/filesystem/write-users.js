@@ -3,7 +3,7 @@ const fs = require('fs');
 const file = process.argv[2];
 const userJSON = process.argv[3];
 
-const usersJSON = fs.readFileSync(file).toString();
+let usersJSON = fs.readFileSync(file).toString(); // en lugar de toString, también puedes poner fs.reafFileSync(file, 'utf-8') para que te devuelva un string directamente
 
 const users = JSON.parse(usersJSON);
 
@@ -11,7 +11,6 @@ const newUser = JSON.parse(userJSON);
 
 users.push(newUser);
 
-const usersJSON2 = JSON.stringify(users);
+usersJSON = JSON.stringify(users, null, 2);
 
-const json = fs.writeFileSync(file, usersJSON2);
-
+const json = fs.writeFileSync(file, usersJSON);
