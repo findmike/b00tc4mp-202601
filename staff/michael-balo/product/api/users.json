@@ -1,17 +1,10 @@
 [
   {
-    "name": "Manuel Barzi Updated",
-    "email": "michael.balo@example.com",
-    "username": "michaelbalo",
-    "password": "password123",
+    "name": "Michael Balo Updated",
+    "email": "m.balo@example.com",
+    "username": "michaelbalo_updated",
+    "password": "newpass789",
     "id": "ID3177171518199474"
-  },
-  {
-    "name": "Michael Balo",
-    "email": "michael.balo@example.com",
-    "username": "michaelbalo",
-    "password": "password123",
-    "id": "ID1175941229649149"
   },
   {
     "name": "Dani La",
@@ -61,5 +54,47 @@
     "username": "daniela",
     "password": "password456",
     "id": "ID6531383462134585"
+  },
+  {
+    "name": "Michael Balo",
+    "email": "michael.balo@example.com",
+    "username": "michaelbalo",
+    "password": "password123",
+    "id": "ID2079424872290373"
+  },
+  {
+    "name": "Dani La",
+    "email": "dani.la@example.com",
+    "username": "daniela",
+    "password": "password456",
+    "id": "ID45823820051379405"
+  },
+  {
+    "name": "Michael Balo",
+    "email": "michael.balo@example.com",
+    "username": "michaelbalo",
+    "password": "password123",
+    "id": "ID46332546118862017"
+  },
+  {
+    "name": "Dani La",
+    "email": "dani.la@example.com",
+    "username": "daniela",
+    "password": "password456",
+    "id": "ID34187029302778293"
+  },
+  {
+    "name": "Lucia",
+    "email": "lucia@example.com",
+    "username": "lucia",
+    "password": "password123",
+    "id": "ID14562701789625576"
+  },
+  {
+    "name": "TestUserUpdated",
+    "email": "test.updated@probe.com",
+    "username": "testprobe_updated",
+    "password": "newpass456",
+    "id": "ID3195551280192632"
   }
 ]
