@@ -41,6 +41,7 @@ data.updateUserName('ID3177171518199474', 'Michael Balo')
 
 // delete user by id
 
-data.deleteUserById('ID1175941229649149')
-const userByIdDeleted = data.findUserById('ID1175941229649149')
+data.deleteUserById('ID6531383462134585')
+const userByIdDeleted = data.findUserById('ID6531383462134585')
 console.log(userByIdDeleted)
+

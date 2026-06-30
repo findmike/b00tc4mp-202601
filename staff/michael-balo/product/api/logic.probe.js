@@ -42,11 +42,9 @@ const userAfterPasswordChange = data.findUserById(data.getLoggedInUserId())
 console.log(userAfterPasswordChange)
 // { name: 'Michael Balo', email: 'michael.balo@example.com', username: 'michaelbalo', password: 'newpass789' }*/
 
-// PROBE 8: modify user username
-
+/* PROBE 8: modify user username
 logic.authenticateUser('michaelbalo', 'newpass789')
 logic.modifyUserUsername('michaelbalo_updated')
 const userAfterUsernameChange = data.findUserById(data.getLoggedInUserId())
 console.log(userAfterUsernameChange)
-
 // { name: 'Michael Balo', email: 'michael.balo@example.com', username: 'michaelbalo_updated', password: 'password123' }*/
