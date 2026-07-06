@@ -45,33 +45,52 @@ export const logic = {
         return user.id
     },
 
-    modifyUserName: function (name) {
-        const userId = data.getLoggedInUserId()
+    getLoggedInUserName: function (userId) {
+        const user = data.findUserById(userId)
+
+        if (!user) throw new Error('user not found')
+
+        return user.name
+    },
+
+    modifyUserName: function (userId, name) {
+        const user = data.findUserById(userId)
+
+        if (!user) throw new Error('user not found')
 
         data.updateUserName(userId, name)
     },
 
-    modifyUserEmail: function (email) {
-        const userId = data.getLoggedInUserId()
+    modifyUserEmail: function (userId, email) {
+        const user = data.findUserById(userId)
+
+        if (!user) throw new Error('user not found')
 
         data.updateUserEmail(userId, email)
     },
 
+    modifyUserUsername: function (userId, username) {
+        const user = data.findUserById(userId)
 
-    modifyUserPassword: function (password, newPassword, newPasswordRepeat) {
-        const userId = data.getLoggedInUserId()
+        if (!user) throw new Error('user not found')
+
+        data.updateUserUsername(userId, username)
+    },
+
+    modifyUserPassword: function (userId, password, newPassword, newPasswordRepeat) {
+
+        if (password.trim() === '') throw new Error('password is empty')
+        if (newPassword.trim() === '') throw new Error('new password is empty')
+        if (newPasswordRepeat.trim() === '') throw new Error('new password repeat is empty')
+        if (newPassword !== newPasswordRepeat) throw new Error('new passwords do not match')
 
         const user = data.findUserById(userId)
 
-        if (password !== user.password) throw new Error('password is wrong')
-        if (newPassword !== newPasswordRepeat) throw new Error('New passwords do not match')
+        if (!user) throw new Error('user not found')
+
+        if (user.password !== password) throw new Error('wrong password')
 
         data.updateUserPassword(userId, newPassword)
-    },
-
-    modifyUserUsername: function (username) {
-        const userId = data.getLoggedInUserId()
-
-        data.updateUserUsername(userId, username)
     }
+
 }

@@ -128,11 +128,4 @@ export const data = {
         }
     },
 
-    getLoggedInUserId: function () {
-        return loggedInUserId
-    },
-
-    setLoggedInUserId: function (userId) {
-        loggedInUserId = userId
-    }
 }

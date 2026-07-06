@@ -21,30 +21,37 @@ const userId = logic.authenticateUser('michaelbalo', 'password123')
 console.log(userId) 
 return: ID317...*/
 
+/* PROBE 4.1: get logged in user name succeeds
+const userName = logic.getLoggedInUserName('ID3177171518199474')
+console.log(userName)
+// return: Michael Balo */
+
+/* PROBE 4.2: get logged in user name fails
+const userName = logic.getLoggedInUserName('ID3177171518199479')
+console.log(userName)
+// return: Error: user not found */
+
 /* PROBE 5: modify user name
-logic.authenticateUser('michaelbalo', 'password123')
-logic.modifyUserName('Michael Balo Updated')
-const userAfterNameChange = data.findUserByEmail('michael.balo@example.com')
-console.log(userAfterNameChange)
-{ name: 'Michael Balo Updated', email: 'michael.balo@example.com', username: 'michaelbalo', password: 'password123' }*/
+logic.modifyUserName('ID3177171518199474', 'Mikey')
+const userModified = data.findUserById('ID3177171518199474')
+console.log(userModified)
+// { name: 'Mikey'...
 
 /* PROBE 6: modify user email
-logic.authenticateUser('michaelbalo', 'password123')
-logic.modifyUserEmail('m.balo@example.com')
-const userAfterEmailChange = data.findUserById(data.getLoggedInUserId())
-console.log(userAfterEmailChange)
-{ name: 'Michael Balo', email: 'm.balo@example.com', username: 'michaelbalo', password: 'password123' }*/
+logic.modifyUserEmail('ID3177171518199474', 'mikey@example.com')
+const emailModified = data.findUserById('ID3177171518199474')
+console.log(emailModified)
+// { email: 'mikey@example.com' } */
 
-/* PROBE 7: modify user password
-logic.authenticateUser('michaelbalo', 'password123')
-logic.modifyUserPassword('password123','newpass789','newpass789')
-const userAfterPasswordChange = data.findUserById(data.getLoggedInUserId())
-console.log(userAfterPasswordChange)
+/* PROBE 7: modify user username
+logic.modifyUserUsername('ID3177171518199474', 'mikey_updated')
+const userUsernameModified = data.findUserById('ID3177171518199474')
+console.log(userUsernameModified)
+// { name: 'Michael Balo', email: 'michael.balo@example.com', username: 'mikey_updated', password: 'password123' }*/
+
+// PROBE 8: modify user password
+
+logic.modifyUserPassword('ID3177171518199474', '555888', '555777', '555777')
+const userPasswordModified = data.findUserById('ID3177171518199474')
+console.log(userPasswordModified)
 // { name: 'Michael Balo', email: 'michael.balo@example.com', username: 'michaelbalo', password: 'newpass789' }*/
-
-/* PROBE 8: modify user username
-logic.authenticateUser('michaelbalo', 'newpass789')
-logic.modifyUserUsername('michaelbalo_updated')
-const userAfterUsernameChange = data.findUserById(data.getLoggedInUserId())
-console.log(userAfterUsernameChange)
-// { name: 'Michael Balo', email: 'michael.balo@example.com', username: 'michaelbalo_updated', password: 'password123' }*/
