@@ -1,99 +1,8 @@
 const express = require('express')
 
-const cars = [
-    {
-        brand: 'Toyota',
-        model: 'Corolla',
-        year: 2020
-    },
-    {
-        brand: 'Toyota',
-        model: 'Camry',
-        year: 2021
-    },
-    {
-        brand: 'Toyota',
-        model: 'Supra',
-        year: 2022
-    },
-    {
-        brand: 'Honda',
-        model: 'Civic',
-        year: 2019
-    },
-    {
-        brand: 'Honda',
-        model: 'Accord',
-        year: 2020
-    },
-    {
-        brand: 'Honda',
-        model: 'CR-V',
-        year: 2021
-    },
-    {
-        brand: 'Nissan',
-        model: 'Altima',
-        year: 2020
-    },
-    {
-        brand: 'Nissan',
-        model: 'Skyline',
-        year: 2021
-    },
-    {
-        brand: 'Nissan',
-        model: 'GT-R',
-        year: 2022
-    },
-    {
-        brand: 'Chevrolet',
-        model: 'Camaro',
-        year: 2020
-    },
-    {
-        brand: 'Chevrolet',
-        model: 'Impala',
-        year: 2020
-    },
-    {
-        brand: 'Chevrolet',
-        model: 'Malibu',
-        year: 2021
-    },
-    {
-        brand: 'Ford',
-        model: 'Mustang',
-        year: 2021
-    },
-    {
-        brand: 'Ford',
-        model: 'Raptor',
-        year: 2022
-    },
-    {
-        brand: 'Ford',
-        model: 'Explorer',
-        year: 2020
-    },
-    {
-        brand: 'BMW',
-        model: 'X5',
-        year: 2022
-    },
-    {
-        brand: 'BMW',
-        model: 'Z4',
-        year: 2021
-    },
-    {
-        brand: 'BMW',
-        model: 'M3',
-        year: 2020
-    }
-]
-
 const server = express()
+
+const jsonBodyParser = express.json()
 
 // path parameters (deterministic)
 
@@ -106,8 +15,121 @@ server.get('/users/:name/:age', (req, res) => {
 // query parameters (non-deterministic)
 
 server.get('/hello', (req, res) => {
-    res.send(`Hello, ${req.query.to}!`)
+    res.send(`<h1 style="color: blue;">Hello, ${req.query.to}!</h1>`)
 })
+
+// ARRAY PARA HACER PRUEBAS DE FILTRADO DE DATOS CON QUERY PARAMETERS Y PATH PARAMETERS
+
+const cars = [
+    {
+        id: 1,
+        brand: 'Toyota',
+        model: 'Corolla',
+        year: 2020
+    },
+    {
+        id: 2,
+        brand: 'Toyota',
+        model: 'Camry',
+        year: 2021
+    },
+    {
+        id: 3,
+        brand: 'Toyota',
+        model: 'Supra',
+        year: 2022
+    },
+    {
+        id: 4,
+        brand: 'Honda',
+        model: 'Civic',
+        year: 2019
+    },
+    {
+        id: 5,
+        brand: 'Honda',
+        model: 'Accord',
+        year: 2020
+    },
+    {
+        id: 6,
+        brand: 'Honda',
+        model: 'CR-V',
+        year: 2021
+    },
+    {
+        id: 7,
+        brand: 'Nissan',
+        model: 'Altima',
+        year: 2020
+    },
+    {
+        id: 8,
+        brand: 'Nissan',
+        model: 'Skyline',
+        year: 2021
+    },
+    {
+        id: 9,
+        brand: 'Nissan',
+        model: 'GT-R',
+        year: 2022
+    },
+    {
+        id: 10,
+        brand: 'Chevrolet',
+        model: 'Camaro',
+        year: 2020
+    },
+    {
+        id: 11,
+        brand: 'Chevrolet',
+        model: 'Impala',
+        year: 2020
+    },
+    {
+        id: 12,
+        brand: 'Chevrolet',
+        model: 'Malibu',
+        year: 2021
+    },
+    {
+        id: 13,
+        brand: 'Ford',
+        model: 'Mustang',
+        year: 2021
+    },
+    {
+        id: 14,
+        brand: 'Ford',
+        model: 'Raptor',
+        year: 2022
+    },
+    {
+        id: 15,
+        brand: 'Ford',
+        model: 'Explorer',
+        year: 2020
+    },
+    {
+        id: 16,
+        brand: 'BMW',
+        model: 'X5',
+        year: 2022
+    },
+    {
+        id: 17,
+        brand: 'BMW',
+        model: 'Z4',
+        year: 2021
+    },
+    {
+        id: 18,
+        brand: 'BMW',
+        model: 'M3',
+        year: 2020
+    }
+]
 
 /* TODO use query parameters to filter the cars by brand, model, and/or year. For example, /cars?brand=Toyota&year=2020 should return only the Toyota cars from 2020.
 
@@ -134,13 +156,13 @@ server.get('/cars', (req, res) => {
 }) */
 
 
-// TODO use path parameters to get a specific car brand by its index in the array
+/* TODO use path parameters to get a specific car brand by its index in the array
 
 server.get('/cars/:brand', (req, res) => {
     const brand = req.params.brand
     const filteredCars = cars.filter(car => car.brand === brand)
     res.json(filteredCars)
-}) 
+}) */
 
 /* LO MISMO QUE ARRIBA PERO CON QUERY PARAMETERS    
 server.get('/cars', (req, res) => {
@@ -155,6 +177,32 @@ server.get('/cars', (req, res) => {
     res.json(filteredCars)
 }) */
 
+server.post('/cars', jsonBodyParser, (req, res) => {
+    const newCar = req.body
+
+    newCar.id = cars.length + 1
+
+    cars.push(newCar)
+
+    res.status(201).json({ sucess: true, message: 'Car created successfully', carId: newCar.id })
+})
+
+server.get('/cars/:carId', (req,res) => {
+
+    const carId = Number(req.params.carId)
+
+    const car = cars.find(car => car.id === carId)
+
+    if (!car) {
+        return res.status(404).json({ success: false, message: 'Car not found' })
+    }
+
+    res.status(200).json({ success: true, car })
+})
+
+// TODO implement a PATCH endpoint to update a car by its ID
+
+// TODO implement a DELETE endpoint to delete a car by its ID
 
 server.listen(3000, () => {
     console.log('Server is running on port 3000')
