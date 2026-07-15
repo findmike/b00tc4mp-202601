@@ -177,7 +177,7 @@ server.get('/cars', (req, res) => {
     res.json(filteredCars)
 }) */
 
-server.post('/cars', jsonBodyParser, (req, res) => {
+/* server.post('/cars', jsonBodyParser, (req, res) => {
     const newCar = req.body
 
     newCar.id = cars.length + 1
@@ -185,9 +185,9 @@ server.post('/cars', jsonBodyParser, (req, res) => {
     cars.push(newCar)
 
     res.status(201).json({ sucess: true, message: 'Car created successfully', carId: newCar.id })
-})
+}) */
 
-server.get('/cars/:carId', (req,res) => {
+/*server.get('/cars/:carId', (req,res) => {
 
     const carId = Number(req.params.carId)
 
@@ -198,11 +198,43 @@ server.get('/cars/:carId', (req,res) => {
     }
 
     res.status(200).json({ success: true, car })
-})
+}) */
 
 // TODO implement a PATCH endpoint to update a car by its ID
 
-// TODO implement a DELETE endpoint to delete a car by its ID
+server.patch('/cars/:carId', jsonBodyParser, (req, res) => {
+    const carId = Number(req.params.carId)
+    const updates = req.body
+    
+    const carIndex = cars.findIndex(car => car.id === carId)
+    
+    if (carIndex === -1) {
+        return res.status(404).json({ success: false, message: 'Car not found' })
+    }
+    
+    // Update the car with new properties
+    cars[carIndex] = { ...cars[carIndex], ...updates }
+    
+    res.status(204).json({ success: true, message: 'Car updated successfully', car: cars[carIndex] })
+})
+
+/* TODO implement a DELETE endpoint to delete a car by its ID
+
+server.delete('/cars/:carId', (req, res) => {
+    const carId = Number(req.params.carId)
+    
+    const carIndex = cars.findIndex(car => car.id === carId)
+    
+    if (carIndex === -1) {
+        return res.status(404).json({ success: false, message: 'Car not found' })
+    }
+    
+    // Remove the car from array
+    const deletedCar = cars.splice(carIndex, 1)[0]
+    
+    res.status(200).json({ success: true, message: 'Car deleted successfully', car: deletedCar })
+}) */
+
 
 server.listen(3000, () => {
     console.log('Server is running on port 3000')
