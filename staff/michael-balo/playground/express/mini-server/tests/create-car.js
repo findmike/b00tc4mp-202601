@@ -15,7 +15,11 @@ fetch('http://localhost:3000/cars', {
         throw new Error('Error creating car')
     }
 
-    console.log('Car created successfully')
+    return response.json()
+})
+
+.the(body => {
+    console.log('Car created successfully:', body)
 })
 
 .catch(error => {

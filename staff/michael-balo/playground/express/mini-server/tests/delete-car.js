@@ -9,8 +9,8 @@ fetch('http://localhost:3000/cars/1', {
     }
     return response.json()
 })
-.then(data => {
-    console.log('Car deleted:', data)
+.then(body => {
+    console.log('Car deleted:', body)
 })
 .catch(error => {
     console.error('There was a problem:', error)
