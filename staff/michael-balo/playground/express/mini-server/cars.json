@@ -1,0 +1,110 @@
+[
+    {
+        "id": 1,
+        "brand": "Toyota",
+        "model": "Corolla",
+        "year": 2020
+    },
+    {
+        "id": 2,
+        "brand": "Toyota",
+        "model": "Camry",
+        "year": 2021
+    },
+    {
+        "id": 3,
+        "brand": "Toyota",
+        "model": "Supra",
+        "year": 2022
+    },
+    {
+        "id": 4,
+        "brand": "Honda",
+        "model": "Civic",
+        "year": 2019
+    },
+    {
+        "id": 5,
+        "brand": "Honda",
+        "model": "Accord",
+        "year": 2020
+    },
+    {
+        "id": 6,
+        "brand": "Honda",
+        "model": "CR-V",
+        "year": 2021
+    },
+    {
+        "id": 7,
+        "brand": "Nissan",
+        "model": "Altima",
+        "year": 2020
+    },
+    {
+        "id": 8,
+        "brand": "Nissan",
+        "model": "Skyline",
+        "year": 2021
+    },
+    {
+        "id": 9,
+        "brand": "Nissan",
+        "model": "GT-R",
+        "year": 2022
+    },
+    {
+        "id": 10,
+        "brand": "Chevrolet",
+        "model": "Camaro",
+        "year": 2020
+    },
+    {
+        "id": 11,
+        "brand": "Chevrolet",
+        "model": "Impala",
+        "year": 2020
+    },
+    {
+        "id": 12,
+        "brand": "Chevrolet",
+        "model": "Malibu",
+        "year": 2021
+    },
+    {
+        "id": 13,
+        "brand": "Ford",
+        "model": "Mustang",
+        "year": 2021
+    },
+    {
+        "id": 14,
+        "brand": "Ford",
+        "model": "Raptor",
+        "year": 2022
+    },
+    {
+        "id": 15,
+        "brand": "Ford",
+        "model": "Explorer",
+        "year": 2020
+    },
+    {
+        "id": 16,
+        "brand": "BMW",
+        "model": "X5",
+        "year": 2022
+    },
+    {
+        "id": 17,
+        "brand": "BMW",
+        "model": "Z4",
+        "year": 2021
+    },
+    {
+        "id": 18,
+        "brand": "BMW",
+        "model": "M3",
+        "year": 2020
+    }
+]
