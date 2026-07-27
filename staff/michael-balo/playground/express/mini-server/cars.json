@@ -3,7 +3,7 @@
         "id": 1,
         "brand": "Toyota",
         "model": "Corolla",
-        "year": 2020
+        "year": 2023
     },
     {
         "id": 2,
@@ -106,5 +106,11 @@
         "brand": "BMW",
         "model": "M3",
         "year": 2020
+    },
+    {
+        "brand": "Tesla",
+        "model": "Model 3",
+        "year": 2023,
+        "id": 19
     }
 ]

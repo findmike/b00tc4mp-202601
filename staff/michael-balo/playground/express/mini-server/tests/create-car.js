@@ -18,7 +18,7 @@ fetch('http://localhost:3000/cars', {
     return response.json()
 })
 
-.the(body => {
+.then(body => {
     console.log('Car created successfully:', body)
 })
 
