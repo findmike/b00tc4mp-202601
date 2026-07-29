@@ -4,9 +4,9 @@ fetch('http://localhost:3000/cars', {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        brand: 'Tesla',
-        model: 'Model 3',
-        year: 2022
+        brand: 'Bentley',
+        model: 'Continental GT',
+        year: 2020
     })
 })
 

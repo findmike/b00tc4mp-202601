@@ -1,6 +1,6 @@
 // TODO implement a DELETE endpoint to delete a car by its id
 
-fetch('http://localhost:3000/cars/19', {
+fetch('http://localhost:3000/cars/21', {
     method: 'DELETE'
 })
 .then(response => {
