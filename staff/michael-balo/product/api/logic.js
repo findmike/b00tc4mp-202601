@@ -91,6 +91,18 @@ export const logic = {
         if (user.password !== password) throw new Error('wrong password')
 
         data.updateUserPassword(userId, newPassword)
+    },
+
+    removeUser: function (userId, password) {
+        if (password.trim() === '') throw new Error('password is empty')
+        
+        const user = data.findUserById(userId)
+
+        if (!user) throw new Error('user not found')
+
+        if (user.password !== password) throw new Error('wrong password')
+
+        data.deleteUserById(userId)
     }
 
 }

@@ -1,47 +1,99 @@
-import { data } from './data.js' 
+import { data } from './data.js'
 
 // insert a user
 
-data.insertUser({
-    name: 'Michael Balo',
-    email: 'michael.balo@example.com',
-    username: 'michaelbalo',
-    password: 'password123'
-})
+/* data.insertUser({
+    name: 'Torettoo',
+    email: 'torettoo@example.com',
+    username: 'torett00',
+    password: 'password000'
+}) 
 
-data.insertUser({
-    name: 'Dani La',
-    email: 'dani.la@example.com',
-    username: 'daniela',
-    password: 'password456'
+.then ((user) => {
+    console.log('User inserted', user)
 })
+.catch ((error) => {
+    console.error('Error inserting user', error)
+}) */
 
 // find a user by email
 
+/* data.findUserByEmail('torettoo@example.com')
+.then(user => {
+    console.log('User found by email:', user)
+})
+.catch(error => {
+    console.error('Error finding user by email:', error)
+})
 
-const userByEmail = data.findUserByEmail('michael.balo@example.com')
-console.log(userByEmail)
-// { name: 'Manuel Barzi', email: 'manuel.barzi@example.com', username: 'manuel', password: '123123123', id: 'ID8765902459775687' }
+*{ name: 'Torettoo', email: 'torettoo@example.com', username: 'torett00', password: 'password000', id: 'ID...' } */
 
 // find a user by username
 
-const userByUsername = data.findUserByUsername('johndoe')
-console.log(userByUsername)
-// { name: 'John Doe', email: 'john.doe@example.com', username: 'johndoe', password: '123123123', id: 'ID7849513284636278' }
+/* data.findUserByUsername('torett00')
+.then(user => {
+    console.log('User found by username:', user)
+})
+.catch(error => {
+    console.error('Error finding user by username:', error)
+})  */
 
 // find a user by id
 
-const userById = data.findUserById('ID8765902459775687')
-console.log(userById)
-// { name: 'Manuel Barzi', email: 'manuel.barzi@example.com', username: 'manuel', password: '123123123', id: 'ID8765902459775687' }
+/*data.findUserById('ID4981009895937265')
+    .then(user => {
+        console.log('User found by id:', user)
+    })
+    .catch(error => {
+        console.error('Error finding user by id:', error)
+    })*/
 
 // update a user's name
 
-data.updateUserName('ID3177171518199474', 'Michael Balo')
+/* data.updateUserName('ID4981009895937265', 'Vin Diesel')
+.then(user => {
+    console.log('User name updated:', user)
+})
+.catch(error => {
+    console.error('Error updating user name:', error)
+}) */
+
+// update user's email
+
+/* data.updateUserEmail('ID4981009895937265', 'vin.diesel@example.com')
+.then(user => {
+    console.log('User name updated:', user)
+})
+.catch(error => {
+    console.error('Error updating user name:', error)
+}) */
+
+// update user's password
+
+/* data.updateUserPassword('ID4981009895937265', 'FamilyFirst')
+.then(user => {
+    console.log('User name updated:', user)
+})
+.catch(error => {
+    console.error('Error updating user name:', error)
+}) */
+
+// update user's username
+
+/* data.updateUserUsername('ID4981009895937265', 'Torett00')
+.then(user => {
+    console.log('User name updated:', user)
+})
+.catch(error => {
+    console.error('Error updating user name:', error)
+}) */
 
 // delete user by id
 
-data.deleteUserById('ID6531383462134585')
-const userByIdDeleted = data.findUserById('ID6531383462134585')
-console.log(userByIdDeleted)
-
+/* data.deleteUserById('ID4981009895937265')
+.then(user => {
+    console.log('User deleted:', user)
+})
+.catch(error => {
+    console.error('Error deleting user:', error)
+}) */ 

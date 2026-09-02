@@ -124,19 +124,5 @@
     "username": "daniela",
     "password": "password456",
     "id": "ID3004214689521235"
-  },
-  {
-    "name": "Michael Balo",
-    "email": "michael.balo@example.com",
-    "username": "michaelbalo",
-    "password": "password123",
-    "id": "ID10612482898978148"
-  },
-  {
-    "name": "Dani La",
-    "email": "dani.la@example.com",
-    "username": "daniela",
-    "password": "password456",
-    "id": "ID9810725583819133"
   }
 ]

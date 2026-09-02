@@ -51,7 +51,13 @@ console.log(userUsernameModified)
 
 // PROBE 8: modify user password
 
-logic.modifyUserPassword('ID3177171518199474', '555888', '555777', '555777')
+/* logic.modifyUserPassword('ID3177171518199474', '555888', '555777', '555777')
 const userPasswordModified = data.findUserById('ID3177171518199474')
-console.log(userPasswordModified)
+console.log(userPasswordModified) */
 // { name: 'Michael Balo', email: 'michael.balo@example.com', username: 'michaelbalo', password: 'newpass789' }*/
+
+// PROBE 9: delete user
+
+logic.removeUser('ID3004214689521235', 'password456')
+const userDeleted = data.findUserById('ID3004214689521235')
+console.log(userDeleted)
