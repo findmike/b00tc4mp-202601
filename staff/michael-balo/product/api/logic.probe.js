@@ -1,24 +1,29 @@
 import { logic } from './logic.js'
 import { data } from './data.js'
 
-/* PROBE 1:register user fails (already exists)
+// PROBE 1:register user fails (already exists)
 
-logic.registerUser('Michael Balo', 'michael.balo@example.com', 'michaelbalo', 'password123', 'password123')
-throw error user already exists*/
+// logic.registerUser('Michael Balo II', 'michael.balo2@example.com', 'michaelbaloII', 'password123', 'password123')
+//     .then(() => {
+//         console.log('User registered successfully')
+//     })
+//     .catch(error => {
+//         console.error('Error registering user:', error.message)
+//     })
 
-/* PROBE 2:register new user
+// PROBE 2: authenticate user fails
 
-logic.registerUser('Lucia', 'lucia@example.com', 'lucia', 'password123', 'password123')
-const userByEmail = data.findUserByEmail('lucia@example.com')
-console.log(userByEmail)
-{ name: 'Lucia', email: 'lucia@example.com' }*/
-
-/* PROBE 3: authenticate user fails  
-logic.authenticateUser('michaelbalo', 'wrongpassword')*/
+// logic.authenticateUser('daniela', 'password456')
+//     .then((userId) => {
+//         console.log('User authenticated successfully', userId)
+//     })
+//     .catch(error => {
+//         console.error('Error authenticating user:', error.message)
+//     })
 
 /* PROBE 4: authenticate user succeeds
 const userId = logic.authenticateUser('michaelbalo', 'password123')
-console.log(userId) 
+console.log(userId)
 return: ID317...*/
 
 /* PROBE 4.1: get logged in user name succeeds
@@ -31,33 +36,53 @@ const userName = logic.getLoggedInUserName('ID3177171518199479')
 console.log(userName)
 // return: Error: user not found */
 
-/* PROBE 5: modify user name
-logic.modifyUserName('ID3177171518199474', 'Mikey')
-const userModified = data.findUserById('ID3177171518199474')
-console.log(userModified)
-// { name: 'Mikey'...
+// PROBE 5: modify user name
 
-/* PROBE 6: modify user email
-logic.modifyUserEmail('ID3177171518199474', 'mikey@example.com')
-const emailModified = data.findUserById('ID3177171518199474')
-console.log(emailModified)
-// { email: 'mikey@example.com' } */
+// logic.modifyUserName('ID5217957932078049', 'Mike Balo')
+//     .then(() => {
+//         console.log('User name modified successfully')
+//     })
+//     .catch(error => {
+//         console.error('Error modifying user name:', error.message)
+//     })
 
-/* PROBE 7: modify user username
-logic.modifyUserUsername('ID3177171518199474', 'mikey_updated')
-const userUsernameModified = data.findUserById('ID3177171518199474')
-console.log(userUsernameModified)
-// { name: 'Michael Balo', email: 'michael.balo@example.com', username: 'mikey_updated', password: 'password123' }*/
+
+// PROBE 6: modify user email
+
+/* logic.modifyUserEmail('ID5217957932078041', 'mikey@example.com')
+.then(() => {
+    console.log('User email modified successfully')
+})
+.catch(error => {
+    console.error('Error modifying user email:', error.message)
+}) */
+
+// PROBE 7: modify user username
+
+/* logic.modifyUserUsername('ID5217957932078041', 'mikey_updated')
+.then(() => {
+    console.log('User username modified successfully')
+})
+.catch(error => {
+    console.error('Error modifying user username:', error.message)
+}) */
 
 // PROBE 8: modify user password
 
-/* logic.modifyUserPassword('ID3177171518199474', '555888', '555777', '555777')
-const userPasswordModified = data.findUserById('ID3177171518199474')
-console.log(userPasswordModified) */
-// { name: 'Michael Balo', email: 'michael.balo@example.com', username: 'michaelbalo', password: 'newpass789' }*/
+/* logic.modifyUserPassword('ID5217957932078041', 'password123', '111222', '111222')
+.then(() => {
+    console.log('User password modified successfully')
+})
+.catch(error => {
+    console.error('Error modifying user password:', error.message)
+}) */
 
 // PROBE 9: delete user
 
-logic.removeUser('ID3004214689521235', 'password456')
-const userDeleted = data.findUserById('ID3004214689521235')
-console.log(userDeleted)
+/* logic.removeUser('ID3004214689521235', 'password456')
+    .then(() => {
+        console.log('User deleted successfully')
+    })
+    .catch(error => {
+        console.error('Error deleting user:', error.message)
+    }) */

@@ -2,7 +2,6 @@ import { data } from './data.js'
 
 export const logic = {
     registerUser: function (name, email, username, password, passwordRepeat) {
-
         if (name.trim() === '') throw new Error('name is empty')
         if (email.trim() === '') throw new Error('email is empty')
         if (username.trim() === '') throw new Error('username is empty')
@@ -11,70 +10,88 @@ export const logic = {
 
         if (password !== passwordRepeat) throw new Error('passwords do not match')
 
-        let user = data.findUserByEmail(email)
+        return data.findUserByEmail(email)
+            .catch(error => { throw new Error('Error finding user by email: ' + error.message) })
+            .then(user => {
+                if (user) throw new Error('User with email already exists')
 
-        if (user) throw new Error('User with email already exists')
+                return data.findUserByUsername(username)
+                    .catch(error => { throw new Error('Error finding user by username: ' + error.message) })
+                    .then(user => {
+                        if (user) throw new Error('user with username already exists')
 
-        user = data.findUserByUsername(username)
+                        user = {
+                            name: name,
+                            email: email,
+                            username: username,
+                            password: password
+                        }
 
-        if (user) throw new Error('user with username already exists')
-
-        user = {
-            name: name,
-            email: email,
-            username: username,
-            password: password
-        }
-
-        data.insertUser(user)
+                        return data.insertUser(user)
+                            .catch(error => { throw new Error('Error inserting user: ' + error.message) })
+                            .then(() => { })
+                    })
+            })
     },
 
     authenticateUser: function (username, password) {
-
         if (username.trim() === '') throw new Error('username is empty')
         if (password.trim() === '') throw new Error('password is empty')
 
-        const user = data.findUserByUsername(username)
+        return data.findUserByUsername(username)
+            .catch(error => { throw new Error('Error finding user by username: ' + error.message) })
+            .then(user => {
+                if (!user) throw new Error('user not found')
 
-        if (!user) throw new Error('user not found')
+                if (user.password !== password) throw new Error('wrong password')
 
-        if (user.password !== password) throw new Error('wrong password')
-
-        data.setLoggedInUserId(user.id)
-
-        return user.id
-    },
-
-    getLoggedInUserName: function (userId) {
-        const user = data.findUserById(userId)
-
-        if (!user) throw new Error('user not found')
-
-        return user.name
+                return user.id
+            })
     },
 
     modifyUserName: function (userId, name) {
-        const user = data.findUserById(userId)
+        if (userId.trim() === '') throw new Error('userId is empty')
+        if (name.trim() === '') throw new Error('name is empty')
 
-        if (!user) throw new Error('user not found')
+        return data.findUserById(userId)
+            .catch(error => { throw new Error('Error finding user by ID: ' + error.message) })
+            .then(user => {
+                if (!user) throw new Error('user not found')
 
-        data.updateUserName(userId, name)
+                return data.updateUserName(userId, name)
+                    .catch(error => { throw new Error('Error updating user name: ' + error.message) })
+                    .then(() => { })
+            })
     },
 
     modifyUserEmail: function (userId, email) {
-        const user = data.findUserById(userId)
+        if (userId.trim() === '') throw new Error('userId is empty')
+        if (email.trim() === '') throw new Error('email is empty')
 
-        if (!user) throw new Error('user not found')
+        return data.findUserById(userId)
+            .catch(error => { throw new Error('Error finding user by ID: ' + error.message) })
+            .then(user => {
+                if (!user) throw new Error('user not found')
 
-        data.updateUserEmail(userId, email)
+                return data.updateUserEmail(userId, email)
+                    .catch(error => { throw new Error('Error updating user email: ' + error.message) })
+                    .then(() => { })
+            })
     },
 
     modifyUserUsername: function (userId, username) {
-        const user = data.findUserById(userId)
+        if (userId.trim() === '') throw new Error('userId is empty')
+        if (username.trim() === '') throw new Error('username is empty')
 
-        if (!user) throw new Error('user not found')
+        return data.findUserById(userId)
+            .catch(error => { throw new Error('Error finding user by ID: ' + error.message) })
+            .then(user => {
+                if (!user) throw new Error('user not found')
 
-        data.updateUserUsername(userId, username)
+                return data.updateUserUsername(userId, username)
+                    .catch(error => { throw new Error('Error updating user username: ' + error.message) })
+                    .then(() => { })
+            })
     },
 
     modifyUserPassword: function (userId, password, newPassword, newPasswordRepeat) {
@@ -84,25 +101,34 @@ export const logic = {
         if (newPasswordRepeat.trim() === '') throw new Error('new password repeat is empty')
         if (newPassword !== newPasswordRepeat) throw new Error('new passwords do not match')
 
-        const user = data.findUserById(userId)
+        return data.findUserById(userId)
+            .catch(error => { throw new Error('Error finding user by ID: ' + error.message) })
+            .then(user => {
+                if (!user) throw new Error('user not found')
 
-        if (!user) throw new Error('user not found')
+                if (user.password !== password) throw new Error('wrong password')
 
-        if (user.password !== password) throw new Error('wrong password')
-
-        data.updateUserPassword(userId, newPassword)
+                return data.updateUserPassword(userId, newPassword)
+                    .catch(error => { throw new Error('Error updating user password: ' + error.message) })
+                    .then(() => { })
+            })
     },
 
     removeUser: function (userId, password) {
+        if (userId.trim() === '') throw new Error('userId is empty')
         if (password.trim() === '') throw new Error('password is empty')
-        
-        const user = data.findUserById(userId)
 
-        if (!user) throw new Error('user not found')
+        return data.findUserById(userId)
+            .catch(error => { throw new Error('Error finding user by ID: ' + error.message) })
+            .then(user => {
+                if (!user) throw new Error('user not found')
 
-        if (user.password !== password) throw new Error('wrong password')
+                if (user.password !== password) throw new Error('wrong password')
 
-        data.deleteUserById(userId)
-    }
+                return data.deleteUserById(userId)
+                    .catch(error => { throw new Error('Error deleting user: ' + error.message) })
+                    .then(() => { })
+            })
 
+    },
 }
