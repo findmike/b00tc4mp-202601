@@ -124,5 +124,37 @@
     "username": "mikey_updated",
     "password": "111222",
     "id": "ID5217957932078041"
+  },
+  {
+    "name": "Test",
+    "email": "test@example.com",
+    "username": "testuser",
+    "password": "1234",
+    "id": "ID2691676422684155"
+  },
+  {
+    "name": "",
+    "age": 30,
+    "id": "ID5061847597176989"
+  },
+  {
+    "name": "Luffy",
+    "age": 19,
+    "id": "ID9513502705331296"
+  },
+  {
+    "name": "Luffy",
+    "email": "luffy@example.com",
+    "username": "luffy123",
+    "password": "111222333",
+    "age": 19,
+    "id": "ID7294628275671868"
+  },
+  {
+    "name": "Luffy",
+    "email": "luffy@example.com",
+    "username": "luffy123",
+    "password": "111222333",
+    "id": "ID2130941092964741"
   }
 ]
