@@ -13,24 +13,9 @@ export const logic = {
 
         if (password !== passwordRepeat) throw new Error('passwords do not match')
 
-        let user = data.findUserByEmail(email)
+            //TODO llamar api para registrar usuario 
 
-        if (user) throw new Error('User with email already exists')
-
-        user = data.findUserByUsername(username)
-
-        if (user) throw new Error('user with username already exists')
-
-        // TODO use constructor function UserData
-
-        user = {
-            name: name,
-            email: email,
-            username: username,
-            password: password
-        }
-
-        data.insertUser(user)
+            return fetch 
     },
 
     loginUser: function (username, password) {

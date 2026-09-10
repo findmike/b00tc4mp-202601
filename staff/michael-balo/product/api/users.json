@@ -147,14 +147,20 @@
     "email": "luffy@example.com",
     "username": "luffy123",
     "password": "111222333",
-    "age": 19,
-    "id": "ID7294628275671868"
+    "id": "ID2130941092964741"
   },
   {
-    "name": "Luffy",
-    "email": "luffy@example.com",
-    "username": "luffy123",
-    "password": "111222333",
-    "id": "ID2130941092964741"
+    "name": "Pepito Grillo",
+    "email": "pepito.grillo2@example.com",
+    "username": "pepito555",
+    "password": "newpassword555",
+    "id": "ID8469653486020282"
+  },
+  {
+    "name": "Julian",
+    "email": "julian@example.com",
+    "username": "julian123",
+    "password": "333444",
+    "id": "ID0005352417523596387"
   }
 ]

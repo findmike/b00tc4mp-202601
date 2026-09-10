@@ -1,14 +1,16 @@
-fetch('http://localhost:3000/users/ID5061847597176989', {
+fetch('http://localhost:3000/users/ID7294628275671868', {
     method: 'DELETE',
     headers: {
         'Content-Type': 'application/json'
-    }
+    },
+    body: JSON.stringify({
+        password: '111222333'
+    })
 })
     .then(response => {
-        if (!response.ok) {
-            throw new Error('Error deleting user');
-        }
-
+        // if (!response.ok) {
+        //     throw new Error('Error deleting user');
+        // }
         return response.json();
     })
     .then(body => {

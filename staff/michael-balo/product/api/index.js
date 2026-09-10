@@ -1,5 +1,7 @@
 import express from 'express';
 
+import { logic } from './logic.js';
+
 const server = express();
 
 const jsonBodyParser = express.json();
@@ -28,65 +30,96 @@ import fs from 'fs/promises';
 //     res.send(`Hola, ${name}! Tú tienes ${age} años.`)
 // });
 
+// CREATE NEW USER (POST REQUEST)
+
 server.post('/users', jsonBodyParser, (req, res) => {
     const newUser = req.body;
 
-    fs.readFile('users.json', 'utf8')
-        .then(json => {
-            const users = JSON.parse(json);
-
-            newUser.id = 'ID' + Math.random().toString().slice(2);
-            users.push(newUser);
-
-            return fs.writeFile('users.json', JSON.stringify(users, null, 2))
-                .then(() => {
-                    res.status(201).json({ success: true, message: 'User created successfully', userId: newUser.id });
-                })
-                .catch(error => {
-                    res.status(500).json({ success: false, message: 'Error writing users file' });
-                });
+    logic.registerUser(newUser.name, newUser.email, newUser.username, newUser.password, newUser.passwordRepeat)
+        .then(() => {
+            res.status(201).json({ success: true, message: 'User created successfully' });
         })
         .catch(error => {
-            res.status(500).json({ success: false, message: 'Error reading users file' });
+            res.status(400).json({ success: false, message: error.message });
+        });
+
+});
+
+// MODIFY USER NAME (PUT REQUEST)
+
+server.patch('/users/:userId/name', jsonBodyParser, (req, res) => {
+    const userId = req.params.userId
+    const newName = req.body.name
+
+    logic.modifyUserName(userId, newName)
+        .then(() => {
+            res.status(200).json({ success: true, message: 'User name modified successfully' });
+        })
+        .catch(error => {
+            res.status(400).json({ success: false, message: error.message });
         });
 });
 
-// crypto.randomUUID() para generar un ID unico y seguro para cada usuario, en lugar de usar Math.random().
+// MODIFY USER EMAIL (PUT REQUEST)
 
-// NO usar Number, porque mis ids son strings (ID12...), y Number('ID1234567890') devuelve NaN, lo que rompe la lógica de búsqueda de usuarios por id.
+server.patch('/users/:userId/email', jsonBodyParser, (req, res) => {
+    const userId = req.params.userId
+    const newEmail = req.body.email
 
-    server.delete('/users/:userId', (req, res) => {
-        const userId = req.params.userId
+    logic.modifyUserEmail(userId, newEmail)
+        .then(() => {
+            res.status(200).json({ success: true, message: 'User email modified successfully' });
+        })
+        .catch(error => {
+            res.status(400).json({ success: false, message: error.message });
+        });
+})
 
-        fs.readFile('users.json', 'utf8')
-            .then(json => {
-                const users = JSON.parse(json);
+// MODIFY USER USERNAME (PUT REQUEST)
 
-                const userIndex = users.findIndex(user => user.id === userId);
+server.patch('/users/:userId/username', jsonBodyParser, (req, res) => {
+    const userId = req.params.userId
+    const newUsername = req.body.username
 
-                if (userIndex === -1) {
-                    res.status(404).json({ success: false, message: 'User not found' });
-                    return;
-                }
+    logic.modifyUserUsername(userId, newUsername)
+        .then(() => {
+            res.status(200).json({ success: true, message: 'User username modified successfully' });
+        })
+        .catch(error => {
+            res.status(400).json({ success: false, message: error.message });
+        });
+})
 
-                const deletedUser = users.splice(userIndex, 1)[0];
+// MODIFY USER PASSWORD (PUT REQUEST)
 
-                return fs.writeFile('users.json', JSON.stringify(users, null, 4))
-                    .then(() => {
-                        res.status(200).json({ success: true, message: 'User deleted successfully', user: deletedUser });
-                    })
-                    .catch(error => {
-                        res.status(500).json({ success: false, message: 'Error writing users file' });
-                    });
-            })
-            .catch(error => {
-                res.status(500).json({ success: false, message: 'Error reading users file' });
+server.patch('/users/:userId/password', jsonBodyParser, (req, res) => {
+    const userId = req.params.userId
+    const { password, newPassword, newPasswordRepeat } = req.body
 
-            })
+    logic.modifyUserPassword(userId, password, newPassword, newPasswordRepeat)
+        .then(() => {
+            res.status(200).json({ success: true, message: 'User password modified successfully' });
+        })
+        .catch(error => {
+            res.status(400).json({ success: false, message: error.message });
+        });
+})
 
-    })
+// DELETE USER (DELETE REQUEST) = comentar duda con el params y el body!
 
-// porque usamos return en el writeFile.
+server.delete('/users/:userId', jsonBodyParser, (req, res) => {
+    const userId = req.params.userId
+    const password = req.body.password
+
+    logic.removeUser(userId, password)
+        .then(() => {
+            res.status(200).json({ success: true, message: 'User deleted successfully' });
+        })
+        .catch(error => {
+            res.status(400).json({ success: false, message: error.message });
+        });
+
+})
 
 server.listen(3000, () => {
     console.log('Server is running on port 3000');
