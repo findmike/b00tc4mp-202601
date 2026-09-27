@@ -25,20 +25,14 @@ export function RegisterView({ onLoginClicked, onUserRegistered }) {
         const password = event.target.password.value
         const passwordRepeat = event.target.passwordRepeat.value
 
-        try {
-            logic.registerUser(name, email, username, password, passwordRepeat)
-
-            event.target.reset()
-            // registerFeedbackPanel.textContent = ''
-
-            onUserRegistered()
-            // document.body.removeChild(registerView)
-            // document.body.appendChild(loginView)
-
-        } catch (error) {
-            setFeedback(error.message)
-            //registerFeedbackPanel.textContent = error.message
-        }
+        logic.registerUser(name, email, username, password, passwordRepeat)
+            .then(() => {
+                event.target.reset()
+                onUserRegistered()
+            })
+            .catch(error => {
+                setFeedback(error.message)
+            })
     }
 
     return <div>

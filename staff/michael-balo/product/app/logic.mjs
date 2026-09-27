@@ -13,9 +13,33 @@ export const logic = {
 
         if (password !== passwordRepeat) throw new Error('passwords do not match')
 
-            //TODO llamar api para registrar usuario 
+        //TODO llamar api para registrar usuario 
 
-            return fetch 
+        return fetch('http://localhost:3000/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: 'Alvarico',
+                email: 'alvarico@example.com',
+                username: 'alvarico123',
+                password: 'Alvarico123',
+                passwordRepeat: 'Alvarico123'
+            })
+        })
+
+            .then(response => {
+                return response.json();
+            })
+
+            .then(body => {
+                console.log(body);
+            })
+            // no estoy seguro de que el catch vaya aquí 
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            })
     },
 
     loginUser: function (username, password) {
@@ -45,34 +69,34 @@ export const logic = {
         data.setLoggedInUserId(null)
     },
 
-    modifyUserName: function(name) {
+    modifyUserName: function (name) {
         const userId = data.getLoggedInUserId()
 
         data.updateUserName(userId, name)
     },
 
-    modifyUserEmail: function(email) {
-         const userId = data.getLoggedInUserId()
+    modifyUserEmail: function (email) {
+        const userId = data.getLoggedInUserId()
 
-         data.updateUserEmail(userId, email)
+        data.updateUserEmail(userId, email)
     },
 
-    
-    modifyUserPassword: function(password, newPassword, newPasswordRepeat) {
+
+    modifyUserPassword: function (password, newPassword, newPasswordRepeat) {
         const userId = data.getLoggedInUserId()
 
         const user = data.findUserById(userId)
 
-        if (password !== user.password) throw new Error ('password is wrong')
-        if (newPassword !== newPasswordRepeat) throw new Error ('New passwords do not match')
+        if (password !== user.password) throw new Error('password is wrong')
+        if (newPassword !== newPasswordRepeat) throw new Error('New passwords do not match')
 
         data.updateUserPassword(userId, newPassword)
     },
 
-    modifyUserUsername: function(username) {
+    modifyUserUsername: function (username) {
         const userId = data.getLoggedInUserId()
 
         data.updateUserUsername(userId, username)
     }
-    
+
 }
