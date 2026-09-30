@@ -7,9 +7,13 @@ export function HomeView({ onProfileClicked, onLogoutClicked }) {
 
     useEffect(() => {
         try {
-            const name = logic.getLoggedInUserName()
-
-            setName(name)
+            logic.getLoggedInUserName()
+                .then(userName => {
+                    setName(userName)
+                })
+                .catch((error) => {
+                    setFeedback(error.message)
+                })
         } catch (error) {
             setFeedback(error.message)
         }

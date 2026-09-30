@@ -3,11 +3,6 @@ import { logic } from '../logic'
 
 export function RegisterView({ onLoginClicked, onUserRegistered }) {
 
-    /* ASÍ ESTABA ANTES DE HACER DESTRUCTURING
-    var feedbackState = useState('')
-    var feedback = feedbackState[0]
-    var setFeedback = feedbackState[1]
-    */
     const [feedback, setFeedback] = useState('')
 
     const handleLoginClick = event => {
@@ -25,15 +20,21 @@ export function RegisterView({ onLoginClicked, onUserRegistered }) {
         const password = event.target.password.value
         const passwordRepeat = event.target.passwordRepeat.value
 
-        logic.registerUser(name, email, username, password, passwordRepeat)
-            .then(() => {
-                event.target.reset()
-                onUserRegistered()
-            })
-            .catch(error => {
-                setFeedback(error.message)
-            })
+        try {
+            logic.registerUser(name, email, username, password, passwordRepeat)
+                .then(() => {
+                    event.target.reset()
+                    onUserRegistered()
+                })
+                .catch(error => {
+
+                    setFeedback(error.message)
+                })
+        } catch (error) {
+            setFeedback(error.message)
+        }
     }
+
 
     return <div>
         <header className="flex flex-col items-center">

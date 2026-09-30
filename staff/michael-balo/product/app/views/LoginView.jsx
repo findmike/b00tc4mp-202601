@@ -19,24 +19,16 @@ export function LoginView({ onRegisterClicked, onUserLoggedIn }) {
 
         try {
             logic.loginUser(username, password)
-
-            event.target.reset()
-            // loginFeedbackPanel.textContent = ''
-
-            // var userName = logic.getLoggedInUserName()
-
-            // var homeTitle = homeView.children[1]
-            // homeTitle.textContent = 'Hello, ' + userName + '!'
-
-            onUserLoggedIn()
-            // document.body.removeChild(loginView)
-            // document.body.appendChild(homeView)
-
+                .then(() => {
+                    event.target.reset()
+                    onUserLoggedIn()
+                })
+                .catch((error) => {
+                    setFeedback(error.message)
+                })
         } catch (error) {
             setFeedback(error.message)
-            // loginFeedbackPanel.textContent = error.message
         }
-
     }
 
     return <div>

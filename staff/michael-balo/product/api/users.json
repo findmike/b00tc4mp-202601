@@ -162,5 +162,47 @@
     "username": "julian123",
     "password": "333444",
     "id": "ID0005352417523596387"
+  },
+  {
+    "name": "Alvar0",
+    "email": "alvarico@gmail.com",
+    "username": "Alvarico2026",
+    "password": "111222333",
+    "id": "ID7417715595449758"
+  },
+  {
+    "name": "Alvaro26",
+    "email": "alvaro@gmail.com",
+    "username": "Alvaric000",
+    "password": "111222333",
+    "id": "ID022516643800248093"
+  },
+  {
+    "name": "Julian",
+    "email": "julian123@gmail.com",
+    "username": "Juli123",
+    "password": "456123",
+    "id": "ID8480269169650533"
+  },
+  {
+    "name": "Julian",
+    "email": "julian1234@gmail.com",
+    "username": "Juli1234",
+    "password": "456123",
+    "id": "ID5845742567856473"
+  },
+  {
+    "name": "Julian",
+    "email": "julian12345@gmail.com",
+    "username": "Juli12345",
+    "password": "456123",
+    "id": "ID227832611151774"
+  },
+  {
+    "name": "Julian",
+    "email": "julian123456@gmail.com",
+    "username": "Juli123456",
+    "password": "456123",
+    "id": "ID8921215886218129"
   }
 ]

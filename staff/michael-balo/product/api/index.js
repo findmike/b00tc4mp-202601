@@ -1,8 +1,12 @@
 import express from 'express';
 
+import cors from "cors"
+
 import { logic } from './logic.js';
 
 const server = express();
+
+server.use(cors())
 
 const jsonBodyParser = express.json();
 
@@ -43,6 +47,35 @@ server.post('/users', jsonBodyParser, (req, res) => {
             res.status(400).json({ success: false, message: error.message });
         });
 
+});
+
+// AUTHENTICATE USER (POST REQUEST)
+
+server.post('/users/authenticate', jsonBodyParser, (req, res) => {
+    const username = req.body.username
+    const password = req.body.password
+
+    logic.authenticateUser(username, password)
+        .then(userId => {
+            res.status(200).json({ success: true, message: 'User authenticated successfully', userId: userId });
+        })
+        .catch(error => {
+            res.status(400).json({ success: false, message: error.message });
+        });
+})
+
+// GET USER INFO (GET REQUEST)
+
+server.get('/users/:userId/username', (req, res) => {
+    const userId = req.params.userId
+
+    logic.getUserName(userId)
+        .then(userName => {
+            res.status(200).json({ success: true, userName: userName });
+        })
+        .catch(error => {
+            res.status(400).json({ success: false, message: error.message });
+        });
 });
 
 // MODIFY USER NAME (PUT REQUEST)

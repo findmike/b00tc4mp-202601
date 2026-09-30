@@ -13,7 +13,7 @@ export const logic = {
 
         if (password !== passwordRepeat) throw new Error('passwords do not match')
 
-        //TODO llamar api para registrar usuario 
+        //TODO llamar api para registrar usuario, utilizamos fetch para hacer la llamada a la api, y luego devolvemos una promesa
 
         return fetch('http://localhost:3000/users', {
             method: 'POST',
@@ -21,24 +21,24 @@ export const logic = {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                name: 'Alvarico',
-                email: 'alvarico@example.com',
-                username: 'alvarico123',
-                password: 'Alvarico123',
-                passwordRepeat: 'Alvarico123'
+                name,
+                email,
+                username,
+                password,
+                passwordRepeat
             })
         })
+            .catch(error => {
+                throw new Error(error.message);
+            })
 
             .then(response => {
-                return response.json();
-            })
+                if (response.ok) return
 
-            .then(body => {
-                console.log(body);
-            })
-            // no estoy seguro de que el catch vaya aquí 
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
+                return response.json()
+                    .then(body => {
+                        throw new Error(body.message)
+                    })
             })
     },
 
@@ -47,22 +47,53 @@ export const logic = {
         if (username.trim() === '') throw new Error('username is empty')
         if (password.trim() === '') throw new Error('password is empty')
 
-        const user = data.findUserByUsername(username)
+        return fetch('http://localhost:3000/users/authenticate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username,
+                password
+            })
+        })
 
-        if (!user) throw new Error('user not found')
+            .catch(error => {
+                throw new Error(error.message);
+            })
 
-        if (user.password !== password) throw new Error('wrong password')
+            .then(response => {
+                if (response.ok) return response.json()
+                    .then(body => data.setLoggedInUserId(body.userId))
 
-        data.setLoggedInUserId(user.id)
+                return response.json()
+                    .then(body => {
+                        throw new Error(body.message)
+                    })
+            })
     },
 
     getLoggedInUserName: function () {
         const userId = data.getLoggedInUserId()
 
-        const user = data.findUserById(userId)
+        return fetch(`http://localhost:3000/users/${userId}/username`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .catch(error => {
+                throw new Error(error.message);
+            })
+            .then(response => {
+                if (response.ok) return response.json()
+                    .then(body => body.userName)
 
-        return user.name
-
+                return response.json()
+                    .then(body => {
+                        throw new Error(body.message)
+                    })
+            })
     },
 
     logoutUser: function () {

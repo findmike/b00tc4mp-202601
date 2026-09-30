@@ -49,6 +49,18 @@ export const logic = {
             })
     },
 
+    getUserName: function (userId) {
+        if (userId.trim() === '') throw new Error('userId is empty')
+
+        return data.findUserById(userId)
+            .catch(error => { throw new Error('Error finding user by ID: ' + error.message) })
+            .then(user => {
+                if (!user) throw new Error('user not found')
+
+                return user.name
+            })
+    },
+
     modifyUserName: function (userId, name) {
         if (userId.trim() === '') throw new Error('userId is empty')
         if (name.trim() === '') throw new Error('name is empty')
