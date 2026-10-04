@@ -103,31 +103,105 @@ export const logic = {
     modifyUserName: function (name) {
         const userId = data.getLoggedInUserId()
 
-        data.updateUserName(userId, name)
+        return fetch(`http://localhost:3000/users/${userId}/name`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name
+            })
+        })
+            .catch(error => {
+                throw new Error(error.message);
+            })
+
+            .then(response => {
+                if (response.ok) return
+
+                return response.json()
+                    .then(body => {
+                        throw new Error(body.message)
+                    })
+            })
+
     },
 
     modifyUserEmail: function (email) {
         const userId = data.getLoggedInUserId()
 
-        data.updateUserEmail(userId, email)
-    },
+        return fetch(`http://localhost:3000/users/${userId}/email`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email
+            })
+        })
+            .catch(error => {
+                throw new Error(error.message);
+            })
+            .then(response => {
+                if (response.ok) return
 
+                return response.json()
+                    .then(body => {
+                        throw new Error(body.message)
+                    })
+            })
+    },
 
     modifyUserPassword: function (password, newPassword, newPasswordRepeat) {
         const userId = data.getLoggedInUserId()
 
-        const user = data.findUserById(userId)
+        return fetch(`http://localhost:3000/users/${userId}/password`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                password,
+                newPassword,
+                newPasswordRepeat
+            })
+        })
+            .catch(error => {
+                throw new Error(error.message);
+            })
+            .then(response => {
+                if (response.ok) return
 
-        if (password !== user.password) throw new Error('password is wrong')
-        if (newPassword !== newPasswordRepeat) throw new Error('New passwords do not match')
-
-        data.updateUserPassword(userId, newPassword)
+                return response.json()
+                    .then(body => {
+                        throw new Error(body.message)
+                    })
+            })
     },
 
     modifyUserUsername: function (username) {
         const userId = data.getLoggedInUserId()
 
-        data.updateUserUsername(userId, username)
+        return fetch(`http://localhost:3000/users/${userId}/username`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username
+            })
+        })
+            .catch(error => {
+                throw new Error(error.message);
+            })
+            .then(response => {
+                if (response.ok) return
+
+                return response.json()
+                    .then(body => {
+                        throw new Error(body.message)
+                    })
+            })
     }
 
 }

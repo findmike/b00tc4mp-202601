@@ -17,11 +17,13 @@ export function ProfileView({ onHomeClicked }) {
 
         try {
             logic.modifyUserName(name)
-
-            event.target.reset()
-
-            setFeedback('User name successfully updated')
-
+                .then(() => {
+                    event.target.reset()
+                    setFeedback('User name successfully updated')
+                })
+                .catch(error => {
+                    setFeedback(error.message)
+                })
         } catch {
             setFeedback(error.message)
         }
@@ -33,11 +35,14 @@ export function ProfileView({ onHomeClicked }) {
         const email = event.target.email.value
 
         try {
-            logic.modifyUserName(email)
-
-            event.target.reset()
-
-            setFeedback('User email successfully updated')
+            logic.modifyUserEmail(email)
+                .then(() => {
+                    event.target.reset()
+                    setFeedback('User email successfully updated')
+                })
+                .catch(error => {
+                    setFeedback(error.message)
+                })
         } catch {
             setFeedback(error.message)
         }
@@ -49,11 +54,14 @@ export function ProfileView({ onHomeClicked }) {
         const username = event.target.username.value
 
         try {
-            logic.modifyUserName(username)
-
-            event.target.reset()
-
-            setFeedback('User username successfully updated')
+            logic.modifyUserUsername(username)
+                .then(() => {
+                    event.target.reset()
+                    setFeedback('User username successfully updated')
+                })
+                .catch(error => {
+                    setFeedback(error.message)
+                })
 
         } catch {
             setFeedback(error.message)
@@ -69,11 +77,13 @@ export function ProfileView({ onHomeClicked }) {
 
         try {
             logic.modifyUserPassword(password, newPassword, newPasswordRepeat)
-
-            event.target.reset()
-
-            setFeedback('User password successfully updated')
-
+                .then(() => {
+                    event.target.reset()
+                    setFeedback('User password successfully updated')
+                })
+                .catch(error => {
+                    setFeedback(error.message)
+                })
         } catch {
             setFeedback(error.message)
         }
