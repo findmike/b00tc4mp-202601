@@ -101,6 +101,8 @@ export const logic = {
     },
 
     modifyUserName: function (name) {
+        if (name.trim() === '') throw new Error('name is empty')
+
         const userId = data.getLoggedInUserId()
 
         return fetch(`http://localhost:3000/users/${userId}/name`, {
@@ -128,6 +130,8 @@ export const logic = {
     },
 
     modifyUserEmail: function (email) {
+          if (email.trim() === '') throw new Error('email is empty')
+
         const userId = data.getLoggedInUserId()
 
         return fetch(`http://localhost:3000/users/${userId}/email`, {
@@ -153,6 +157,9 @@ export const logic = {
     },
 
     modifyUserPassword: function (password, newPassword, newPasswordRepeat) {
+        if (newPassword !== newPasswordRepeat) throw new Error('new passwords do not match')
+        if (newPassword.trim() === '') throw new Error('new password is empty')
+
         const userId = data.getLoggedInUserId()
 
         return fetch(`http://localhost:3000/users/${userId}/password`, {
@@ -180,6 +187,8 @@ export const logic = {
     },
 
     modifyUserUsername: function (username) {
+        if (username.trim() === '') throw new Error('username is empty')
+            
         const userId = data.getLoggedInUserId()
 
         return fetch(`http://localhost:3000/users/${userId}/username`, {
