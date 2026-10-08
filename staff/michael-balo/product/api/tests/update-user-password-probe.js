@@ -1,12 +1,12 @@
-fetch('http://localhost:3000/users/ID8469653486020282/password', {
+fetch('http://localhost:3000/users/6ac7b3afa07d8849e0a4c71c/password', {
     method: 'PATCH',
     headers: {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        password: '111222',
-        newPassword: 'newpassword555',
-        newPasswordRepeat: 'newpassword555'
+        password: '333444',
+        newPassword: 'Pinocho111',
+        newPasswordRepeat: 'Pinocho111'
     })
 })
     .then(response => {

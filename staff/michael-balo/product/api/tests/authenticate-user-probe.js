@@ -4,8 +4,8 @@ fetch('http://localhost:3000/users/authenticate', {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        username: 'Juli1234',
-        password: '456123'
+        username: 'julian123',
+        password: '333444'
     })
 })
     .then(response => {

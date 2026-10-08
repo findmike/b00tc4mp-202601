@@ -1,10 +1,10 @@
-fetch('http://localhost:3000/users/ID7294628275671868', {
+fetch('http://localhost:3000/users/6ac7b3afa07d8849e0a4c71c', {
     method: 'DELETE',
     headers: {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        password: '111222333'
+        password: 'Pinocho111'
     })
 })
     .then(response => {

@@ -1,5 +1,7 @@
 import { data } from './data.js'
 
+import { User } from './data/index.js'
+
 export const logic = {
     registerUser: function (name, email, username, password, passwordRepeat) {
         if (name.trim() === '') throw new Error('name is empty')
@@ -10,12 +12,12 @@ export const logic = {
 
         if (password !== passwordRepeat) throw new Error('passwords do not match')
 
-        return data.findUserByEmail(email)
+        return User.findOne({ email: email })
             .catch(error => { throw new Error('Error finding user by email: ' + error.message) })
             .then(user => {
                 if (user) throw new Error('User with email already exists')
 
-                return data.findUserByUsername(username)
+                return User.findOne({ username: username })
                     .catch(error => { throw new Error('Error finding user by username: ' + error.message) })
                     .then(user => {
                         if (user) throw new Error('user with username already exists')
@@ -27,7 +29,7 @@ export const logic = {
                             password: password
                         }
 
-                        return data.insertUser(user)
+                        return User.create(user)
                             .catch(error => { throw new Error('Error inserting user: ' + error.message) })
                             .then(() => { })
                     })
@@ -38,7 +40,7 @@ export const logic = {
         if (username.trim() === '') throw new Error('username is empty')
         if (password.trim() === '') throw new Error('password is empty')
 
-        return data.findUserByUsername(username)
+        return User.findOne({ username: username })
             .catch(error => { throw new Error('Error finding user by username: ' + error.message) })
             .then(user => {
                 if (!user) throw new Error('user not found')
@@ -52,7 +54,7 @@ export const logic = {
     getUserName: function (userId) {
         if (userId.trim() === '') throw new Error('userId is empty')
 
-        return data.findUserById(userId)
+        return User.findById(userId)
             .catch(error => { throw new Error('Error finding user by ID: ' + error.message) })
             .then(user => {
                 if (!user) throw new Error('user not found')
@@ -65,12 +67,12 @@ export const logic = {
         if (userId.trim() === '') throw new Error('userId is empty')
         if (name.trim() === '') throw new Error('name is empty')
 
-        return data.findUserById(userId)
+        return User.findById(userId)
             .catch(error => { throw new Error('Error finding user by ID: ' + error.message) })
             .then(user => {
                 if (!user) throw new Error('user not found')
 
-                return data.updateUserName(userId, name)
+                return User.findByIdAndUpdate(userId, { name: name })
                     .catch(error => { throw new Error('Error updating user name: ' + error.message) })
                     .then(() => { })
             })
@@ -80,12 +82,14 @@ export const logic = {
         if (userId.trim() === '') throw new Error('userId is empty')
         if (email.trim() === '') throw new Error('email is empty')
 
-        return data.findUserById(userId)
+        return User.findById(userId)
             .catch(error => { throw new Error('Error finding user by ID: ' + error.message) })
             .then(user => {
                 if (!user) throw new Error('user not found')
 
-                return data.updateUserEmail(userId, email)
+                return User.findByIdAndUpdate(userId, { email: email })
+                    .catch(error => { throw new Error('Error updating user email: ' + error.message) })
+                    .then(() => { })
                     .catch(error => { throw new Error('Error updating user email: ' + error.message) })
                     .then(() => { })
             })
@@ -95,12 +99,12 @@ export const logic = {
         if (userId.trim() === '') throw new Error('userId is empty')
         if (username.trim() === '') throw new Error('username is empty')
 
-        return data.findUserById(userId)
+        return User.findById(userId)
             .catch(error => { throw new Error('Error finding user by ID: ' + error.message) })
             .then(user => {
                 if (!user) throw new Error('user not found')
 
-                return data.updateUserUsername(userId, username)
+                return User.findByIdAndUpdate(userId, { username: username })
                     .catch(error => { throw new Error('Error updating user username: ' + error.message) })
                     .then(() => { })
             })
@@ -113,14 +117,14 @@ export const logic = {
         if (newPasswordRepeat.trim() === '') throw new Error('new password repeat is empty')
         if (newPassword !== newPasswordRepeat) throw new Error('new passwords do not match')
 
-        return data.findUserById(userId)
+        return User.findById(userId)
             .catch(error => { throw new Error('Error finding user by ID: ' + error.message) })
             .then(user => {
                 if (!user) throw new Error('user not found')
 
                 if (user.password !== password) throw new Error('wrong password')
 
-                return data.updateUserPassword(userId, newPassword)
+                return User.findByIdAndUpdate(userId, { password: newPassword })
                     .catch(error => { throw new Error('Error updating user password: ' + error.message) })
                     .then(() => { })
             })
@@ -130,14 +134,14 @@ export const logic = {
         if (userId.trim() === '') throw new Error('userId is empty')
         if (password.trim() === '') throw new Error('password is empty')
 
-        return data.findUserById(userId)
+        return User.findById(userId)
             .catch(error => { throw new Error('Error finding user by ID: ' + error.message) })
             .then(user => {
                 if (!user) throw new Error('user not found')
 
                 if (user.password !== password) throw new Error('wrong password')
 
-                return data.deleteUserById(userId)
+                return User.findByIdAndDelete(userId)
                     .catch(error => { throw new Error('Error deleting user: ' + error.message) })
                     .then(() => { })
             })
