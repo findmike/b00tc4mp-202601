@@ -156,7 +156,34 @@ export const logic = {
             })
     },
 
-    modifyUserPassword: function (password, newPassword, newPasswordRepeat) {
+    modifyUserUsername: function (username) {
+        if (username.trim() === '') throw new Error('username is empty')
+            
+        const userId = data.getLoggedInUserId()
+
+        return fetch(`http://localhost:3000/users/${userId}/username`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username
+            })
+        })
+            .catch(error => {
+                throw new Error(error.message);
+            })
+            .then(response => {
+                if (response.ok) return
+
+                return response.json()
+                    .then(body => {
+                        throw new Error(body.message)
+                    })
+            })
+    },
+
+      modifyUserPassword: function (password, newPassword, newPasswordRepeat) {
         if (newPassword !== newPasswordRepeat) throw new Error('new passwords do not match')
         if (newPassword.trim() === '') throw new Error('new password is empty')
 
@@ -186,18 +213,18 @@ export const logic = {
             })
     },
 
-    modifyUserUsername: function (username) {
-        if (username.trim() === '') throw new Error('username is empty')
-            
+    modifyUserAvatar: function (avatar) {
+        if (avatar.trim() === '') throw new Error('avatar is empty')
+
         const userId = data.getLoggedInUserId()
 
-        return fetch(`http://localhost:3000/users/${userId}/username`, {
+        return fetch(`http://localhost:3000/users/${userId}/avatar`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                username
+                avatar
             })
         })
             .catch(error => {

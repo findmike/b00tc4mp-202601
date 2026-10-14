@@ -1,5 +1,4 @@
-import { logic } from './logic.js'
-import { data } from './data.js'
+import { logic } from './logic.js'  
 import mongoose from 'mongoose'
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
@@ -78,6 +77,16 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
         // .catch(error => {
         //     console.error('Error modifying user password:', error.message)
         // })
+
+        // PROBE: modify user avatar
+
+        // logic.modifyUserAvatar('6ac7acd7cb0685e9345ebc3c', 'https://cdn.dribbble.com/userupload/31175424/file/original-34d913217560cd70736dc35f5d8c8272.png')
+        //     .then(() => {
+        //         console.log('User avatar modified successfully')
+        //     })
+        //     .catch(error => {
+        //         console.error('Error modifying user avatar:', error.message)
+        //     })
 
         // PROBE 9: delete user
 

@@ -139,6 +139,21 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 });
         })
 
+        // MODIFY USER AVATAR
+
+        server.patch('/users/:userId/avatar', jsonBodyParser, (req, res) => {
+            const userId = req.params.userId
+            const avatar = req.body.avatar
+
+            logic.modifyUserAvatar(userId, avatar)
+                .then(() => {
+                    res.status(200).json({ success: true, message: 'User avatar modified successfully' });
+                })
+                .catch(error => {
+                    res.status(400).json({ success: false, message: error.message });
+                });
+        });
+
         // DELETE USER (DELETE REQUEST) = comentar duda con el params y el body!
 
         server.delete('/users/:userId', jsonBodyParser, (req, res) => {

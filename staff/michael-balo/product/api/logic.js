@@ -1,5 +1,3 @@
-import { data } from './data.js'
-
 import { User } from './data/index.js'
 
 export const logic = {
@@ -126,6 +124,21 @@ export const logic = {
 
                 return User.findByIdAndUpdate(userId, { password: newPassword })
                     .catch(error => { throw new Error('Error updating user password: ' + error.message) })
+                    .then(() => { })
+            })
+    },
+
+    modifyUserAvatar: function (userId, avatar) {
+        if (userId.trim() === '') throw new Error('userId is empty')
+        if (avatar.trim() === '') throw new Error('avatar is empty')
+
+        return User.findById(userId)
+            .catch(error => { throw new Error('Error finding user by ID: ' + error.message) })
+            .then(user => {
+                if (!user) throw new Error('user not found')
+
+                return User.findByIdAndUpdate(userId, { avatar: avatar })
+                    .catch(error => { throw new Error('Error updating user avatar: ' + error.message) })
                     .then(() => { })
             })
     },

@@ -41,6 +41,7 @@ export function HomeView({ onProfileClicked, onLogoutClicked }) {
         <header className="flex flex-col items-center">
             <img className="logo" src="https://cdn.prod.website-files.com/624ac40503a527cf47af4192/659ba59520d886f0cb86d3ba_ai-logo-generator-4.png" /> <h1 className="title-app" style={{ display: "inline-block" }}>App</h1>
             <h1>Hello, {name}!</h1>
+            <img className="logo" src="https://www.godaddy.com/resources/es/wp-content/uploads/sites/9/2024/11/logo-manzana-con-ia.jpg?size=1024x1024" />
         </header>
         <div className="flex flex-col items-start">
             <a className="link" href="" onClick={handleProfileClick}>Profile</a>

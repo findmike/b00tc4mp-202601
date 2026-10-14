@@ -10,7 +10,7 @@ export function ProfileView({ onHomeClicked }) {
         onHomeClicked()
     }
 
-    const handleProfileNameSubmit = event => {
+    const handleNameSubmit = event => {
         event.preventDefault()
 
         const name = event.target.name.value
@@ -29,7 +29,7 @@ export function ProfileView({ onHomeClicked }) {
         }
     }
 
-    const handleProfileEmailSubmit = event => {
+    const handleEmailSubmit = event => {
         event.preventDefault()
 
         const email = event.target.email.value
@@ -48,7 +48,7 @@ export function ProfileView({ onHomeClicked }) {
         }
     }
 
-    const handleProfileUsernameSubmit = event => {
+    const handleUsernameSubmit = event => {
         event.preventDefault()
 
         const username = event.target.username.value
@@ -68,7 +68,7 @@ export function ProfileView({ onHomeClicked }) {
         }
     }
 
-    const handleProfilePasswordsSubmit = event => {
+    const handlePasswordsSubmit = event => {
         event.preventDefault()
 
         const password = event.target.password.value
@@ -89,6 +89,25 @@ export function ProfileView({ onHomeClicked }) {
         }
     }
 
+    const handleAvatarSubmit = event => {
+        event.preventDefault()
+
+        const avatar = event.target.avatar.value
+
+        try {
+            logic.modifyUserAvatar(avatar)
+                .then(() => {
+                    event.target.reset()
+                    setFeedback('User avatar successfully updated')
+                })
+                .catch(error => {
+                    setFeedback(error.message)
+                })
+        } catch {
+            setFeedback(error.message)
+        }
+    }
+
     // COMO SE HARIA EL FORMULARIO DE REPEAT PASSWORD SI ESTÁ DENTRO DEL MISMO DE PASSWORD?
     return <div>
         <header className="flex flex-col items-center">
@@ -99,25 +118,25 @@ export function ProfileView({ onHomeClicked }) {
 
         <a className="link" href="" onClick={handleHomeClick}>Home</a>
 
-        <form className="form" onSubmit={handleProfileNameSubmit}>
+        <form className="form" onSubmit={handleNameSubmit}>
             <label className="label" htmlFor="name">Name</label>
             <input className="input" id="name" placeholder="Name" />
             <button className="btn-form" type="submit">Update name</button>
         </form>
 
-        <form className="form" onSubmit={handleProfileEmailSubmit}>
+        <form className="form" onSubmit={handleEmailSubmit}>
             <label className="label" htmlFor="email">Email</label>
             <input className="input" id="email" placeholder="Email" />
             <button className="btn-form" type="submit">Update email</button>
         </form>
 
-        <form className="form" onSubmit={handleProfileUsernameSubmit}>
+        <form className="form" onSubmit={handleUsernameSubmit}>
             <label className="label" htmlFor="username">Username</label>
             <input className="input" id="username" placeholder="Username" />
             <button className="btn-form" type="submit">Update username</button>
         </form>
 
-        <form className="form" onSubmit={handleProfilePasswordsSubmit}>
+        <form className="form" onSubmit={handlePasswordsSubmit}>
             <label className="label" htmlFor="password">Password</label>
             <input className="input" id="password" placeholder="Password" />
             <label className="label" htmlFor="newPassword">New Password</label>
@@ -125,6 +144,12 @@ export function ProfileView({ onHomeClicked }) {
             <label className="label" htmlFor="newPasswordRepeat">Repeat New Password</label>
             <input className="input" id="newPasswordRepeat" placeholder="Repeat new password" />
             <button className="btn-form" type="submit">Update password</button>
+        </form>
+
+         <form className="form" onSubmit={handleAvatarSubmit}>
+            <label className="label" htmlFor="avatar">Avatar</label>
+            <input className="input" id="avatar" placeholder="Avatar URL" />
+            <button className="btn-form" type="submit">Update avatar</button>
         </form>
 
         {feedback && <p className="feedback">{feedback}</p>}

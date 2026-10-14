@@ -52,6 +52,14 @@ export const data = {
         if (user) user.email = email 
     },
 
+     updateUserUsername: function(userId, username) {
+        const user = users.find(function (user) {
+            return user.id === userId
+        }) || null
+
+        if (user) user.username = username
+    },
+
     updateUserPassword: function (userId, newPassword) {
         const user = users.find(function (user) {
             return user.id === userId
@@ -60,11 +68,12 @@ export const data = {
         if (user) user.password = newPassword
     },
 
-    updateUserUsername: function(userId, username) {
+    updateUserAvatar: function (userId, avatar) {
         const user = users.find(function (user) {
             return user.id === userId
         }) || null
 
-        if (user) user.username = username
+        if (user) user.avatar = avatar
     }
+
 }
