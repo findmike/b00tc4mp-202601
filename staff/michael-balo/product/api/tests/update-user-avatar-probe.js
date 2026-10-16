@@ -1,10 +1,10 @@
-fetch('http://localhost:3000/users/6ac7b58ea07d8849e0a4c71d/avatar', {
+fetch('http://localhost:3000/users/6ad0f373b839371b772b162b/avatar', {
     method: 'PATCH',
     headers: {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        avatar: 'https://static.vecteezy.com/system/resources/previews/068/438/008/non_2x/ai-logo-icon-with-star-and-square-icons-artificial-intelligence-and-machine-learning-sign-tools-for-generate-from-the-text-vector.jpg'
+        avatar: 'https://i.etsystatic.com/38881100/r/il/0d08bc/4642496341/il_570xN.4642496341_8mof.jpg'
     })
 })
 

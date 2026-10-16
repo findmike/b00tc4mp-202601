@@ -1,4 +1,4 @@
-import { User } from './data/index.js'
+import { User, Memo } from './data/index.js'
 
 export const logic = {
     registerUser: function (name, email, username, password, passwordRepeat) {
@@ -59,6 +59,19 @@ export const logic = {
 
                 return user.name
             })
+    },
+
+    getUserAvatar: function (userId) {
+        if (userId.trim() === '') throw new Error('userId is empty')
+
+        return User.findById(userId)
+            .catch(error => { throw new Error('Error finding user by ID: ' + error.message) })
+            .then(user => {
+                if (!user) throw new Error('user not found')
+
+                return user.avatar
+            })
+
     },
 
     modifyUserName: function (userId, name) {
@@ -160,4 +173,25 @@ export const logic = {
             })
 
     },
+
+    addMemo: function (userId, subject, body) {
+        if (userId.trim() === '') throw new Error('userId is empty')
+        if (subject.trim() === '') throw new Error('subject is empty')
+        if (body.trim() === '') throw new Error('body is empty')
+
+        return User.findById(userId)
+            .catch(error => { throw new Error('Error finding user by ID: ' + error.message) })
+            .then(user => {
+                if (!user) throw new Error('user not found')
+
+                return Memo.create({
+                    user: userId,
+                    subject: subject,
+                    body: body
+                })
+                    .catch(error => { throw new Error('Error creating memo: ' + error.message) })
+                    .then(() => { })
+            })
+
+    }
 }

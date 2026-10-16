@@ -2,8 +2,8 @@ import express from 'express'
 import cors from "cors"
 import mongoose from 'mongoose'
 
- import { logic } from './logic.js'
- 
+import { logic } from './logic.js'
+
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
 
@@ -39,8 +39,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         server.post('/users', jsonBodyParser, (req, res) => {
             const newUser = req.body;
+            const { name, email, username, password, passwordRepeat } = newUser;
 
-            logic.registerUser(newUser.name, newUser.email, newUser.username, newUser.password, newUser.passwordRepeat)
+            logic.registerUser(name, email, username, password, passwordRepeat)
                 .then(() => {
                     res.status(201).json({ success: true, message: 'User created successfully' });
                 })
@@ -73,6 +74,20 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
             logic.getUserName(userId)
                 .then(userName => {
                     res.status(200).json({ success: true, userName: userName });
+                })
+                .catch(error => {
+                    res.status(400).json({ success: false, message: error.message });
+                });
+        });
+
+        // GET USER AVATAR (GET REQUEST)
+
+        server.get('/users/:userId/avatar', (req, res) => {
+            const userId = req.params.userId
+
+            logic.getUserAvatar(userId)
+                .then(avatar => {
+                    res.status(200).json({ success: true, avatar: avatar });
                 })
                 .catch(error => {
                     res.status(400).json({ success: false, message: error.message });
@@ -168,6 +183,21 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                     res.status(400).json({ success: false, message: error.message });
                 });
 
+        })
+
+        // CREATE NEW MEMO (POST REQUEST)
+
+        server.post('/users/:userId/memos', jsonBodyParser, (req, res) => {
+            const userId = req.params.userId
+            const { subject, body } = req.body
+
+            logic.addMemo(userId, subject, body)
+                .then(() => {
+                    res.status(201).json({ success: true, message: 'Memo created successfully' });
+                })
+                .catch(error => {
+                    res.status(400).json({ success: false, message: error.message });
+                });
         })
 
         server.listen(3000, () => {

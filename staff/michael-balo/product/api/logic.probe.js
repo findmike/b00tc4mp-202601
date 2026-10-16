@@ -1,4 +1,4 @@
-import { logic } from './logic.js'  
+import { logic } from './logic.js'
 import mongoose from 'mongoose'
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
@@ -98,4 +98,13 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
         //         console.error('Error deleting user:', error.message)
         //     })
 
+        // PROBE 10: create memo
+
+        logic.addMemo('6ad0f373b839371b772b162b', 'Study JavaScript', 'Learn about promises)')
+            .then(() => {
+                console.log('Memo created successfully')
+            })
+            .catch(error => {
+                console.error('Error creating memo:', error.message)
+            })
     })

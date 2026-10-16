@@ -4,11 +4,11 @@ fetch('http://localhost:3000/users', {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        name: 'Julian',
-        email: 'julian@example.com',
-        username: 'julian123',
-        password: '333444',
-        passwordRepeat: '333444'
+        name: 'Lucia',
+        email: 'lucia@example.com',
+        username: 'Luuu',
+        password: 'Lucia111',
+        passwordRepeat: 'Lucia111'
     })
 })
 

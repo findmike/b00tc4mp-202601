@@ -96,6 +96,29 @@ export const logic = {
             })
     },
 
+    getLoggedInUserAvatar: function () {
+        const userId = data.getLoggedInUserId()
+
+        return fetch(`http://localhost:3000/users/${userId}/avatar`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .catch(error => {
+                throw new Error(error.message);
+            })
+            .then(response => {
+                if (response.ok) return response.json()
+                    .then(body => body.avatar)
+
+                return response.json()
+                    .then(body => {
+                        throw new Error(body.message)
+                    })
+            })
+    },
+
     logoutUser: function () {
         data.setLoggedInUserId(null)
     },
