@@ -153,7 +153,7 @@ export const logic = {
     },
 
     modifyUserEmail: function (email) {
-          if (email.trim() === '') throw new Error('email is empty')
+        if (email.trim() === '') throw new Error('email is empty')
 
         const userId = data.getLoggedInUserId()
 
@@ -181,7 +181,7 @@ export const logic = {
 
     modifyUserUsername: function (username) {
         if (username.trim() === '') throw new Error('username is empty')
-            
+
         const userId = data.getLoggedInUserId()
 
         return fetch(`http://localhost:3000/users/${userId}/username`, {
@@ -206,7 +206,7 @@ export const logic = {
             })
     },
 
-      modifyUserPassword: function (password, newPassword, newPasswordRepeat) {
+    modifyUserPassword: function (password, newPassword, newPasswordRepeat) {
         if (newPassword !== newPasswordRepeat) throw new Error('new passwords do not match')
         if (newPassword.trim() === '') throw new Error('new password is empty')
 
@@ -261,6 +261,90 @@ export const logic = {
                         throw new Error(body.message)
                     })
             })
+    },
+
+    addMemo: function (subject, body) {
+        if (subject.trim() === '') throw new Error('subject is empty')
+        if (body.trim() === '') throw new Error('body is empty')
+
+        const userId = data.getLoggedInUserId()
+
+        return fetch(`http://localhost:3000/users/${userId}/memos`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                subject,
+                body
+            })
+        })
+            .catch(error => {
+                throw new Error(error.message);
+            })
+
+            .then(response => {
+                if (response.ok) return
+
+                return response.json()
+                    .then(body => {
+                        throw new Error(body.message)
+                    })
+            })
+    },
+
+    getMemos: function () {
+        const userId = data.getLoggedInUserId()
+
+        return fetch(`http://localhost:3000/users/${userId}/memos`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .catch(error => {
+                throw new Error(error.message);
+            })
+
+            .then(response => {
+                if (response.ok) return response.json()
+                    .then(body => body.memos)
+
+                return response.json()
+                    .then(body => {
+                        throw new Error(body.message)
+                    })
+            })
+    },
+
+    modifyMemo: function (memoId, subject, body) {
+        if (subject.trim() === '') throw new Error('subject is empty')
+        if (body.trim() === '') throw new Error('body is empty')
+
+        const userId = data.getLoggedInUserId()
+
+        return fetch(`http://localhost:3000/users/${userId}/memos/${memoId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                subject,
+                body
+            })
+        })
+            .catch(error => {
+                throw new Error(error.message);
+            })
+            .then(response => {
+                if (response.ok) return
+
+                return response.json()
+                    .then(body => {
+                        throw new Error(body)
+                    })
+            })
     }
+
 
 }

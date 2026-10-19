@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { LandingView, LoginView, RegisterView, HomeView, ProfileView } from './views/index'
+import { LandingView, LoginView, RegisterView, HomeView, ProfileView, AddMemoView, EditMemoView } from './views/index'
 
 export function App() {
     const viewState = useState('landing')
@@ -30,8 +30,16 @@ export function App() {
         setView('landing')
     }
 
-    function handleHomeClicked () {
+    function handleHomeClicked() {
         setView('home')
+    }
+
+    function handleAddMemoClicked() {
+        setView('add-memo')
+    }
+
+    function handleEditMemoClicked() {
+        setView('edit-memo')
     }
 
     if (view === 'landing')
@@ -41,7 +49,12 @@ export function App() {
     else if (view === 'register')
         return <RegisterView onLoginClicked={handleLoginClicked} onUserRegistered={handleUserRegistered} />
     else if (view === 'home')
-        return <HomeView onProfileClicked={handleProfileClicked} onLogoutClicked={handleLogoutClicked} />
+        return <HomeView onProfileClicked={handleProfileClicked} onAddMemoClicked={handleAddMemoClicked} onLogoutClicked={handleLogoutClicked} />
+    else if (view === 'add-memo')
+        return <AddMemoView onHomeClicked={handleHomeClicked} />
+    else if (view === 'edit-memo')
+        return <EditMemoView onHomeClicked={handleHomeClicked} />
     else if (view === 'profile')
         return <ProfileView onHomeClicked={handleHomeClicked} />
+
 }

@@ -200,6 +200,36 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 });
         })
 
+        // GET USER MEMOS (GET REQUEST)
+
+        server.get('/users/:userId/memos', (req, res) => {
+            const userId = req.params.userId
+
+            logic.getMemos(userId)
+                .then(memos => {
+                    res.status(200).json({ success: true, memos: memos });
+                })
+                .catch(error => {
+                    res.status(400).json({ success: false, message: error.message });
+                });
+        })
+
+        // MODIFY MEMO (PATCH REQUEST)
+
+        server.patch('/users/:userId/memos/:memoId', jsonBodyParser, (req, res) => {
+            const userId = req.params.userId
+            const memoId = req.params.memoId
+            const { subject, body } = req.body
+
+            logic.modifyMemo(userId, memoId, subject, body)
+                .then(() => {
+                    res.status(200).json({ success: true, message: 'Memo modified successfully' });
+                })
+                .catch(error => {
+                    res.status(400).json({ success: false, message: error.message });
+                });
+        })
+
         server.listen(3000, () => {
             console.log('Server is running on port 3000');
         });

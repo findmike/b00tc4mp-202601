@@ -108,7 +108,6 @@ export function ProfileView({ onHomeClicked }) {
         }
     }
 
-    // COMO SE HARIA EL FORMULARIO DE REPEAT PASSWORD SI ESTÁ DENTRO DEL MISMO DE PASSWORD?
     return <div>
         <header className="flex flex-col items-center">
             <img className="logo" src="https://cdn.prod.website-files.com/624ac40503a527cf47af4192/659ba59520d886f0cb86d3ba_ai-logo-generator-4.png" /> <h1 className="title-app" style={{ display: "inline-block" }}>App</h1>

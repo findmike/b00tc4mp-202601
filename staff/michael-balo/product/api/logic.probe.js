@@ -100,11 +100,31 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // PROBE 10: create memo
 
-        logic.addMemo('6ad0f373b839371b772b162b', 'Study JavaScript', 'Learn about promises)')
+        // logic.addMemo('6ad0f373b839371b772b162b', 'Study JavaScript', 'Learn about promises)')
+        //     .then(() => {
+        //         console.log('Memo created successfully')
+        //     })
+        //     .catch(error => {
+        //         console.error('Error creating memo:', error.message)
+        //     })
+
+        // PROBE 11: get memos
+
+        // logic.getMemos('6ad0f39cb839371b772b162c')
+        //     .then(memos => {
+        //         console.log('Memos retrieved successfully:', memos)
+        //     })
+        //     .catch(error => {
+        //         console.error('Error retrieving memos:', error.message)
+        //     })
+
+        // PROBE 12: modify memo
+
+        logic.modifyMemo('6ad0f39cb839371b772b162c', '6ad21a92acf2f78e495c9128', 'Buy Coffee', 'Need to buy some for the office')
             .then(() => {
-                console.log('Memo created successfully')
+                console.log('Memo modified successfully')
             })
             .catch(error => {
-                console.error('Error creating memo:', error.message)
+                console.error('Error modifying memo:', error.message)
             })
     })

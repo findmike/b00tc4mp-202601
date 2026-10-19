@@ -193,5 +193,43 @@ export const logic = {
                     .then(() => { })
             })
 
+    },
+
+    getMemos: function (userId) {
+        if (userId.trim() === '') throw new Error('userId is empty')
+
+        return User.findById(userId)
+            .catch(error => { throw new Error('Error finding user by ID: ' + error.message) })
+            .then(user => {
+                if (!user) throw new Error('user not found')
+
+                return Memo.find({ user: userId })
+                    .catch(error => { throw new Error('Error finding memos: ' + error.message) })
+                    .then(memos => memos)
+            })
+    },
+
+    modifyMemo: function (userId, memoId, subject, body) {
+        if (userId.trim() === '') throw new Error('userId is empty')
+        if (memoId.trim() === '') throw new Error('memoId is empty')
+        if (subject.trim() === '') throw new Error('subject is empty')
+        if (body.trim() === '') throw new Error('body is empty')
+
+        return User.findById(userId)
+            .catch(error => { throw new Error('Error finding user by ID: ' + error.message) })
+            .then(user => {
+                if (!user) throw new Error('user not found')
+
+                return Memo.findOne({ _id: memoId, user: userId })
+                    .catch(error => { throw new Error('Error finding memo: ' + error.message) })
+                    .then(memo => {
+                        if (!memo) throw new Error('memo not found')
+
+                        return Memo.findByIdAndUpdate(memoId, { subject: subject, body: body })
+                            .catch(error => { throw new Error('Error updating memo: ' + error.message) })
+                            .then(() => { })
+                    })
+            })
     }
+
 }

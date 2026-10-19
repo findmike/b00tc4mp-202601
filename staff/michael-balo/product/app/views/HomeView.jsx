@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import { logic } from '../logic'
 
-export function HomeView({ onProfileClicked, onLogoutClicked }) {
+export function HomeView({ onProfileClicked, onAddMemoClicked, onLogoutClicked }) {
     const [feedback, setFeedback] = useState('')
     const [name, setName] = useState('')
     const [avatar, setAvatar] = useState('')
+
+    const [memos, setMemos] = useState([])
 
     useEffect(() => {
         try {
@@ -15,7 +17,7 @@ export function HomeView({ onProfileClicked, onLogoutClicked }) {
                 .catch((error) => {
                     setFeedback(error.message)
                 })
-            
+
             logic.getLoggedInUserAvatar()
                 .then(avatar => {
                     setAvatar(avatar)
@@ -23,6 +25,15 @@ export function HomeView({ onProfileClicked, onLogoutClicked }) {
                 .catch((error) => {
                     setFeedback(error.message)
                 })
+
+            logic.getMemos()
+                .then(memos => {
+                    setMemos(memos)
+                })
+                .catch((error) => {
+                    setFeedback(error.message)
+                })
+
         } catch (error) {
             setFeedback(error.message)
         }
@@ -32,6 +43,12 @@ export function HomeView({ onProfileClicked, onLogoutClicked }) {
         event.preventDefault()
 
         onProfileClicked()
+    }
+
+    const handleAddMemoClick = event => {
+        event.preventDefault()
+
+        onAddMemoClicked()
     }
 
     const handleLogoutClick = event => {
@@ -52,12 +69,24 @@ export function HomeView({ onProfileClicked, onLogoutClicked }) {
             {name && <h1>Hello, {name}!</h1>}
             {avatar && <img className="logo" src={avatar} />}
         </header>
-        <div className="flex flex-col items-start">
+
+        <div className="flex items-start">
             <a className="link" href="" onClick={handleProfileClick}>Profile</a>
+            <button onClick={handleAddMemoClick}>➕</button>
 
             <button className="btn" type="submit" onClick={handleLogoutClick}>Logout</button>
         </div>
+
         {feedback && <p>{feedback}</p>}
+
+        <section> {memos.map(memo =>
+            <article>
+                <h2>{memo.subject}</h2>
+                <p>{memo.body}</p>
+                <button>✏️</button>
+            </article>
+        )} </section>
+
     </div>
 
 }
