@@ -35,9 +35,9 @@ export function AddMemoView({ onHomeClicked }) {
             <img className="logo" src="https://cdn.prod.website-files.com/624ac40503a527cf47af4192/659ba59520d886f0cb86d3ba_ai-logo-generator-4.png" /> <h1 className="title-app" style={{ display: "inline-block" }}>App</h1>
         </header>
 
-        <h2>Add Memo</h2>
+        <h2 className="text-white">Add Memo</h2>
         
-        <button className="button" onClick={handleHomeClick}>Home</button>
+        <a className="link" onClick={handleHomeClick}>Home</a>
 
         <form className="form" onSubmit={handleAddMemoSubmit}>
             <label className="label" htmlFor="subject">Subject</label>
@@ -46,7 +46,7 @@ export function AddMemoView({ onHomeClicked }) {
             <label className="label" htmlFor="body">Content</label>
             <input className="input" id="body" placeholder="Content" />
 
-            <button className="button" type="submit">Add Memo</button>
+            <button className="button" type="submit">Update</button>
         </form>
 
         {feedback && <p className="feedback">{feedback}</p>}

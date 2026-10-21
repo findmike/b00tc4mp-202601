@@ -209,6 +209,25 @@ export const logic = {
             })
     },
 
+    getMemo: function (userId, memoId) {
+        if (userId.trim() === '') throw new Error('userId is empty')
+        if (memoId.trim() === '') throw new Error('memoId is empty')
+
+        return User.findById(userId)
+            .catch(error => { throw new Error('Error finding user by ID: ' + error.message) })
+            .then(user => {
+                if (!user) throw new Error('user not found')
+
+                return Memo.findOne({ _id: memoId, user: userId })
+                    .catch(error => { throw new Error('Error finding memo: ' + error.message) })
+                    .then(memo => {
+                        if (!memo) throw new Error('memo not found')
+
+                        return memo
+                    })
+            })
+    },
+
     modifyMemo: function (userId, memoId, subject, body) {
         if (userId.trim() === '') throw new Error('userId is empty')
         if (memoId.trim() === '') throw new Error('memoId is empty')

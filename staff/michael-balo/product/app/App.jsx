@@ -6,6 +6,8 @@ export function App() {
     const view = viewState[0]
     const setView = viewState[1]
 
+    const [editingMemoId, setEditingMemoId] = useState(null) //almacena el ID de la memo seleccionada
+
     function handleLoginClicked() {
         setView('login')
     }
@@ -31,6 +33,7 @@ export function App() {
     }
 
     function handleHomeClicked() {
+        setEditingMemoId(null) // esto limpia el ID del memo cuando vuelves a home
         setView('home')
     }
 
@@ -38,7 +41,8 @@ export function App() {
         setView('add-memo')
     }
 
-    function handleEditMemoClicked() {
+    function handleEditMemoClicked(memoId) {
+        setEditingMemoId(memoId)
         setView('edit-memo')
     }
 
@@ -49,11 +53,11 @@ export function App() {
     else if (view === 'register')
         return <RegisterView onLoginClicked={handleLoginClicked} onUserRegistered={handleUserRegistered} />
     else if (view === 'home')
-        return <HomeView onProfileClicked={handleProfileClicked} onAddMemoClicked={handleAddMemoClicked} onLogoutClicked={handleLogoutClicked} />
+        return <HomeView onProfileClicked={handleProfileClicked} onAddMemoClicked={handleAddMemoClicked} onEditMemoClicked={handleEditMemoClicked} onLogoutClicked={handleLogoutClicked} />
     else if (view === 'add-memo')
         return <AddMemoView onHomeClicked={handleHomeClicked} />
     else if (view === 'edit-memo')
-        return <EditMemoView onHomeClicked={handleHomeClicked} />
+        return <EditMemoView onHomeClicked={handleHomeClicked} memoId={editingMemoId} />
     else if (view === 'profile')
         return <ProfileView onHomeClicked={handleHomeClicked} />
 

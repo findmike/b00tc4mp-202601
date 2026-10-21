@@ -113,7 +113,7 @@ export function ProfileView({ onHomeClicked }) {
             <img className="logo" src="https://cdn.prod.website-files.com/624ac40503a527cf47af4192/659ba59520d886f0cb86d3ba_ai-logo-generator-4.png" /> <h1 className="title-app" style={{ display: "inline-block" }}>App</h1>
         </header>
 
-        <h2>Profile</h2>
+        <h2 className="text-white">Profile</h2>
 
         <a className="link" href="" onClick={handleHomeClick}>Home</a>
 

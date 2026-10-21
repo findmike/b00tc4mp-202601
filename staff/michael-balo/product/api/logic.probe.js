@@ -120,11 +120,21 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // PROBE 12: modify memo
 
-        logic.modifyMemo('6ad0f39cb839371b772b162c', '6ad21a92acf2f78e495c9128', 'Buy Coffee', 'Need to buy some for the office')
-            .then(() => {
-                console.log('Memo modified successfully')
+        // logic.modifyMemo('6ad0f39cb839371b772b162c', '6ad21a92acf2f78e495c9128', 'Buy Coffee', 'Need to buy some for the office')
+        //     .then(() => {
+        //         console.log('Memo modified successfully')
+        //     })
+        //     .catch(error => {
+        //         console.error('Error modifying memo:', error.message)
+        //     })
+
+        // PROBE 13: GET ONLY 1 MEMO
+
+        logic.getMemo('6ad0f373b839371b772b162b', '6ad60d5e9495866c5fdaa8e7')
+            .then(memo => {
+                console.log('Memo retrieved successfully', memo)
             })
             .catch(error => {
-                console.error('Error modifying memo:', error.message)
+                console.error('Error retrieving memo')
             })
     })

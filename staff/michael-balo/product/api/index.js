@@ -214,6 +214,21 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 });
         })
 
+        //GET ONLY 1 MEMO FROM THE USER (GET REQUEST)
+
+        server.get('/users/:userId/memos/:memoId', jsonBodyParser, (req, res) => {
+            const userId = req.params.userId
+            const memoId = req.params.memoId
+
+            logic.getMemo(userId, memoId)
+                .then(memo => {
+                    res.status(200).json({ success: true, memo: memo });
+                })
+                .catch(error => {
+                    res.status(400).json({ success: false, message: error.message });
+                });
+        })
+
         // MODIFY MEMO (PATCH REQUEST)
 
         server.patch('/users/:userId/memos/:memoId', jsonBodyParser, (req, res) => {

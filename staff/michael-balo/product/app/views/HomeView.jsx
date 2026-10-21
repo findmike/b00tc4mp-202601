@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { logic } from '../logic'
 
-export function HomeView({ onProfileClicked, onAddMemoClicked, onLogoutClicked }) {
+export function HomeView({ onProfileClicked, onAddMemoClicked, onEditMemoClicked, onLogoutClicked }) {
     const [feedback, setFeedback] = useState('')
     const [name, setName] = useState('')
     const [avatar, setAvatar] = useState('')
@@ -51,6 +51,12 @@ export function HomeView({ onProfileClicked, onAddMemoClicked, onLogoutClicked }
         onAddMemoClicked()
     }
 
+    const handleEditMemoClick = (event, memoId) => {
+        event.preventDefault()
+
+        onEditMemoClicked(memoId)
+    }
+
     const handleLogoutClick = event => {
         event.preventDefault()
 
@@ -70,22 +76,32 @@ export function HomeView({ onProfileClicked, onAddMemoClicked, onLogoutClicked }
             {avatar && <img className="logo" src={avatar} />}
         </header>
 
-        <div className="flex items-start">
+        <h2 className="flex w-full items-center justify-between px-6 py-4 text-white">Home</h2>
+
+        <div className="flex w-full items-center justify-between px-6 py-4">
             <a className="link" href="" onClick={handleProfileClick}>Profile</a>
-            <button onClick={handleAddMemoClick}>➕</button>
+
+            <button className="bg-[rgb(243,140,6)] text-[rgb(248,4,216)] font-[Changa_One] shadow-[0_4px_10px_rgba(248,4,216,0.925)] border-[rgb(243,140,6)] border px-2 leading-loose inline-block rounded-full" type="button" onClick={handleAddMemoClick}>➕</button>
 
             <button className="btn" type="submit" onClick={handleLogoutClick}>Logout</button>
         </div>
 
         {feedback && <p>{feedback}</p>}
 
-        <section> {memos.map(memo =>
-            <article>
-                <h2>{memo.subject}</h2>
-                <p>{memo.body}</p>
-                <button>✏️</button>
-            </article>
-        )} </section>
+        <section className="flex flex-col items-center w-full">
+            {memos.map(memo =>
+                <article key={memo._id} className="flex items-center justify-between w-full p-4 border-b">
+
+                    <div>
+                        <h2>{memo.subject}</h2>
+                        <p>{memo.body}</p>
+                    </div>
+
+                    <button onClick={(event) => handleEditMemoClick(event, memo._id)}>✏️</button>
+                    <button>🗑️</button>
+
+                </article>
+            )} </section>
 
     </div>
 

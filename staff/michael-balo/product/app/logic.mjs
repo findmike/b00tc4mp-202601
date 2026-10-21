@@ -317,6 +317,30 @@ export const logic = {
             })
     },
 
+    getMemo: function (memoId) {
+        const userId = data.getLoggedInUserId()
+
+        return fetch(`http://localhost:3000/users/${userId}/memos/${memoId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .catch(error => {
+                throw new Error(error.message);
+            })
+
+            .then(response => {
+                if (response.ok) return response.json()
+                    .then(body => body.memo)
+
+                return response.json()
+                    .then(body => {
+                        throw new Error(body.message)
+                    })
+            })
+    },
+
     modifyMemo: function (memoId, subject, body) {
         if (subject.trim() === '') throw new Error('subject is empty')
         if (body.trim() === '') throw new Error('body is empty')
