@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { LandingView, LoginView, RegisterView, HomeView, ProfileView, AddMemoView, EditMemoView } from './views/index'
+import { LandingView, LoginView, RegisterView, HomeView, ProfileView, AddMemoView, EditMemoView, DeleteMemoView } from './views/index'
 
 export function App() {
     const viewState = useState('landing')
@@ -7,6 +7,7 @@ export function App() {
     const setView = viewState[1]
 
     const [editingMemoId, setEditingMemoId] = useState(null) //almacena el ID de la memo seleccionada
+    const [deletingMemoId, setDeletingMemoId] = useState(null)
 
     function handleLoginClicked() {
         setView('login')
@@ -34,6 +35,7 @@ export function App() {
 
     function handleHomeClicked() {
         setEditingMemoId(null) // esto limpia el ID del memo cuando vuelves a home
+        setDeletingMemoId(null) // '' ... ''
         setView('home')
     }
 
@@ -46,6 +48,16 @@ export function App() {
         setView('edit-memo')
     }
 
+    function handleDeleteMemoClicked(memoId) {
+        setDeletingMemoId(memoId)
+        setView('delete-memo')
+    }
+
+    function handleMemoDeleted() {
+        setDeletingMemoId(null)
+        setView('home')
+    }
+
     if (view === 'landing')
         return <LandingView onLoginClicked={handleLoginClicked} onRegisterClicked={handleRegisterClicked} />
     else if (view === 'login')
@@ -53,11 +65,13 @@ export function App() {
     else if (view === 'register')
         return <RegisterView onLoginClicked={handleLoginClicked} onUserRegistered={handleUserRegistered} />
     else if (view === 'home')
-        return <HomeView onProfileClicked={handleProfileClicked} onAddMemoClicked={handleAddMemoClicked} onEditMemoClicked={handleEditMemoClicked} onLogoutClicked={handleLogoutClicked} />
+        return <HomeView onProfileClicked={handleProfileClicked} onAddMemoClicked={handleAddMemoClicked} onEditMemoClicked={handleEditMemoClicked} onDeleteMemoClicked={handleDeleteMemoClicked} onLogoutClicked={handleLogoutClicked} />
     else if (view === 'add-memo')
         return <AddMemoView onHomeClicked={handleHomeClicked} />
     else if (view === 'edit-memo')
         return <EditMemoView onHomeClicked={handleHomeClicked} memoId={editingMemoId} />
+    else if (view === 'delete-memo')
+        return <DeleteMemoView onHomeClicked={handleHomeClicked} memoId={deletingMemoId} onMemoDeleted={handleMemoDeleted} />
     else if (view === 'profile')
         return <ProfileView onHomeClicked={handleHomeClicked} />
 

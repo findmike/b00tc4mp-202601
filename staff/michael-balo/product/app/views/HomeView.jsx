@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { logic } from '../logic'
 
-export function HomeView({ onProfileClicked, onAddMemoClicked, onEditMemoClicked, onLogoutClicked }) {
+export function HomeView({ onProfileClicked, onAddMemoClicked, onEditMemoClicked, onDeleteMemoClicked, onLogoutClicked }) {
     const [feedback, setFeedback] = useState('')
     const [name, setName] = useState('')
     const [avatar, setAvatar] = useState('')
@@ -33,7 +33,6 @@ export function HomeView({ onProfileClicked, onAddMemoClicked, onEditMemoClicked
                 .catch((error) => {
                     setFeedback(error.message)
                 })
-
         } catch (error) {
             setFeedback(error.message)
         }
@@ -55,6 +54,12 @@ export function HomeView({ onProfileClicked, onAddMemoClicked, onEditMemoClicked
         event.preventDefault()
 
         onEditMemoClicked(memoId)
+    }
+
+    const handleDeleteMemoClick = (event, memoId) => {
+        event.preventDefault()
+
+        onDeleteMemoClicked(memoId)
     }
 
     const handleLogoutClick = event => {
@@ -81,9 +86,9 @@ export function HomeView({ onProfileClicked, onAddMemoClicked, onEditMemoClicked
         <div className="flex w-full items-center justify-between px-6 py-4">
             <a className="link" href="" onClick={handleProfileClick}>Profile</a>
 
-            <button className="bg-[rgb(243,140,6)] text-[rgb(248,4,216)] font-[Changa_One] shadow-[0_4px_10px_rgba(248,4,216,0.925)] border-[rgb(243,140,6)] border px-2 leading-loose inline-block rounded-full" type="button" onClick={handleAddMemoClick}>➕</button>
+            <button className="bg-[rgb(243,140,6)] text-[rgb(248,4,216)] font-[Changa_One] shadow-[0_4px_10px_rgba(248,4,216,0.925)] border-[rgb(243,140,6)] border px-2 leading-loose inline-block rounded-full cursor-pointer" type="button" onClick={handleAddMemoClick}>➕</button>
 
-            <button className="btn" type="submit" onClick={handleLogoutClick}>Logout</button>
+            <button className="btn cursor-pointer" type="submit" onClick={handleLogoutClick}>Logout</button>
         </div>
 
         {feedback && <p>{feedback}</p>}
@@ -97,8 +102,10 @@ export function HomeView({ onProfileClicked, onAddMemoClicked, onEditMemoClicked
                         <p>{memo.body}</p>
                     </div>
 
-                    <button onClick={(event) => handleEditMemoClick(event, memo._id)}>✏️</button>
-                    <button>🗑️</button>
+                    <div className="flex flex-col items-end gap-3">
+                        <button className="cursor-pointer" type="button" onClick={(event) => handleEditMemoClick(event, memo._id)}>✏️</button>
+                        <button className="cursor-pointer" type="button" onClick={(event) => handleDeleteMemoClick(event, memo._id)}>🗑️</button>
+                    </div>
 
                 </article>
             )} </section>

@@ -37,7 +37,7 @@ export function AddMemoView({ onHomeClicked }) {
 
         <h2 className="text-white">Add Memo</h2>
         
-        <a className="link" onClick={handleHomeClick}>Home</a>
+        <a className="link cursor-pointer mt-1.5 mb-1.5" onClick={handleHomeClick}>Home</a>
 
         <form className="form" onSubmit={handleAddMemoSubmit}>
             <label className="label" htmlFor="subject">Subject</label>
@@ -46,7 +46,7 @@ export function AddMemoView({ onHomeClicked }) {
             <label className="label" htmlFor="body">Content</label>
             <input className="input" id="body" placeholder="Content" />
 
-            <button className="button" type="submit">Update</button>
+            <button className="btn-form cursor-pointer" type="submit">Update Memo</button>
         </form>
 
         {feedback && <p className="feedback">{feedback}</p>}

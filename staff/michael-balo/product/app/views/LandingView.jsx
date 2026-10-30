@@ -26,7 +26,7 @@ export function LandingView({ onLoginClicked, onRegisterClicked }) {
             <img className="logo" src="https://cdn.prod.website-files.com/624ac40503a527cf47af4192/659ba59520d886f0cb86d3ba_ai-logo-generator-4.png" />  <h1 className="font-[UnifrakturMaguntia] text-[40px]" style={{ display: 'inline-block' }}>App</h1>
         </header>
 
-        <p>
+        <p className="flex justify-center items-center gap-2 mt-5">
             <a className="link" href="" onClick={handleLoginClick} >Login</a> or <a className="link" href="" onClick={handleRegisterClick}>Register</a>
         </p>
     </div>

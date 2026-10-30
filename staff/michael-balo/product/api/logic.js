@@ -1,4 +1,5 @@
 import { User, Memo } from './data/index.js'
+import { userSchema } from './data/userSchema.js'
 
 export const logic = {
     registerUser: function (name, email, username, password, passwordRepeat) {
@@ -247,6 +248,27 @@ export const logic = {
                         return Memo.findByIdAndUpdate(memoId, { subject: subject, body: body })
                             .catch(error => { throw new Error('Error updating memo: ' + error.message) })
                             .then(() => { })
+                    })
+            })
+    },
+
+    removeMemo: function (userId, memoId) {
+        if (userId.trim() === '') throw new Error('userId is empety')
+        if (memoId.trim() === '') throw new Error('memoId is empety')
+
+        return User.findById(userId)
+            .catch(error => { throw new Error('Error finding user by ID: ' + error.message) })
+            .then(user => {
+                if (!user) throw new Error('user not found')
+
+                return Memo.findOne({ _id: memoId, user: userId })
+                    .catch(error => { throw new Error('Error finding memo: ' + error.message) })
+                    .then(memo => {
+                        if (!memo) throw new Error('memo not found')
+
+                        return Memo.findByIdAndDelete(memoId)
+                        .catch(error =>{ throw new Error('Error deleting memo: ' + error.message)})
+                        .then(() => { })
                     })
             })
     }

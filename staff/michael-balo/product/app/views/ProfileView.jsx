@@ -115,24 +115,24 @@ export function ProfileView({ onHomeClicked }) {
 
         <h2 className="text-white">Profile</h2>
 
-        <a className="link" href="" onClick={handleHomeClick}>Home</a>
+        <a className="link mt-1.5 mb-1.5" href="" onClick={handleHomeClick}>Home</a>
 
         <form className="form" onSubmit={handleNameSubmit}>
             <label className="label" htmlFor="name">Name</label>
             <input className="input" id="name" placeholder="Name" />
-            <button className="btn-form" type="submit">Update name</button>
+            <button className="btn-form cursor-pointer" type="submit">Update name</button>
         </form>
 
         <form className="form" onSubmit={handleEmailSubmit}>
             <label className="label" htmlFor="email">Email</label>
             <input className="input" id="email" placeholder="Email" />
-            <button className="btn-form" type="submit">Update email</button>
+            <button className="btn-form cursor-pointer" type="submit">Update email</button>
         </form>
 
         <form className="form" onSubmit={handleUsernameSubmit}>
             <label className="label" htmlFor="username">Username</label>
             <input className="input" id="username" placeholder="Username" />
-            <button className="btn-form" type="submit">Update username</button>
+            <button className="btn-form cursor-pointer" type="submit">Update username</button>
         </form>
 
         <form className="form" onSubmit={handlePasswordsSubmit}>
@@ -142,13 +142,13 @@ export function ProfileView({ onHomeClicked }) {
             <input className="input" id="newPassword" placeholder="New password" />
             <label className="label" htmlFor="newPasswordRepeat">Repeat New Password</label>
             <input className="input" id="newPasswordRepeat" placeholder="Repeat new password" />
-            <button className="btn-form" type="submit">Update password</button>
+            <button className="btn-form cursor-pointer" type="submit">Update password</button>
         </form>
 
          <form className="form" onSubmit={handleAvatarSubmit}>
             <label className="label" htmlFor="avatar">Avatar</label>
             <input className="input" id="avatar" placeholder="Avatar URL" />
-            <button className="btn-form" type="submit">Update avatar</button>
+            <button className="btn-form cursor-pointer" type="submit">Update avatar</button>
         </form>
 
         {feedback && <p className="feedback">{feedback}</p>}

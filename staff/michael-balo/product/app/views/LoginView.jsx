@@ -36,7 +36,7 @@ export function LoginView({ onRegisterClicked, onUserLoggedIn }) {
             <img className="logo" src="https://cdn.prod.website-files.com/624ac40503a527cf47af4192/659ba59520d886f0cb86d3ba_ai-logo-generator-4.png" /> <h1 className="title-app" style={{ display: "inline-block" }}>App</h1>
         </header>
 
-        <h2>Login</h2>
+        <h2 className="text-white">Login</h2>
 
         <form className="form" onSubmit={handleLoginSubmit}>
             <label className="label" htmlFor="username">Username</label>
@@ -45,7 +45,7 @@ export function LoginView({ onRegisterClicked, onUserLoggedIn }) {
             <label className="label" htmlFor="password">Password</label>
             <input className="input" id="password" type='password' placeholder="Password" />
 
-            <button className="btn" type="submit">Login</button>
+            <button className="btn mt-2 cursor-pointer" type="submit">Login</button>
         </form>
 
         <a className="link" href="" onClick={handleRegisterClick} >Register</a>

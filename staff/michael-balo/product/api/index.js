@@ -245,6 +245,22 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 });
         })
 
+        // DELETE MEMO (DELETE REQUEST)
+
+        server.delete('/users/:userId/memos/:memoId', (req, res) => {
+            const userId = req.params.userId
+            const memoId = req.params.memoId
+
+            logic.removeMemo(userId, memoId)
+                .then(() => {
+                    res.status(200).json({ success: true, message: 'Memo deleted successfully' });
+                })
+                .catch(error => {
+                    res.status(400).json({ success: false, message: error.message });
+
+                });
+        })
+
         server.listen(3000, () => {
             console.log('Server is running on port 3000');
         });

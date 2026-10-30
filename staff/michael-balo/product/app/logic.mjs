@@ -368,7 +368,27 @@ export const logic = {
                         throw new Error(body)
                     })
             })
+    },
+
+    removeMemo: function (memoId) {
+        const userId = data.getLoggedInUserId()
+
+        return fetch(`http://localhost:3000/users/${userId}/memos/${memoId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .catch(error => {
+                throw new Error(error.message);
+            })
+            .then(response => {
+                if (response.ok) return
+
+                return response.json()
+                    .then(body => {
+                        throw new Error(body.message)
+                    })
+            })
     }
-
-
 }

@@ -128,13 +128,29 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
         //         console.error('Error modifying memo:', error.message)
         //     })
 
-        // PROBE 13: GET ONLY 1 MEMO
+        // // PROBE 13: GET ONLY 1 MEMO
 
-        logic.getMemo('6ad0f373b839371b772b162b', '6ad60d5e9495866c5fdaa8e7')
+        // logic.getMemo('6ad0f373b839371b772b162b', '6ad60d5e9495866c5fdaa8e7')
+        //     .then(memo => {
+        //         console.log('Memo retrieved successfully', memo)
+        //     })
+        //     .catch(error => {
+        //         console.error('Error retrieving memo')
+        //     })
+
+        // PROBE 14: DELETE MEMO BY ID
+
+        logic.removeMemo('6ad0f373b839371b772b162b', '6ad8ae8a4006c00eaea71588')
             .then(memo => {
-                console.log('Memo retrieved successfully', memo)
+                console.log('Memo deleted succesfully')
             })
             .catch(error => {
-                console.error('Error retrieving memo')
+                console.error('Error deleting memo')
             })
-    })
+
+/* node logic.probe.js
+Connected to MongoDB with Mongoose
+Memo deleted succesfully undefined */
+
+
+})
