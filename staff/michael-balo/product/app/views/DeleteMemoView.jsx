@@ -33,7 +33,7 @@ export function DeleteMemoView({ onHomeClicked, memoId, onMemoDeleted }) {
 
         <div className="flex-1 w-full flex items-center justify-center -translate-y-30">
 
-            <div className="bg-black border-2 border-purple-500 rounded-2xl shadow-2xl p-8 flex flex-col items-center max-w-md w-11/12">
+            <div className="bg-black border-2 border-orange-500 rounded-2xl shadow-2xl p-8 flex flex-col items-center max-w-md w-11/12">
 
                 <p className="text-white text-center mb-6">Are you sure you want to delete this memo?</p>
 

@@ -1,5 +1,5 @@
 const users = []
-let loggedInUserId = null
+let _token = null
 
 export const data = {
     insertUser: function (user) {
@@ -27,13 +27,13 @@ export const data = {
 
     },
 
-    setLoggedInUserId: function (userId) {
-        loggedInUserId = userId
+    setToken: function (token) {
+        _token = token
 
     },
 
-    getLoggedInUserId: function () {
-        return loggedInUserId
+    getToken: function () {
+        return _token
     },
 
     updateUserName: function (userId, name) {

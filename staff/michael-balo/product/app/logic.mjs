@@ -64,7 +64,7 @@ export const logic = {
 
             .then(response => {
                 if (response.ok) return response.json()
-                    .then(body => data.setLoggedInUserId(body.userId))
+                    .then(body => data.setToken(body.token))
 
                 return response.json()
                     .then(body => {
@@ -74,11 +74,16 @@ export const logic = {
     },
 
     getLoggedInUserName: function () {
-        const userId = data.getLoggedInUserId()
+        const token = data.getToken()
+
+        const payload = JSON.parse(atob(token.split('.')[1]))
+
+        const userId = payload.sub
 
         return fetch(`http://localhost:3000/users/${userId}/username`, {
             method: 'GET',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             }
         })
@@ -97,11 +102,16 @@ export const logic = {
     },
 
     getLoggedInUserAvatar: function () {
-        const userId = data.getLoggedInUserId()
+        const token = data.getToken()
+
+        const payload = JSON.parse(atob(token.split('.')[1]))
+
+        const userId = payload.sub
 
         return fetch(`http://localhost:3000/users/${userId}/avatar`, {
             method: 'GET',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             }
         })
@@ -120,17 +130,22 @@ export const logic = {
     },
 
     logoutUser: function () {
-        data.setLoggedInUserId(null)
+        data.setToken(null)
     },
 
     modifyUserName: function (name) {
         if (name.trim() === '') throw new Error('name is empty')
 
-        const userId = data.getLoggedInUserId()
+        const token = data.getToken()
+
+        const payload = JSON.parse(atob(token.split('.')[1]))
+
+        const userId = payload.sub
 
         return fetch(`http://localhost:3000/users/${userId}/name`, {
             method: 'PATCH',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -155,11 +170,16 @@ export const logic = {
     modifyUserEmail: function (email) {
         if (email.trim() === '') throw new Error('email is empty')
 
-        const userId = data.getLoggedInUserId()
+        const token = data.getToken()
+
+        const payload = JSON.parse(atob(token.split('.')[1]))
+
+        const userId = payload.sub
 
         return fetch(`http://localhost:3000/users/${userId}/email`, {
             method: 'PATCH',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -182,11 +202,16 @@ export const logic = {
     modifyUserUsername: function (username) {
         if (username.trim() === '') throw new Error('username is empty')
 
-        const userId = data.getLoggedInUserId()
+        const token = data.getToken()
+
+        const payload = JSON.parse(atob(token.split('.')[1]))
+
+        const userId = payload.sub
 
         return fetch(`http://localhost:3000/users/${userId}/username`, {
             method: 'PATCH',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -210,11 +235,16 @@ export const logic = {
         if (newPassword !== newPasswordRepeat) throw new Error('new passwords do not match')
         if (newPassword.trim() === '') throw new Error('new password is empty')
 
-        const userId = data.getLoggedInUserId()
+        const token = data.getToken()
+
+        const payload = JSON.parse(atob(token.split('.')[1]))
+
+        const userId = payload.sub
 
         return fetch(`http://localhost:3000/users/${userId}/password`, {
             method: 'PATCH',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -239,11 +269,16 @@ export const logic = {
     modifyUserAvatar: function (avatar) {
         if (avatar.trim() === '') throw new Error('avatar is empty')
 
-        const userId = data.getLoggedInUserId()
+        const token = data.getToken()
+
+        const payload = JSON.parse(atob(token.split('.')[1]))
+
+        const userId = payload.sub
 
         return fetch(`http://localhost:3000/users/${userId}/avatar`, {
             method: 'PATCH',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -267,11 +302,16 @@ export const logic = {
         if (subject.trim() === '') throw new Error('subject is empty')
         if (body.trim() === '') throw new Error('body is empty')
 
-        const userId = data.getLoggedInUserId()
+        const token = data.getToken()
+
+        const payload = JSON.parse(atob(token.split('.')[1]))
+
+        const userId = payload.sub
 
         return fetch(`http://localhost:3000/users/${userId}/memos`, {
             method: 'POST',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -294,11 +334,16 @@ export const logic = {
     },
 
     getMemos: function () {
-        const userId = data.getLoggedInUserId()
+        const token = data.getToken()
+
+        const payload = JSON.parse(atob(token.split('.')[1]))
+
+        const userId = payload.sub
 
         return fetch(`http://localhost:3000/users/${userId}/memos`, {
             method: 'GET',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             }
         })
@@ -318,11 +363,16 @@ export const logic = {
     },
 
     getMemo: function (memoId) {
-        const userId = data.getLoggedInUserId()
+        const token = data.getToken()
+
+        const payload = JSON.parse(atob(token.split('.')[1]))
+
+        const userId = payload.sub
 
         return fetch(`http://localhost:3000/users/${userId}/memos/${memoId}`, {
             method: 'GET',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             }
         })
@@ -345,11 +395,16 @@ export const logic = {
         if (subject.trim() === '') throw new Error('subject is empty')
         if (body.trim() === '') throw new Error('body is empty')
 
-        const userId = data.getLoggedInUserId()
+        const token = data.getToken()
+
+        const payload = JSON.parse(atob(token.split('.')[1]))
+
+        const userId = payload.sub
 
         return fetch(`http://localhost:3000/users/${userId}/memos/${memoId}`, {
             method: 'PATCH',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -371,11 +426,16 @@ export const logic = {
     },
 
     removeMemo: function (memoId) {
-        const userId = data.getLoggedInUserId()
+        const token = data.getToken()
+
+        const payload = JSON.parse(atob(token.split('.')[1]))
+
+        const userId = payload.sub
 
         return fetch(`http://localhost:3000/users/${userId}/memos/${memoId}`, {
             method: 'DELETE',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             }
         })
