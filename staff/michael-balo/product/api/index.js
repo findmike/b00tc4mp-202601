@@ -16,7 +16,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         const jsonBodyParser = express.json();
 
-        function authenticateToken(req, res, next) {
+        function verifyToken(req, res, next) {
             const authHeader = req.headers.authorization
             const token = authHeader && authHeader.split(' ')[1]
 
@@ -33,6 +33,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 return res.status(401).json({ success: false, message: 'Invalid or expired token' })
             }
         }
+
         // FIRST PROBE
         // server.get('/', (req, res) => {
         //   res.send('Hello, World!');
@@ -87,7 +88,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // GET USER INFO (GET REQUEST)
 
-        server.get('/users/:userId/username', authenticateToken, (req, res) => {
+        server.get('/users/:userId/username', verifyToken, (req, res) => {
             const userId = req.userId
 
             if (userId !== req.params.userId) {
@@ -105,7 +106,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // GET USER AVATAR (GET REQUEST)
 
-        server.get('/users/:userId/avatar', authenticateToken, (req, res) => {
+        server.get('/users/:userId/avatar', verifyToken, (req, res) => {
             const userId = req.userId
 
             if (userId !== req.params.userId) {
@@ -123,7 +124,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // MODIFY USER NAME (PUT REQUEST)
 
-        server.patch('/users/:userId/name', authenticateToken, jsonBodyParser, (req, res) => {
+        server.patch('/users/:userId/name', verifyToken, jsonBodyParser, (req, res) => {
             const userId = req.userId
             const newName = req.body.name
 
@@ -142,7 +143,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // MODIFY USER EMAIL (PUT REQUEST)
 
-        server.patch('/users/:userId/email', authenticateToken, jsonBodyParser, (req, res) => {
+        server.patch('/users/:userId/email', verifyToken, jsonBodyParser, (req, res) => {
             const userId = req.userId
             const newEmail = req.body.email
 
@@ -161,7 +162,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // MODIFY USER USERNAME (PUT REQUEST)
 
-        server.patch('/users/:userId/username', authenticateToken, jsonBodyParser, (req, res) => {
+        server.patch('/users/:userId/username', verifyToken, jsonBodyParser, (req, res) => {
             const userId = req.userId
             const newUsername = req.body.username
 
@@ -180,7 +181,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // MODIFY USER PASSWORD (PUT REQUEST)
 
-        server.patch('/users/:userId/password', authenticateToken, jsonBodyParser, (req, res) => {
+        server.patch('/users/:userId/password', verifyToken, jsonBodyParser, (req, res) => {
             const userId = req.userId
             const { password, newPassword, newPasswordRepeat } = req.body
 
@@ -199,7 +200,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // MODIFY USER AVATAR
 
-        server.patch('/users/:userId/avatar', authenticateToken, jsonBodyParser, (req, res) => {
+        server.patch('/users/:userId/avatar', verifyToken, jsonBodyParser, (req, res) => {
             const userId = req.userId
             const avatar = req.body.avatar
 
@@ -218,7 +219,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // DELETE USER (DELETE REQUEST) = comentar duda con el params y el body!
 
-        server.delete('/users/:userId', authenticateToken, jsonBodyParser, (req, res) => {
+        server.delete('/users/:userId', verifyToken, jsonBodyParser, (req, res) => {
             const userId = req.userId
             const password = req.body.password
 
@@ -238,7 +239,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // CREATE NEW MEMO (POST REQUEST)
 
-        server.post('/users/:userId/memos', authenticateToken, jsonBodyParser, (req, res) => {
+        server.post('/users/:userId/memos', verifyToken, jsonBodyParser, (req, res) => {
             const userId = req.userId
             const { subject, body } = req.body
 
@@ -257,7 +258,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // GET USER MEMOS (GET REQUEST)
 
-        server.get('/users/:userId/memos', authenticateToken, (req, res) => {
+        server.get('/users/:userId/memos', verifyToken, (req, res) => {
             const userId = req.userId
 
             if (userId !== req.params.userId) {
@@ -275,7 +276,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         //GET ONLY 1 MEMO FROM THE USER (GET REQUEST)
 
-        server.get('/users/:userId/memos/:memoId', authenticateToken, jsonBodyParser, (req, res) => {
+        server.get('/users/:userId/memos/:memoId', verifyToken, jsonBodyParser, (req, res) => {
             const userId = req.userId
             const memoId = req.params.memoId
 
@@ -294,7 +295,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // MODIFY MEMO (PATCH REQUEST)
 
-        server.patch('/users/:userId/memos/:memoId', authenticateToken, jsonBodyParser, (req, res) => {
+        server.patch('/users/:userId/memos/:memoId', verifyToken, jsonBodyParser, (req, res) => {
             const userId = req.userId
             const memoId = req.params.memoId
             const { subject, body } = req.body
@@ -314,7 +315,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // DELETE MEMO (DELETE REQUEST)
 
-        server.delete('/users/:userId/memos/:memoId', authenticateToken, (req, res) => {
+        server.delete('/users/:userId/memos/:memoId', verifyToken, (req, res) => {
             const userId = req.userId
             const memoId = req.params.memoId
 

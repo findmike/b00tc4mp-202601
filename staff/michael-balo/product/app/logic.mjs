@@ -130,7 +130,11 @@ export const logic = {
     },
 
     logoutUser: function () {
-        data.setToken(null)
+        data.removeToken()  
+    },
+
+    isUserLoggedIn: function () {
+        return !!data.getToken()
     },
 
     modifyUserName: function (name) {
