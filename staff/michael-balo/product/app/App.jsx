@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { LandingView, LoginView, RegisterView, HomeView, ProfileView, AddMemoView, EditMemoView, DeleteMemoView } from './views/index'
+import { logic } from './logic.mjs'
 
 export function App() {
-    const viewState = useState('landing')
-    const view = viewState[0]
-    const setView = viewState[1]
+    const [view, setView] = useState(
+        logic.isUserLoggedIn() ? 'home' : 'login')                      //si el usuario está logueado muestra home, si no, login
 
-    const [editingMemoId, setEditingMemoId] = useState(null) //almacena el ID de la memo seleccionada
+    const [editingMemoId, setEditingMemoId] = useState(null)            //almacena el ID de la memo seleccionada
     const [deletingMemoId, setDeletingMemoId] = useState(null)
 
     function handleLoginClicked() {
