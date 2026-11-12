@@ -4,7 +4,7 @@ import { logic } from './logic.mjs'
 
 export function App() {
     const [view, setView] = useState(
-        logic.isUserLoggedIn() ? 'home' : 'login')                      //si el usuario está logueado muestra home, si no, login
+        logic.isUserLoggedIn() ? 'home' : 'landing')                      //si el usuario está logueado muestra home, si no, login
 
     const [editingMemoId, setEditingMemoId] = useState(null)            //almacena el ID de la memo seleccionada
     const [deletingMemoId, setDeletingMemoId] = useState(null)
