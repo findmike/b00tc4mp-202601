@@ -1,5 +1,13 @@
 import { data } from "./data.mjs"
 
+function getUserIdFromToken(token) {
+    const payload = JSON.parse(atob(token.split('.')[1]))
+
+    const userId = payload.sub
+
+    return userId
+}
+
 export const logic = {
     registerUser: function (name, email, username, password, passwordRepeat) {
 
@@ -103,10 +111,7 @@ export const logic = {
 
     getLoggedInUserAvatar: function () {
         const token = data.getToken()
-
-        const payload = JSON.parse(atob(token.split('.')[1]))
-
-        const userId = payload.sub
+        const userId = getUserIdFromToken(token)
 
         return fetch(`http://localhost:3000/users/${userId}/avatar`, {
             method: 'GET',
@@ -130,7 +135,7 @@ export const logic = {
     },
 
     logoutUser: function () {
-        data.removeToken()  
+        data.removeToken()
     },
 
     isUserLoggedIn: function () {
@@ -141,10 +146,7 @@ export const logic = {
         if (name.trim() === '') throw new Error('name is empty')
 
         const token = data.getToken()
-
-        const payload = JSON.parse(atob(token.split('.')[1]))
-
-        const userId = payload.sub
+        const userId = getUserIdFromToken(token)
 
         return fetch(`http://localhost:3000/users/${userId}/name`, {
             method: 'PATCH',
@@ -175,10 +177,7 @@ export const logic = {
         if (email.trim() === '') throw new Error('email is empty')
 
         const token = data.getToken()
-
-        const payload = JSON.parse(atob(token.split('.')[1]))
-
-        const userId = payload.sub
+        const userId = getUserIdFromToken(token)
 
         return fetch(`http://localhost:3000/users/${userId}/email`, {
             method: 'PATCH',
@@ -207,10 +206,7 @@ export const logic = {
         if (username.trim() === '') throw new Error('username is empty')
 
         const token = data.getToken()
-
-        const payload = JSON.parse(atob(token.split('.')[1]))
-
-        const userId = payload.sub
+        const userId = getUserIdFromToken(token)
 
         return fetch(`http://localhost:3000/users/${userId}/username`, {
             method: 'PATCH',
@@ -240,10 +236,7 @@ export const logic = {
         if (newPassword.trim() === '') throw new Error('new password is empty')
 
         const token = data.getToken()
-
-        const payload = JSON.parse(atob(token.split('.')[1]))
-
-        const userId = payload.sub
+        const userId = getUserIdFromToken(token)
 
         return fetch(`http://localhost:3000/users/${userId}/password`, {
             method: 'PATCH',
@@ -274,10 +267,7 @@ export const logic = {
         if (avatar.trim() === '') throw new Error('avatar is empty')
 
         const token = data.getToken()
-
-        const payload = JSON.parse(atob(token.split('.')[1]))
-
-        const userId = payload.sub
+        const userId = getUserIdFromToken(token)
 
         return fetch(`http://localhost:3000/users/${userId}/avatar`, {
             method: 'PATCH',
@@ -307,10 +297,7 @@ export const logic = {
         if (body.trim() === '') throw new Error('body is empty')
 
         const token = data.getToken()
-
-        const payload = JSON.parse(atob(token.split('.')[1]))
-
-        const userId = payload.sub
+        const userId = getUserIdFromToken(token)
 
         return fetch(`http://localhost:3000/users/${userId}/memos`, {
             method: 'POST',
@@ -339,10 +326,7 @@ export const logic = {
 
     getMemos: function () {
         const token = data.getToken()
-
-        const payload = JSON.parse(atob(token.split('.')[1]))
-
-        const userId = payload.sub
+        const userId = getUserIdFromToken(token)
 
         return fetch(`http://localhost:3000/users/${userId}/memos`, {
             method: 'GET',
@@ -368,10 +352,7 @@ export const logic = {
 
     getMemo: function (memoId) {
         const token = data.getToken()
-
-        const payload = JSON.parse(atob(token.split('.')[1]))
-
-        const userId = payload.sub
+        const userId = getUserIdFromToken(token)
 
         return fetch(`http://localhost:3000/users/${userId}/memos/${memoId}`, {
             method: 'GET',
@@ -400,10 +381,7 @@ export const logic = {
         if (body.trim() === '') throw new Error('body is empty')
 
         const token = data.getToken()
-
-        const payload = JSON.parse(atob(token.split('.')[1]))
-
-        const userId = payload.sub
+        const userId = getUserIdFromToken(token)
 
         return fetch(`http://localhost:3000/users/${userId}/memos/${memoId}`, {
             method: 'PATCH',
@@ -431,10 +409,7 @@ export const logic = {
 
     removeMemo: function (memoId) {
         const token = data.getToken()
-
-        const payload = JSON.parse(atob(token.split('.')[1]))
-
-        const userId = payload.sub
+        const userId = getUserIdFromToken(token)
 
         return fetch(`http://localhost:3000/users/${userId}/memos/${memoId}`, {
             method: 'DELETE',
