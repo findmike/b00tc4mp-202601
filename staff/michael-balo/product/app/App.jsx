@@ -1,78 +1,174 @@
-import { useState } from 'react'
+import { Routes, Route, Navigate, useNavigate, useParams } from 'react-router'
 import { LandingView, LoginView, RegisterView, HomeView, ProfileView, AddMemoView, EditMemoView, DeleteMemoView } from './views/index'
 import { logic } from './logic.mjs'
 
-export function App() {
-    const [view, setView] = useState(
-        logic.isUserLoggedIn() ? 'home' : 'landing')                     //si el usuario está logueado muestra home, si no, login
+// recuperamos el ID del memo que queremos editar
+function EditMemoRoute() {
+    const { memoId } = useParams() // obtenemos el ID del memo de la URL
+    const navigate = useNavigate() // nos permite navegar a otra URL
 
-    const [editingMemoId, setEditingMemoId] = useState(null)            //almacena el ID de la memo seleccionada
-    const [deletingMemoId, setDeletingMemoId] = useState(null)
+    return (
+        <EditMemoView
+            memoId={memoId}
+            onHomeClicked={() => navigate('/home')}
+        />
+    )
+}
+
+// recuperamos el ID del memo que queremos eliminar
+function DeleteMemoRoute() {
+    const { memoId } = useParams()
+    const navigate = useNavigate()
+
+    return (
+        <DeleteMemoView
+            memoId={memoId}
+            onHomeClicked={() => navigate('/home')}
+            onMemoDeleted={() => navigate('/home')}
+        />
+    )
+}
+
+export function App() {
+
+    const navigate = useNavigate()
 
     function handleLoginClicked() {
-        setView('login')
+        navigate('/login')
     }
 
     function handleRegisterClicked() {
-        setView('register')
+        navigate('/register')
     }
 
     function handleUserRegistered() {
-        setView('login')
+        navigate('/login')
     }
 
     function handleUserLoggedIn() {
-        setView('home')
+        navigate('/home')
     }
 
     function handleProfileClicked() {
-        setView('profile')
+        navigate('/profile')
     }
 
     function handleLogoutClicked() {
-        setView('landing')
+        navigate('/landing')
     }
 
     function handleHomeClicked() {
-        setEditingMemoId(null) // esto limpia el ID del memo cuando vuelves a home
-        setDeletingMemoId(null) // '' ... ''
-        setView('home')
+        navigate('/home')
     }
 
     function handleAddMemoClicked() {
-        setView('add-memo')
+        navigate('/memos/add')
     }
 
     function handleEditMemoClicked(memoId) {
-        setEditingMemoId(memoId)
-        setView('edit-memo')
+        navigate(`/memos/${memoId}/edit`)
     }
 
     function handleDeleteMemoClicked(memoId) {
-        setDeletingMemoId(memoId)
-        setView('delete-memo')
+        navigate(`/memos/${memoId}/delete`)
     }
 
-    function handleMemoDeleted() {
-        setDeletingMemoId(null)
-        setView('home')
-    }
+    return (
+        <Routes>
 
-    if (view === 'landing')
-        return <LandingView onLoginClicked={handleLoginClicked} onRegisterClicked={handleRegisterClicked} />
-    else if (view === 'login')
-        return <LoginView onRegisterClicked={handleRegisterClicked} onUserLoggedIn={handleUserLoggedIn} />
-    else if (view === 'register')
-        return <RegisterView onLoginClicked={handleLoginClicked} onUserRegistered={handleUserRegistered} />
-    else if (view === 'home')
-        return <HomeView onProfileClicked={handleProfileClicked} onAddMemoClicked={handleAddMemoClicked} onEditMemoClicked={handleEditMemoClicked} onDeleteMemoClicked={handleDeleteMemoClicked} onLogoutClicked={handleLogoutClicked} />
-    else if (view === 'add-memo')
-        return <AddMemoView onHomeClicked={handleHomeClicked} />
-    else if (view === 'edit-memo')
-        return <EditMemoView onHomeClicked={handleHomeClicked} memoId={editingMemoId} />
-    else if (view === 'delete-memo')
-        return <DeleteMemoView onHomeClicked={handleHomeClicked} memoId={deletingMemoId} onMemoDeleted={handleMemoDeleted} />
-    else if (view === 'profile')
-        return <ProfileView onHomeClicked={handleHomeClicked} />
+            // si tiene token redirige a home, si no a landing
+            <Route
+                path="/"
+                element={
+                    <Navigate
+                        to={logic.isUserLoggedIn() ? '/home' : '/landing'}
+                        replace
+                    />
+                }
+            />
 
+            <Route
+                path="/landing"
+                element={
+                    <LandingView
+                        onLoginClicked={handleLoginClicked}
+                        onRegisterClicked={handleRegisterClicked}
+                    />
+                }
+            />
+
+            <Route
+                path="/login"
+                element={
+                    <LoginView
+                        onRegisterClicked={handleRegisterClicked}
+                        onUserLoggedIn={handleUserLoggedIn}
+                    />
+                }
+            />
+
+            <Route
+                path="/register"
+                element={
+                    <RegisterView
+                        onLoginClicked={handleLoginClicked}
+                        onUserRegistered={handleUserRegistered}
+                    />
+                }
+            />
+
+            <Route
+                path="/home"
+                element={
+                    <HomeView
+                        onProfileClicked={handleProfileClicked}
+                        onAddMemoClicked={handleAddMemoClicked}
+                        onEditMemoClicked={handleEditMemoClicked}
+                        onDeleteMemoClicked={handleDeleteMemoClicked}
+                        onLogoutClicked={handleLogoutClicked}
+                    />
+                }
+            />
+
+            <Route
+                path="/profile"
+                element={
+                    <ProfileView
+                        onHomeClicked={handleHomeClicked}
+                    />
+                }
+            />
+
+            <Route
+                path="/memos/add"
+                element={
+                    <AddMemoView
+                        onHomeClicked={handleHomeClicked}
+                    />
+                }
+            />
+
+            <Route
+                path="/memos/:memoId/edit"
+                element={<EditMemoRoute />}
+            />
+
+            <Route
+                path="/memos/:memoId/delete"
+                element={<DeleteMemoRoute />}
+            />
+
+             //Si la URL no existe, volvemos a la página inicial
+            <Route
+                path="*"
+                element={
+                    <Navigate
+                        to="/"
+                        replace
+                    />
+                }
+            />
+
+        </Routes>
+    )
 }
