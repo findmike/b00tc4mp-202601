@@ -1,26 +1,5 @@
 import { User, Memo } from './data/index.js'
-
-// CUSTOM ERRORS
-class ValidationError extends Error {
-    constructor(message, options) {
-        super(message, options)
-        this.name = 'ValidationError'
-    }
-}
-
-class NotFoundError extends Error {
-    constructor(message, options) {
-        super(message, options)
-        this.name = 'NotFoundError'
-    }
-}
-
-class DatabaseError extends Error {
-    constructor(message, options) {
-        super(message, options)
-        this.name = 'DatabaseError'
-    }
-}
+import { ValidationError, NotFoundError, DatabaseError, DuplicityError } from './errors.js'
 
 export const logic = {
     registerUser: function (name, email, username, password, passwordRepeat) {
@@ -35,12 +14,12 @@ export const logic = {
         return User.findOne({ email: email })
             .catch(error => { throw new DatabaseError('Error finding user by email', { cause: error }) })
             .then(user => {
-                if (user) throw new ValidationError('User with email already exists')
+                if (user) throw new DuplicityError('User with email already exists')
 
                 return User.findOne({ username: username })
                     .catch(error => { throw new DatabaseError('Error finding user by username', { cause: error }) })
                     .then(user => {
-                        if (user) throw new ValidationError('user with username already exists')
+                        if (user) throw new DuplicityError('user with username already exists')
 
                         user = {
                             name: name,

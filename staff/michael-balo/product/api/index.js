@@ -2,6 +2,8 @@ import express from 'express'
 import cors from "cors"
 import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
+import { ValidationError, NotFoundError, DatabaseError, DuplicityError } from './errors.js'
+import { errorsHandler } from './errorsHandler.js'
 
 import { logic } from './logic.js'
 
@@ -64,9 +66,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                     res.status(201).json({ success: true, message: 'User created successfully' });
                 })
                 .catch(error => {
-                    res.status(400).json({ success: false, message: error.message });
-                });
 
+                });
         });
 
         // AUTHENTICATE USER (POST REQUEST)
@@ -332,6 +333,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
                 });
         })
+
+        server.use(errorsHandler);
 
         server.listen(3000, () => {
             console.log('Server is running on port 3000');
