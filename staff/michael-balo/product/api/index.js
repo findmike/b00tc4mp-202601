@@ -2,7 +2,6 @@ import express from 'express'
 import cors from "cors"
 import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
-import { ValidationError, NotFoundError, DatabaseError, DuplicityError } from './errors.js'
 import { errorsHandler } from './errorsHandler.js'
 
 import { logic } from './logic.js'
@@ -57,7 +56,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // CREATE NEW USER (POST REQUEST)
 
-        server.post('/users', jsonBodyParser, (req, res) => {
+        server.post('/users', jsonBodyParser, (req, res, next) => {
             const newUser = req.body;
             const { name, email, username, password, passwordRepeat } = newUser;
 
@@ -65,14 +64,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 .then(() => {
                     res.status(201).json({ success: true, message: 'User created successfully' });
                 })
-                .catch(error => {
-
-                });
+                .catch(next);
         });
 
         // AUTHENTICATE USER (POST REQUEST)
 
-        server.post('/users/authenticate', jsonBodyParser, (req, res) => {
+        server.post('/users/authenticate', jsonBodyParser, (req, res, next) => {
             const username = req.body.username
             const password = req.body.password
 
@@ -82,14 +79,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
                     res.status(200).json({ success: true, message: 'User authenticated successfully', token: token });
                 })
-                .catch(error => {
-                    res.status(400).json({ success: false, message: error.message });
-                });
+                .catch(next);
         })
 
         // GET USER INFO (GET REQUEST)
 
-        server.get('/users/:userId/username', verifyToken, (req, res) => {
+        server.get('/users/:userId/username', verifyToken, (req, res, next) => {
             const userId = req.userId
 
             if (userId !== req.params.userId) {
@@ -100,14 +95,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 .then(userName => {
                     res.status(200).json({ success: true, userName: userName });
                 })
-                .catch(error => {
-                    res.status(400).json({ success: false, message: error.message });
-                });
+                .catch(next);
         });
 
         // GET USER AVATAR (GET REQUEST)
 
-        server.get('/users/:userId/avatar', verifyToken, (req, res) => {
+        server.get('/users/:userId/avatar', verifyToken, (req, res, next) => {
             const userId = req.userId
 
             if (userId !== req.params.userId) {
@@ -118,14 +111,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 .then(avatar => {
                     res.status(200).json({ success: true, avatar: avatar });
                 })
-                .catch(error => {
-                    res.status(400).json({ success: false, message: error.message });
-                });
+                .catch(next);
         });
 
         // MODIFY USER NAME (PUT REQUEST)
 
-        server.patch('/users/:userId/name', verifyToken, jsonBodyParser, (req, res) => {
+        server.patch('/users/:userId/name', verifyToken, jsonBodyParser, (req, res, next) => {
             const userId = req.userId
             const newName = req.body.name
 
@@ -137,14 +128,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 .then(() => {
                     res.status(200).json({ success: true, message: 'User name modified successfully' });
                 })
-                .catch(error => {
-                    res.status(400).json({ success: false, message: error.message });
-                });
+                .catch(next);
         });
 
         // MODIFY USER EMAIL (PUT REQUEST)
 
-        server.patch('/users/:userId/email', verifyToken, jsonBodyParser, (req, res) => {
+        server.patch('/users/:userId/email', verifyToken, jsonBodyParser, (req, res, next) => {
             const userId = req.userId
             const newEmail = req.body.email
 
@@ -156,14 +145,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 .then(() => {
                     res.status(200).json({ success: true, message: 'User email modified successfully' });
                 })
-                .catch(error => {
-                    res.status(400).json({ success: false, message: error.message });
-                });
+                .catch(next);
         })
 
         // MODIFY USER USERNAME (PUT REQUEST)
 
-        server.patch('/users/:userId/username', verifyToken, jsonBodyParser, (req, res) => {
+        server.patch('/users/:userId/username', verifyToken, jsonBodyParser, (req, res, next) => {
             const userId = req.userId
             const newUsername = req.body.username
 
@@ -175,14 +162,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 .then(() => {
                     res.status(200).json({ success: true, message: 'User username modified successfully' });
                 })
-                .catch(error => {
-                    res.status(400).json({ success: false, message: error.message });
-                });
+                .catch(next);
         })
 
         // MODIFY USER PASSWORD (PUT REQUEST)
 
-        server.patch('/users/:userId/password', verifyToken, jsonBodyParser, (req, res) => {
+        server.patch('/users/:userId/password', verifyToken, jsonBodyParser, (req, res, next) => {
             const userId = req.userId
             const { password, newPassword, newPasswordRepeat } = req.body
 
@@ -194,14 +179,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 .then(() => {
                     res.status(200).json({ success: true, message: 'User password modified successfully' });
                 })
-                .catch(error => {
-                    res.status(400).json({ success: false, message: error.message });
-                });
+                .catch(next);
         })
 
         // MODIFY USER AVATAR
 
-        server.patch('/users/:userId/avatar', verifyToken, jsonBodyParser, (req, res) => {
+        server.patch('/users/:userId/avatar', verifyToken, jsonBodyParser, (req, res, next) => {
             const userId = req.userId
             const avatar = req.body.avatar
 
@@ -213,14 +196,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 .then(() => {
                     res.status(200).json({ success: true, message: 'User avatar modified successfully' });
                 })
-                .catch(error => {
-                    res.status(400).json({ success: false, message: error.message });
-                });
+                .catch(next);
         });
 
         // DELETE USER (DELETE REQUEST) = comentar duda con el params y el body!
 
-        server.delete('/users/:userId', verifyToken, jsonBodyParser, (req, res) => {
+        server.delete('/users/:userId', verifyToken, jsonBodyParser, (req, res, next) => {
             const userId = req.userId
             const password = req.body.password
 
@@ -232,15 +213,13 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 .then(() => {
                     res.status(200).json({ success: true, message: 'User deleted successfully' });
                 })
-                .catch(error => {
-                    res.status(400).json({ success: false, message: error.message });
-                });
+                .catch(next);
 
         })
 
         // CREATE NEW MEMO (POST REQUEST)
 
-        server.post('/users/:userId/memos', verifyToken, jsonBodyParser, (req, res) => {
+        server.post('/users/:userId/memos', verifyToken, jsonBodyParser, (req, res, next) => {
             const userId = req.userId
             const { subject, body } = req.body
 
@@ -252,14 +231,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 .then(() => {
                     res.status(201).json({ success: true, message: 'Memo created successfully' });
                 })
-                .catch(error => {
-                    res.status(400).json({ success: false, message: error.message });
-                });
+                .catch(next);
         })
 
         // GET USER MEMOS (GET REQUEST)
 
-        server.get('/users/:userId/memos', verifyToken, (req, res) => {
+        server.get('/users/:userId/memos', verifyToken, (req, res, next) => {
             const userId = req.userId
 
             if (userId !== req.params.userId) {
@@ -270,14 +247,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 .then(memos => {
                     res.status(200).json({ success: true, memos: memos });
                 })
-                .catch(error => {
-                    res.status(400).json({ success: false, message: error.message });
-                });
+                .catch(next);
         })
 
         //GET ONLY 1 MEMO FROM THE USER (GET REQUEST)
 
-        server.get('/users/:userId/memos/:memoId', verifyToken, jsonBodyParser, (req, res) => {
+        server.get('/users/:userId/memos/:memoId', verifyToken, jsonBodyParser, (req, res, next) => {
             const userId = req.userId
             const memoId = req.params.memoId
 
@@ -289,14 +264,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 .then(memo => {
                     res.status(200).json({ success: true, memo: memo });
                 })
-                .catch(error => {
-                    res.status(400).json({ success: false, message: error.message });
-                });
+                .catch(next);
         })
 
         // MODIFY MEMO (PATCH REQUEST)
 
-        server.patch('/users/:userId/memos/:memoId', verifyToken, jsonBodyParser, (req, res) => {
+        server.patch('/users/:userId/memos/:memoId', verifyToken, jsonBodyParser, (req, res, next) => {
             const userId = req.userId
             const memoId = req.params.memoId
             const { subject, body } = req.body
@@ -309,14 +282,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 .then(() => {
                     res.status(200).json({ success: true, message: 'Memo modified successfully' });
                 })
-                .catch(error => {
-                    res.status(400).json({ success: false, message: error.message });
-                });
+                .catch(next);
         })
 
         // DELETE MEMO (DELETE REQUEST)
 
-        server.delete('/users/:userId/memos/:memoId', verifyToken, (req, res) => {
+        server.delete('/users/:userId/memos/:memoId', verifyToken, (req, res, next) => {
             const userId = req.userId
             const memoId = req.params.memoId
 
@@ -328,10 +299,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 .then(() => {
                     res.status(200).json({ success: true, message: 'Memo deleted successfully' });
                 })
-                .catch(error => {
-                    res.status(400).json({ success: false, message: error.message });
-
-                });
+                .catch(next);
         })
 
         server.use(errorsHandler);

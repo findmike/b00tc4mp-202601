@@ -1,4 +1,4 @@
-import { ValidationError, NotFoundError, DatabaseError, DuplicityError } from '../errors.js'
+import { ValidationError, NotFoundError, DatabaseError, DuplicityError } from './errors.js'
 
 export const errorsHandler = (error, req, res, next) => {
     let statusCode;
