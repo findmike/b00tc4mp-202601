@@ -1,5 +1,5 @@
 import { User, Memo } from './data/index.js'
-import { ValidationError, NotFoundError, DatabaseError, DuplicityError } from './errors.js'
+import { ValidationError, NotFoundError, DatabaseError, DuplicityError, CredentialsError } from './errors.js'
 
 export const logic = {
     registerUser: function (name, email, username, password, passwordRepeat) {
@@ -45,7 +45,7 @@ export const logic = {
             .then(user => {
                 if (!user) throw new NotFoundError('user not found')
 
-                if (user.password !== password) throw new ValidationError('wrong password')
+                if (user.password !== password) throw new CredentialsError('wrong password')
 
                 return user.id
             })

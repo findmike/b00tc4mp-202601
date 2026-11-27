@@ -15,7 +15,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         server.use(cors())
 
-        const jsonBodyParser = express.json();
+        //const jsonBodyParser = express.json();
 
         function verifyToken(req, res, next) {
             const authHeader = req.headers.authorization
@@ -33,6 +33,16 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
             } catch (error) {
                 return res.status(401).json({ success: false, message: 'Invalid or expired token' })
             }
+        }
+
+        function validateUserIdParam(req, res, next) {
+            //const userId = req.userId
+
+            if (req.userId !== req.params.userId) {
+                return res.status(403).json({ success: false, message: 'Forbidden' })
+            }
+
+            next()
         }
 
         // FIRST PROBE
@@ -56,7 +66,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // CREATE NEW USER (POST REQUEST)
 
-        server.post('/users', jsonBodyParser, (req, res, next) => {
+        server.post('/users', (req, res, next) => {
             const newUser = req.body;
             const { name, email, username, password, passwordRepeat } = newUser;
 
@@ -69,7 +79,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // AUTHENTICATE USER (POST REQUEST)
 
-        server.post('/users/authenticate', jsonBodyParser, (req, res, next) => {
+        server.post('/users/authenticate', (req, res, next) => {
             const username = req.body.username
             const password = req.body.password
 
@@ -84,14 +94,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // GET USER INFO (GET REQUEST)
 
-        server.get('/users/:userId/username', verifyToken, (req, res, next) => {
-            const userId = req.userId
-
-            if (userId !== req.params.userId) {
-                return res.status(403).json({ success: false, message: 'Forbidden' })
-            }
-
-            logic.getUserName(userId)
+        server.get('/users/:userId/username', verifyToken, validateUserIdParam, (req, res, next) => {
+           
+            logic.getUserName(req.userId)
                 .then(userName => {
                     res.status(200).json({ success: true, userName: userName });
                 })
@@ -100,14 +105,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // GET USER AVATAR (GET REQUEST)
 
-        server.get('/users/:userId/avatar', verifyToken, (req, res, next) => {
-            const userId = req.userId
+        server.get('/users/:userId/avatar', verifyToken, validateUserIdParam, (req, res, next) => {
 
-            if (userId !== req.params.userId) {
-                return res.status(403).json({ success: false, message: 'Forbidden' })
-            }
-
-            logic.getUserAvatar(userId)
+            logic.getUserAvatar(req.userId)
                 .then(avatar => {
                     res.status(200).json({ success: true, avatar: avatar });
                 })
@@ -116,15 +116,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // MODIFY USER NAME (PUT REQUEST)
 
-        server.patch('/users/:userId/name', verifyToken, jsonBodyParser, (req, res, next) => {
-            const userId = req.userId
+        server.patch('/users/:userId/name', verifyToken, validateUserIdParam, (req, res, next) => {
             const newName = req.body.name
 
-            if (userId !== req.params.userId) {
-                return res.status(403).json({ succes: false, message: 'Forbidden' })
-            }
-
-            logic.modifyUserName(userId, newName)
+            logic.modifyUserName(req.userId, newName)
                 .then(() => {
                     res.status(200).json({ success: true, message: 'User name modified successfully' });
                 })
@@ -133,15 +128,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // MODIFY USER EMAIL (PUT REQUEST)
 
-        server.patch('/users/:userId/email', verifyToken, jsonBodyParser, (req, res, next) => {
-            const userId = req.userId
+        server.patch('/users/:userId/email', verifyToken, validateUserIdParam, (req, res, next) => {
             const newEmail = req.body.email
 
-            if (userId !== req.params.userId) {
-                return res.status(403).json({ success: false, message: 'Forbidden' })
-            }
-
-            logic.modifyUserEmail(userId, newEmail)
+            logic.modifyUserEmail(req.userId, newEmail)
                 .then(() => {
                     res.status(200).json({ success: true, message: 'User email modified successfully' });
                 })
@@ -150,15 +140,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // MODIFY USER USERNAME (PUT REQUEST)
 
-        server.patch('/users/:userId/username', verifyToken, jsonBodyParser, (req, res, next) => {
-            const userId = req.userId
+        server.patch('/users/:userId/username', verifyToken, validateUserIdParam, (req, res, next) => {
             const newUsername = req.body.username
 
-            if (userId !== req.params.userId) {
-                return res.status(403).json({ success: false, message: 'Forbidden' })
-            }
-
-            logic.modifyUserUsername(userId, newUsername)
+            logic.modifyUserUsername(req.userId, newUsername)
                 .then(() => {
                     res.status(200).json({ success: true, message: 'User username modified successfully' });
                 })
@@ -167,15 +152,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // MODIFY USER PASSWORD (PUT REQUEST)
 
-        server.patch('/users/:userId/password', verifyToken, jsonBodyParser, (req, res, next) => {
-            const userId = req.userId
+        server.patch('/users/:userId/password', verifyToken, validateUserIdParam, (req, res, next) => {
             const { password, newPassword, newPasswordRepeat } = req.body
 
-            if (userId !== req.params.userId) {
-                return res.status(403).json({ success: false, message: 'Forbidden' })
-            }
-
-            logic.modifyUserPassword(userId, password, newPassword, newPasswordRepeat)
+            logic.modifyUserPassword(req.userId, password, newPassword, newPasswordRepeat)
                 .then(() => {
                     res.status(200).json({ success: true, message: 'User password modified successfully' });
                 })
@@ -184,15 +164,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // MODIFY USER AVATAR
 
-        server.patch('/users/:userId/avatar', verifyToken, jsonBodyParser, (req, res, next) => {
-            const userId = req.userId
+        server.patch('/users/:userId/avatar', verifyToken, validateUserIdParam, (req, res, next) => {
             const avatar = req.body.avatar
 
-            if (userId !== req.params.userId) {
-                return res.status(403).json({ success: false, message: 'Forbidden' })
-            }
-
-            logic.modifyUserAvatar(userId, avatar)
+            logic.modifyUserAvatar(req.userId, avatar)
                 .then(() => {
                     res.status(200).json({ success: true, message: 'User avatar modified successfully' });
                 })
@@ -201,15 +176,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // DELETE USER (DELETE REQUEST) = comentar duda con el params y el body!
 
-        server.delete('/users/:userId', verifyToken, jsonBodyParser, (req, res, next) => {
-            const userId = req.userId
+        server.delete('/users/:userId', verifyToken, validateUserIdParam, (req, res, next) => {
             const password = req.body.password
 
-            if (userId !== req.params.userId) {
-                return res.status(403).json({ success: false, message: 'Forbidden' })
-            }
-
-            logic.removeUser(userId, password)
+            logic.removeUser(req.userId, password)
                 .then(() => {
                     res.status(200).json({ success: true, message: 'User deleted successfully' });
                 })
@@ -219,15 +189,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // CREATE NEW MEMO (POST REQUEST)
 
-        server.post('/users/:userId/memos', verifyToken, jsonBodyParser, (req, res, next) => {
-            const userId = req.userId
+        server.post('/users/:userId/memos', verifyToken, validateUserIdParam, (req, res, next) => {
             const { subject, body } = req.body
 
-            if (userId !== req.params.userId) {
-                return res.status(403).json({ success: false, message: 'Forbiden' })
-            }
-
-            logic.addMemo(userId, subject, body)
+            logic.addMemo(req.userId, subject, body)
                 .then(() => {
                     res.status(201).json({ success: true, message: 'Memo created successfully' });
                 })
@@ -236,14 +201,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // GET USER MEMOS (GET REQUEST)
 
-        server.get('/users/:userId/memos', verifyToken, (req, res, next) => {
-            const userId = req.userId
-
-            if (userId !== req.params.userId) {
-                return res.status(403).json({ success: false, message: 'Forbidden' })
-            }
-
-            logic.getMemos(userId)
+        server.get('/users/:userId/memos', verifyToken, validateUserIdParam, (req, res, next) => {
+           
+            logic.getMemos(req.userId)
                 .then(memos => {
                     res.status(200).json({ success: true, memos: memos });
                 })
@@ -252,15 +212,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         //GET ONLY 1 MEMO FROM THE USER (GET REQUEST)
 
-        server.get('/users/:userId/memos/:memoId', verifyToken, jsonBodyParser, (req, res, next) => {
-            const userId = req.userId
+        server.get('/users/:userId/memos/:memoId', verifyToken, validateUserIdParam, (req, res, next) => {
             const memoId = req.params.memoId
 
-            if (userId !== req.params.userId) {
-                return res.status(403).json({ success: false, message: 'Forbidden' })
-            }
-
-            logic.getMemo(userId, memoId)
+            logic.getMemo(req.userId, memoId)
                 .then(memo => {
                     res.status(200).json({ success: true, memo: memo });
                 })
@@ -269,16 +224,11 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // MODIFY MEMO (PATCH REQUEST)
 
-        server.patch('/users/:userId/memos/:memoId', verifyToken, jsonBodyParser, (req, res, next) => {
-            const userId = req.userId
+        server.patch('/users/:userId/memos/:memoId', verifyToken, validateUserIdParam, (req, res, next) => {
             const memoId = req.params.memoId
             const { subject, body } = req.body
 
-            if (userId !== req.params.userId) {
-                return res.status(403).json({ success: false, message: 'Forbidden' })
-            }
-
-            logic.modifyMemo(userId, memoId, subject, body)
+            logic.modifyMemo(req.userId, memoId, subject, body)
                 .then(() => {
                     res.status(200).json({ success: true, message: 'Memo modified successfully' });
                 })
@@ -287,15 +237,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // DELETE MEMO (DELETE REQUEST)
 
-        server.delete('/users/:userId/memos/:memoId', verifyToken, (req, res, next) => {
-            const userId = req.userId
+        server.delete('/users/:userId/memos/:memoId', verifyToken, validateUserIdParam, (req, res, next) => {
             const memoId = req.params.memoId
 
-            if (userId !== req.params.userId) {
-                return res.status(403).json({ success: false, message: 'Forbidden' })
-            }
-
-            logic.removeMemo(userId, memoId)
+            logic.removeMemo(req.userId, memoId)
                 .then(() => {
                     res.status(200).json({ success: true, message: 'Memo deleted successfully' });
                 })
@@ -303,6 +248,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
         })
 
         server.use(errorsHandler);
+
+        server.use(express.json())
 
         server.listen(3000, () => {
             console.log('Server is running on port 3000');

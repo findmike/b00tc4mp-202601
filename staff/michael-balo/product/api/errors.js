@@ -25,3 +25,10 @@ export class DuplicityError extends Error {
         this.name = 'DuplicityError'
     }
 } // error 409
+
+export class CredentialsError extends Error {
+    constructor(message, options) {
+        super(message, options)
+        this.name = 'CredentialsError'
+    } // 401
+}

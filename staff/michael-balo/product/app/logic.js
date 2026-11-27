@@ -1,4 +1,4 @@
-import { data } from "./data.mjs"
+import { data } from "./data.js"
 
 function getUserIdFromToken(token) {
     const payload = JSON.parse(atob(token.split('.')[1]))

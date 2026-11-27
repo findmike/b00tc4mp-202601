@@ -1,4 +1,4 @@
-import { ValidationError, NotFoundError, DatabaseError, DuplicityError } from './errors.js'
+import { ValidationError, NotFoundError, DatabaseError, DuplicityError, CredentialsError } from './errors.js'
 
 export const errorsHandler = (error, req, res, next) => {
     let statusCode;
@@ -11,6 +11,8 @@ export const errorsHandler = (error, req, res, next) => {
         statusCode = 500;
     } else if (error instanceof DuplicityError) {
         statusCode = 409;
+    } else if (error instanceof CredentialsError) {
+        statusCode = 401;
     } else {
         console.error('Unexpected error:', error);
         statusCode = 500;
@@ -20,6 +22,7 @@ export const errorsHandler = (error, req, res, next) => {
         success: false,
         message: statusCode === 500
             ? 'Internal Server Error'
-            : error.message
+            : error.message,
+        error: error.constructor.name
     });
 };

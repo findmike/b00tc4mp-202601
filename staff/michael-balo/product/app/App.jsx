@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate, useNavigate, useParams } from 'react-router'
 import { LandingView, LoginView, RegisterView, HomeView, ProfileView, AddMemoView, EditMemoView, DeleteMemoView } from './views/index'
-import { logic } from './logic.mjs'
+import { logic } from './logic.js'
 
 export function App() {
 
